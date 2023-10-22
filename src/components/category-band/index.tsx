@@ -5,7 +5,7 @@ import { Box, ScrollArea } from "@mantine/core";
 const boxStyle = {
   display: "grid",
   gridAutoFlow: "column",
-  gridTemplateRows: "auto auto",
+  gridTemplateRows: "auto auto", // 2 row
   gridAutoColumns: "auto",
 };
 
@@ -22,7 +22,7 @@ const CategoryBand = ({
   onSelect,
 }: CategoryBandProps) => {
   return (
-    <ScrollArea type='auto' style={{ padding: "0.8rem 0.5rem" }}>
+    <ScrollArea type='auto'>
       <Box style={boxStyle}>
         {categories.map((item: Category) => {
           return (
