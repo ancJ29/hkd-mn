@@ -1,6 +1,6 @@
 export default {
   base: {
-    backgroundColor: "#ccc",
+    backgroundColor: "#343434",
   },
   categoryItem: {
     color: "#fff",
@@ -10,5 +10,15 @@ export default {
   },
   activeCategoryItem: {
     background: "#bd4037",
+  },
+  menuDetail: {
+    name: {
+      fontWeight: "bold",
+      fontSize: "24px",
+    },
+    price: {
+      fontWeight: "bold",
+      fontSize: "24px",
+    },
   },
 };

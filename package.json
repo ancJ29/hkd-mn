@@ -23,6 +23,7 @@
     "tailwindcss": "^3.3.3"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.2.0",
     "@mantine/core": "^7.1.5",
     "@mantine/form": "^7.1.5",
     "@mantine/hooks": "^7.1.5",

@@ -1,15 +1,15 @@
 import callApi from "@/services/http";
 
-import { categories } from "@/fake-data";
+import { categories, menuItems } from "@/fake-data";
 import { Category, Menu, menuSchemaArray } from "@/types";
 import logger from "../logger";
 
 export async function getCategories(): Promise<Category[]> {
-  return categories.map((item, index) => ({
-    id: `${index}`,
-    name: item.name,
-    secondaryName: item.secondaryName,
-  }));
+  return categories;
+}
+
+export async function getMenuItems(): Promise<Menu[]> {
+  return menuItems;
 }
 
 export async function getMenu(): Promise<Menu[]> {

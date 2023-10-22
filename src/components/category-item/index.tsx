@@ -1,6 +1,7 @@
 import config from "@/configs/custom";
 import { Center } from "@mantine/core";
 import { useMemo } from "react";
+
 type CategoryItemProps = {
   id: string;
   name: string;
