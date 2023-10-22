@@ -1,0 +1,12 @@
+{
+  "cSpell.words": ["emenu", "mantine"],
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.addMissingImports": true,
+    "source.removeUnusedImports": true
+  },
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true
+}
