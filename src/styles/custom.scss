@@ -1,0 +1,16 @@
+// TODO: add custom class here
+
+.x-container {
+  display: grid;
+  gap: 12px;
+  grid-template-rows: auto auto;
+  grid-auto-flow: column;
+  overflow-x: scroll;
+}
+
+.x-items {
+  width: max-content;
+  white-space: nowrap;
+  background-color: #f3f4f6;
+  padding: 4px;
+}
