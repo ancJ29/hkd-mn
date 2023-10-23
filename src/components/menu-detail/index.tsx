@@ -3,12 +3,8 @@ import { Menu } from "@/types";
 import { Image, Paper, Text } from "@mantine/core";
 const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
   return (
-    <Paper
-      style={{
-        position: "relative",
-      }}
-    >
-      <Image mt='4px' src={menuItem?.image} />
+    <Paper style={{ position: "relative" }}>
+      <Image mt='4px' h={"25vh"} src={menuItem?.image} />
       <Text
         style={{
           position: "absolute",
@@ -22,6 +18,7 @@ const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
         {menuItem?.name}
       </Text>
       <Text
+        mr={4}
         style={{
           position: "absolute",
           bottom: "4px",
@@ -30,7 +27,7 @@ const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
         }}
         c={"white"}
       >
-        {menuItem?.price?.toLocaleString().replace(/,/g, ".")}
+        {menuItem?.price?.toLocaleString().replace(/,/g, ".")}đ
       </Text>
     </Paper>
   );

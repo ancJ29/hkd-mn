@@ -1,5 +1,5 @@
 import config from "@/configs/custom";
-import { Center } from "@mantine/core";
+import { Center, Text } from "@mantine/core";
 import { useMemo } from "react";
 
 type CategoryItemProps = {
@@ -20,10 +20,24 @@ const CategoryItem = ({ id, active, name, secondaryName, onSelect }: CategoryIte
   );
 
   return (
-    <Center h='4rem' miw='25vw' ta='center' fw={700} m={2} style={style} onClick={() => onSelect && onSelect(id)}>
-      {secondaryName.toUpperCase()}
-      <br />
-      {name.toUpperCase()}
+    <Center
+      id={`category-item.${id}`}
+      w='24vw'
+      h='10vw'
+      ta='center'
+      m={2}
+      lh={"xs"}
+      style={style}
+      onClick={() => onSelect && onSelect(id)}
+    >
+      <Text component='div'>
+        <Text component='div' style={{ fontSize: ".7rem" }}>
+          {secondaryName.toUpperCase()}
+        </Text>
+        <Text component='div' style={{ fontSize: ".8rem", fontWeight: "600" }}>
+          {name.toUpperCase()}
+        </Text>
+      </Text>
     </Center>
   );
 };

@@ -9,18 +9,19 @@ type MenuItemProps = {
 
 const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
   return (
-    <Image
-      bg='#ddd'
-      w='30vw'
-      h='30vw'
-      radius='md'
-      style={{
-        border: active ? "solid 4px #f00" : "none",
-        cursor: "pointer",
-      }}
-      onClick={() => onSelect && onSelect(menuItem.id)}
-      src={menuItem.smallImage}
-    />
+    <div id={`menu-item.${menuItem.id}`}>
+      <Image
+        bg='#ddd'
+        w='32vw'
+        radius='md'
+        style={{
+          border: active ? "solid 4px #f00" : "none",
+          cursor: "pointer",
+        }}
+        onClick={() => onSelect && onSelect(menuItem.id)}
+        src={menuItem.smallImage}
+      />
+    </div>
   );
 };
 
