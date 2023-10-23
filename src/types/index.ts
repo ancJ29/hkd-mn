@@ -29,6 +29,7 @@ export const menuSchema = z
       smallImage: data.small_image,
       // TODO: add more fields...
       image: data.small_image,
+      order: data.idx,
     };
   });
 
@@ -40,4 +41,17 @@ export type Category = {
   id: string;
   name: string;
   secondaryName: string;
+  order: number;
+};
+
+export type CartItem = {
+  menuId: string;
+  menu: Menu;
+  quantity: number;
+};
+
+export type Cart = {
+  items: CartItem[];
+  total: number;
+  updatedAt: number;
 };

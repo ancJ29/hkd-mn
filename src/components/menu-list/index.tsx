@@ -7,7 +7,7 @@ const boxStyle = {
   gridAutoFlow: "column",
   gridTemplateRows: "auto auto auto", // 3 row
   gridAutoColumns: "auto",
-  gridGap: ".3rem",
+  gridGap: ".1rem",
 };
 type MenuListProps = {
   selectedMenuItemId: string;
