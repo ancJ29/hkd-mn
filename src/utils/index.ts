@@ -14,3 +14,18 @@ export function cloneCart(cart: Cart) {
     updatedAt: Date.now(),
   };
 }
+
+export function swap<T>(arr: T[], a: number, b: number) {
+  if (arr[a] && arr[b]) {
+    const tmp = arr[a];
+    arr[a] = arr[b];
+    arr[b] = tmp;
+  }
+}
+
+export function scroll(id: string) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
