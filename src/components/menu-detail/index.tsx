@@ -3,7 +3,7 @@ import { Menu } from "@/types";
 import { Image, Paper, Text } from "@mantine/core";
 const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
   return (
-    <Paper style={{ position: "relative" }}>
+    <Paper bg='transparent' style={{ position: "relative" }}>
       <Image mt='4px' h={"25vh"} src={menuItem?.image} />
       <Text
         style={{
