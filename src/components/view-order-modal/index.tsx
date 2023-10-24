@@ -21,45 +21,47 @@ const CartModal = ({ cart, opened, onClose }: { cart: Cart; opened: boolean; onC
       <Modal.Title>
         <Flex p={9} align='center' justify='between' bg='#e78f3d' c='white'>
           <Text fw={700} w='100%'>
-          注文内容の確認 | XEM LẠI MÓN
+            注文内容の確認 | XEM LẠI MÓN
           </Text>
-          <Image onClick={onClose} h={25} w={25} src='/close.png' />
+          <Image onClick={onClose} h={25} w={25} src='/images/close.png' />
         </Flex>
       </Modal.Title>
       <Modal.Body key={cart.updatedAt}>
         <Box px={5} py={10}>
           <Flex style={config.cartModal.row}>
-            <Text component='div' w='50%' style={config.cartModal.rowText}>
+            <Text component='div' w='70%' style={config.cartModal.rowText}>
               商品
               <br />
               <Text fw={800}>Tên món</Text>
             </Text>
-            <Text component='div' ta='right' w='50%' style={config.cartModal.rowText}>
+            <Text component='div' w='30%' style={config.cartModal.rowText}>
               お会計
               <br />
               <Text fw={800}>Thành Tiền</Text>
             </Text>
           </Flex>
           <ScrollArea scrollbarSize={0}>
-            <Box mih='20vh' mah='60vh'>
-              {cart.items.filter(el => el.quantity > 0).map((item, index: number) => {
-                const style = { ...config.cartModal.row };
-                if (index + 1 === cart.items.length) {
-                  style.borderBottom = "none";
-                }
-                return (
-                  <Flex style={style} key={item.menuId} align='center'>
-                    <Text w='50%' style={config.cartModal.rowText}>
-                      {item.menu.foreignName}
-                      <br />
-                      {item.menu.name}
-                    </Text>
-                    <Text ta='right' w='50%' style={config.cartModal.rowText}>
-                      {toLocale(item.menu.price * item.quantity)}
-                    </Text>
-                  </Flex>
-                );
-              })}
+            <Box mih='20vh' mah='50vh'>
+              {cart.items
+                .filter((el) => el.quantity > 0)
+                .map((item, index: number) => {
+                  const style = { ...config.cartModal.row };
+                  if (index + 1 === cart.items.length) {
+                    style.borderBottom = "none";
+                  }
+                  return (
+                    <Flex style={style} key={item.menuId} align='center'>
+                      <Text w='50%' style={config.cartModal.rowText}>
+                        {item.menu.foreignName}
+                        <br />
+                        {item.menu.name}
+                      </Text>
+                      <Text ta='right' w='50%' style={config.cartModal.rowText}>
+                        {toLocale(item.menu.price * item.quantity)}
+                      </Text>
+                    </Flex>
+                  );
+                })}
             </Box>
           </ScrollArea>
           <Flex
@@ -74,26 +76,26 @@ const CartModal = ({ cart, opened, onClose }: { cart: Cart; opened: boolean; onC
           >
             <Box w='100%' pr={10}>
               <Flex w={"100%"} mb={4}>
-                <Text w='60%' fz="1.1rem" fw={500} ta='right'>
+                <Text w='60%' fz='1.1rem' fw={500} ta='right'>
                   Thành Tiền:
                 </Text>
-                <Text w='40%' fz="1.1rem" fw={500} ta='right'>
+                <Text w='40%' fz='1.1rem' fw={500} ta='right'>
                   {toLocale(total)}
                 </Text>
               </Flex>
               <Flex w={"100%"} mb={4}>
-                <Text w='60%' fz="1.1rem" fw={500} ta='right'>
+                <Text w='60%' fz='1.1rem' fw={500} ta='right'>
                   VAT:
                 </Text>
-                <Text w='40%' fz="1.1rem" fw={500} ta='right'>
+                <Text w='40%' fz='1.1rem' fw={500} ta='right'>
                   {toLocale(0.1 * total)}
                 </Text>
               </Flex>
               <Flex>
-                <Text w='60%' fz="1.1rem" fw={500} ta='right'>
+                <Text w='60%' fz='1.1rem' fw={500} ta='right'>
                   Tổng Thành Tiền:
                 </Text>
-                <Text w='40%' fz="1.1rem" fw={500} ta='right' c='#ca3a30'>
+                <Text w='40%' fz='1.1rem' fw={500} ta='right' c='#ca3a30'>
                   {toLocale(1.1 * total)}
                 </Text>
               </Flex>

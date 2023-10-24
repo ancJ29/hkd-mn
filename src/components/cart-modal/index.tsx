@@ -55,32 +55,32 @@ const CartModal = ({
       <Modal.Title>
         <Flex p={9} align='center' justify='between' bg='#3477ae' c='white'>
           <Text fw={700} w='100%'>
-          ご注文内容 | CÁC MÓN ĐANG CHỌN
+            ご注文内容 | CÁC MÓN ĐANG CHỌN
           </Text>
-          <Image onClick={onClose} h={25} w={25} src='/close.png' />
+          <Image onClick={onClose} h={25} w={25} src='/images/close.png' />
         </Flex>
       </Modal.Title>
       <Modal.Body key={_cart.updatedAt}>
         <Box px={5} py={10}>
           <Flex style={config.cartModal.row}>
-            <Text component='div' w='50%' style={config.cartModal.rowText}>
+            <Text component='div' w={config.cartModal.widths[0]} style={config.cartModal.rowText}>
               商品
               <br />
               <Text fw={800}>Tên món</Text>
             </Text>
-            <Text component='div' w='20%' style={config.cartModal.rowText}>
+            <Text component='div' w={config.cartModal.widths[1]} style={config.cartModal.rowText}>
               数量
               <br />
               <Text fw={800}>Số lượng</Text>
             </Text>
-            <Text component='div' ta='right' w='30%' style={config.cartModal.rowText}>
+            <Text component='div' w={config.cartModal.widths[2]} style={config.cartModal.rowText}>
               お会計
               <br />
               <Text fw={800}>Thành Tiền</Text>
             </Text>
           </Flex>
           <ScrollArea scrollbarSize={0}>
-            <Box mih='20vh' mah='60vh'>
+            <Box mih='20vh' mah='50vh'>
               {cart.items.map((item, index: number) => {
                 const style = { ...config.cartModal.row };
                 if (index + 1 === cart.items.length) {
@@ -88,19 +88,19 @@ const CartModal = ({
                 }
                 return (
                   <Flex style={style} key={item.menuId} align='center'>
-                    <Text w='50%' style={config.cartModal.rowText}>
+                    <Text w={config.cartModal.widths[0]} style={config.cartModal.rowText}>
                       {item.menu.foreignName}
                       <br />
                       {item.menu.name}
                     </Text>
-                    <Center w='20%'>
+                    <Center w={config.cartModal.widths[1]}>
                       <Quantity
                         total={item.quantity}
                         onIncrease={() => onIncrease(item)}
                         onDecrease={() => onDecrease(item)}
                       />
                     </Center>
-                    <Text ta='right' w='30%' style={config.cartModal.rowText}>
+                    <Text ta='right' w={config.cartModal.widths[2]} style={config.cartModal.rowText}>
                       {toLocale(item.menu.price * item.quantity)}
                     </Text>
                   </Flex>
@@ -120,31 +120,31 @@ const CartModal = ({
           >
             <Box w='100%' pr={10}>
               <Flex w={"100%"} mb={4}>
-                <Text w='60%' fz="1.1rem"fw={500} ta='right'>
+                <Text w='60%' fz='1.1rem' fw={500} ta='right'>
                   Thành Tiền:
                 </Text>
-                <Text w='40%' fz="1.1rem"fw={500} ta='right'>
+                <Text w='40%' fz='1.1rem' fw={500} ta='right'>
                   {toLocale(total)}
                 </Text>
               </Flex>
               <Flex mb={4}>
-                <Text w='60%' fz="1.1rem"fw={500} ta='right'>
+                <Text w='60%' fz='1.1rem' fw={500} ta='right'>
                   VAT:
                 </Text>
-                <Text w='40%' fz="1.1rem"fw={500} ta='right'>
+                <Text w='40%' fz='1.1rem' fw={500} ta='right'>
                   {toLocale(0.1 * total)}
                 </Text>
               </Flex>
               <Flex>
-                <Text w='60%' fz="1.1rem"fw={500} ta='right'>
+                <Text w='60%' fz='1.1rem' fw={500} ta='right'>
                   Tổng Thành Tiền:
                 </Text>
-                <Text w='40%' fz="1.1rem"fw={500} ta='right' c='#ca3a30'>
+                <Text w='40%' fz='1.1rem' fw={500} ta='right' c='#ca3a30'>
                   {toLocale(1.1 * total)}
                 </Text>
               </Flex>
             </Box>
-            <Image h={"60px"} src='/order.png' onClick={() => onOrder(cart)} />
+            <Image h={"60px"} src='/images/order.png' onClick={() => onOrder(cart)} />
           </Flex>
         </Box>
       </Modal.Body>
