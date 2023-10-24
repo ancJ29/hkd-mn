@@ -22,7 +22,20 @@ function _scroll(id: string) {
   }
 }
 
+const blankMenuItem: Menu = {
+  id: "",
+  order: 0,
+  foreignName: "",
+  name: "",
+  price: 0,
+  inventory: 0,
+  smallImage: "",
+  image: "",
+  categoryId: "",
+};
+
 const TopMenu = () => {
+  const [page, setPage] = useState<number>(1);
   const [categories, setCategory] = useState<Category[]>([]);
   const [menuItems, setMenuItems] = useState<Menu[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
@@ -31,6 +44,10 @@ const TopMenu = () => {
   const [openCart, toggleCart] = useToggle([false, true]);
   const [openView, toggleView] = useToggle([false, true]);
   const [isPlaceOrder, setIsPlaceOrder] = useState<boolean>(false);
+
+  const lastPage = useMemo(() => {
+    return Math.ceil(menuItems.length / 9);
+  }, [menuItems]);
 
   const selectedMenuItem = useMemo(() => {
     return menuItems.find((item) => item.id === selectedMenuItemId);
@@ -77,23 +94,17 @@ const TopMenu = () => {
         return;
       }
       setSelectedCategoryId(id);
-      const menuItem = menuItems.find((el) => el.categoryId === id);
-      if (menuItem) {
+      const menuItemIdx = menuItems.findIndex((el) => el.categoryId === id);
+      if (menuItemIdx > -1) {
+        const _page = 1 + Math.floor(menuItemIdx / 9);
+        const menuItem = menuItems[menuItemIdx];
+        const targetId = page > _page ? menuItem.id : menuItems[(_page - 1) * 9 + 8].id;
         setSelectedMenuItemId(menuItem.id);
-        _scroll(`menu-item.${menuItem.id}`);
+        setPage(_page);
+        _scroll(`menu-item.${targetId}`);
       }
     },
-    [menuItems, selectedCategoryId],
-  );
-
-  const onIntersect = useCallback(
-    (categoryId: string, prevCategoryId: string) => {
-      if (categoryId && selectedCategoryId === prevCategoryId) {
-        _scroll(`category-item.${categoryId}`);
-        setSelectedCategoryId(categoryId);
-      }
-    },
-    [selectedCategoryId],
+    [menuItems, page, selectedCategoryId],
   );
 
   useEffect(() => {
@@ -104,8 +115,36 @@ const TopMenu = () => {
     });
     getMenuItems().then((items) => {
       items.sort((a, b) => a.order - b.order);
-      setMenuItems(items);
-      setSelectedMenuItemId(items[0].id);
+      const _items = [];
+      let counter = 0,
+        categoryId = items[0].categoryId;
+      for (const item of items) {
+        if (categoryId == item.categoryId) {
+          counter++;
+          _items.push(item);
+          continue;
+        }
+        const r = counter % 9;
+        categoryId = item.categoryId;
+        if (r > 5) {
+          counter += 9 - r;
+          Array(9 - r)
+            .fill(null)
+            .forEach(() => {
+              _items.push({
+                ...blankMenuItem,
+                id: `${Date.now()}.${(Math.random() + 1).toString(36).substring(7)}`,
+              });
+            });
+          _items.push(item);
+          counter++;
+        } else {
+          counter++;
+          _items.push(item);
+        }
+      }
+      setMenuItems(_items);
+      setSelectedMenuItemId(_items[0].id);
       setCart({
         items: items.slice(0, 10).map((item) => ({
           menuId: item.id,
@@ -119,44 +158,70 @@ const TopMenu = () => {
   }, []);
 
   return (
-    <Flex direction='column' justify='flex-start' align='flex-center' p={2} style={config.base}>
-      <CategoryBand categories={categories} selectedId={selectedCategoryId} onSelect={onSelectCategory} />
-      <MenuList
-        selectedMenuItemId={selectedMenuItemId}
-        menuItems={menuItems}
-        onSelect={(id) => setSelectedMenuItemId(id)}
-        onIntersect={onIntersect}
-      />
-      <MenuDetail menuItem={selectedMenuItem} />
-      <MenuAction
-        onAdd={isPlaceOrder ? toggleConfirm : addToCart}
-        onRemove={isPlaceOrder ? toggleConfirm : removeFromCart}
-      />
-      <MenuNavigation
-        isPlaceOrder={isPlaceOrder}
-        onOrder={isPlaceOrder ? toggleConfirm : toggleCart}
-        onCheck={toggleView}
-      />
-      <ConfirmModal opened={openConfirm} onClose={toggleConfirm} />
-      <ViewOrderModal key={`view.${cart.updatedAt}`} opened={openView} cart={cart} onClose={toggleView} />
-      <CartModal
-        key={`cart.${cart.updatedAt}`}
-        cart={cart}
-        opened={openCart}
-        onOrder={async (cart) => {
-          alert("Order successfully!");
-          const _cart = cloneCart(cart);
-          _cart.items = _cart.items.filter((el) => el.quantity > 0);
-          setCart(_cart);
-          await order(cart);
-          toggleCart();
-          setIsPlaceOrder(true);
-        }}
-        onSave={(cart) => {
-          setCart(cloneCart(cart));
-          toggleCart();
-        }}
-      />
+    <Flex direction='column' h='100vh' justify='flex-start' align='flex-center' p={2} style={config.base}>
+      <>
+        <CategoryBand categories={categories} selectedId={selectedCategoryId} onSelect={onSelectCategory} />
+        <MenuList
+          page={page}
+          lastPage={lastPage}
+          onNextPage={() => {
+            const _page = Math.min(page + 1, lastPage);
+            const targetId = menuItems[(_page - 1) * 9 + 8].id;
+            const menuItem = menuItems[(_page - 1) * 9];
+            setSelectedMenuItemId(menuItem.id);
+            setSelectedCategoryId(menuItem.categoryId);
+            _scroll(`menu-item.${targetId}`);
+            setPage(_page);
+          }}
+          onPrevPage={() => {
+            const _page = Math.max(page - 1, 1);
+            const menuItem = menuItems[(_page - 1) * 9];
+            setSelectedMenuItemId(menuItem.id);
+            setSelectedCategoryId(menuItem.categoryId);
+            _scroll(`menu-item.${menuItem.id}`);
+            setPage(_page);
+          }}
+          selectedMenuItemId={selectedMenuItemId}
+          menuItems={menuItems}
+          onSelect={(id) => {
+            const menuItem = menuItems.find((el) => el.id === id);
+            if (menuItem?.categoryId) {
+              setSelectedCategoryId(menuItem.categoryId);
+              setSelectedMenuItemId(id);
+            }
+          }}
+        />
+        <MenuDetail menuItem={selectedMenuItem} />
+        <MenuAction
+          onAdd={isPlaceOrder ? toggleConfirm : addToCart}
+          onRemove={isPlaceOrder ? toggleConfirm : removeFromCart}
+        />
+        <MenuNavigation
+          isPlaceOrder={isPlaceOrder}
+          onOrder={isPlaceOrder ? toggleConfirm : toggleCart}
+          onCheck={toggleView}
+        />
+        <ConfirmModal opened={openConfirm} onClose={toggleConfirm} />
+        <ViewOrderModal key={`view.${cart.updatedAt}`} opened={openView} cart={cart} onClose={toggleView} />
+        <CartModal
+          key={`cart.${cart.updatedAt}`}
+          cart={cart}
+          opened={openCart}
+          onOrder={async (cart) => {
+            alert("Order successfully!");
+            const _cart = cloneCart(cart);
+            _cart.items = _cart.items.filter((el) => el.quantity > 0);
+            setCart(_cart);
+            await order(cart);
+            toggleCart();
+            setIsPlaceOrder(true);
+          }}
+          onSave={(cart) => {
+            setCart(cloneCart(cart));
+            toggleCart();
+          }}
+        />
+      </>
     </Flex>
   );
 };

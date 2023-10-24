@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 import MenuItem from "@/components/menu-item";
 import { Menu } from "@/types";
-import { Box, ScrollArea } from "@mantine/core";
-import { useRef } from "react";
+import { Box, Image, ScrollArea } from "@mantine/core";
+
 
 const boxStyle = {
   display: "grid",
@@ -11,34 +12,81 @@ const boxStyle = {
   gridGap: ".1rem",
 };
 type MenuListProps = {
+  page: number;
+  lastPage: number;
   selectedMenuItemId: string;
   menuItems: Menu[];
+  onPrevPage: () => void;
+  onNextPage: () => void;
   onSelect: (id: string) => void;
-  onIntersect?: (id: string, prevId: string) => void;
 };
 
-const MenuList = ({ selectedMenuItemId, menuItems, onSelect, onIntersect }: MenuListProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
+const MenuList = ({
+  selectedMenuItemId,
+  menuItems,
+  page,
+  lastPage,
+  onPrevPage,
+  onNextPage,
+  onSelect,
+}: MenuListProps) => {
   return (
-    <ScrollArea scrollbarSize={0} type='auto' ref={containerRef}>
-      <Box style={boxStyle}>
-        {menuItems.map((menuItem, index) => {
-          return (
-            <MenuItem
-              containerRef={containerRef}
-              prevCategoryId={menuItems[index - 1]?.categoryId || ""}
-              nextCategoryId={menuItems[index + 1]?.categoryId || ""}
-              key={menuItem.id}
-              menuItem={menuItem}
-              active={menuItem.id === selectedMenuItemId}
-              onSelect={onSelect}
-              onIntersect={onIntersect}
+    <Box
+      style={{ position: "relative" }}
+    >
+      <ScrollArea
+        scrollbarSize={0}
+        type='auto'
+        // onScrollPositionChange={(scrollPosition) => {
+        //   setX(scrollPosition.x);
+        //   if (scrollPosition.x > x) {
+        //     console.log("scroll right");
+        //     _onNextPage();
+        //   // } else {
+        //   //   onPrevPage();
+        //   }
+        // }}
+      >
+        <Box style={boxStyle}>
+          {page > 1 && (
+            <Image
+              h={89}
+              w={45}
+              src='/images/left.svg'
+              style={{
+                position: "absolute",
+                left: 0,
+                top: "50%",
+              }}
+              onClick={onPrevPage}
             />
-          );
-        })}
-      </Box>
-    </ScrollArea>
+          )}
+          {page < lastPage && (
+            <Image
+              onClick={onNextPage}
+              h={89}
+              w={45}
+              src='/images/right.svg'
+              style={{
+                position: "absolute",
+                right: 0,
+                top: "50%",
+              }}
+            />
+          )}
+          {menuItems.map((menuItem) => {
+            return (
+              <MenuItem
+                key={menuItem.id}
+                menuItem={menuItem}
+                active={menuItem.id === selectedMenuItemId}
+                onSelect={onSelect}
+              />
+            );
+          })}
+        </Box>
+      </ScrollArea>
+    </Box>
   );
 };
 

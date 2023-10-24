@@ -11,23 +11,24 @@ const _arrayElement = faker.helpers.arrayElement;
 
 const colors: Record<string, string> = {};
 /* cspell:disable  */
-export const categories = ([
-  ["DRINKS", "ドリンク"],
-  ["SASHIMI", "刺身"],
-  ["SALAD", "サラダ"],
-  ["TSUKIDASHI", "突き出し"],
-  ["SUSHI", "寿司"],
-  ["MAKI SUSHI", "巻き寿司"],
-  ["ROLL", "ロール"],
-  ["NABE", "鍋"],
-  ["WAGYU", "和牛"],
-  ["SPECIAL SET", "スペシャルセット"],
-  ["GOHAN", "ご飯"],
-  ["NOODLE", "麺"],
-  ["DESSERT", "デザート"],
-] as [string, string][]).map(([name, secondaryName]: [string, string], index: number) => {
+export const categories = (
+  [
+    ["DRINKS", "ドリンク"],
+    ["SASHIMI", "刺身"],
+    ["SALAD", "サラダ"],
+    ["TSUKIDASHI", "突き出し"],
+    ["SUSHI", "寿司"],
+    ["MAKI SUSHI", "巻き寿司"],
+    ["ROLL", "ロール"],
+    ["NABE", "鍋"],
+    ["WAGYU", "和牛"],
+    ["SPECIAL SET", "スペシャルセット"],
+    ["GOHAN", "ご飯"],
+    ["NOODLE", "麺"],
+    ["DESSERT", "デザート"],
+  ] as [string, string][]
+).map(([name, secondaryName]: [string, string], index: number) => {
   /* cspell:enable  */
-  // const id = _uuid();
   const id = (index + 1).toString();
   colors[id] = faker.color.rgb().replace("#", "");
   return {
@@ -42,10 +43,18 @@ function _name() {
   return faker.commerce.productName().split(" ").slice(0, 2).join(" ");
 }
 
+let counter = 0;
+
 let menuItemOrder = 0;
 export const menuItems = Array.from({ length: categories.length * 20 }, (): Menu => {
   menuItemOrder++;
-  const category = _arrayElement(categories);
+  counter++;
+  let category = _arrayElement(categories);
+  if (counter < 8) {
+    category = categories[0];
+  } else if (category.id === categories[0].id) {
+    category = categories[1];
+  }
   const order = category.order * 1e6 + menuItemOrder;
   const color = colors[category.id];
   return {
