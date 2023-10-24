@@ -7,20 +7,12 @@ import MenuDetail from "@/components/menu-detail";
 import MenuList from "@/components/menu-list";
 import MenuNavigation from "@/components/menu-navigation";
 import ViewOrderModal from "@/components/view-order-modal";
-import config from "@/configs/custom";
 import { getCategories, getMenuItems, order } from "@/services/menu";
 import { Cart, Category, Menu } from "@/types";
-import { cloneCart } from "@/utils";
+import { cloneCart, scroll, swap } from "@/utils";
 import { Flex } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { useCallback, useEffect, useMemo, useState } from "react";
-
-function _scroll(id: string) {
-  const el = document.getElementById(id);
-  if (el) {
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-}
 
 const blankMenuItem: Menu = {
   id: "",
@@ -38,8 +30,7 @@ const TopMenu = () => {
   const [page, setPage] = useState<number>(1);
   const [categories, setCategory] = useState<Category[]>([]);
   const [menuItems, setMenuItems] = useState<Menu[]>([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState("");
-  const [selectedMenuItemId, setSelectedMenuItemId] = useState("");
+  const [selected, setSelected] = useState({ categoryId: "", menuId: "" });
   const [openConfirm, toggleConfirm] = useToggle([false, true]);
   const [openCart, toggleCart] = useToggle([false, true]);
   const [openView, toggleView] = useToggle([false, true]);
@@ -50,8 +41,8 @@ const TopMenu = () => {
   }, [menuItems]);
 
   const selectedMenuItem = useMemo(() => {
-    return menuItems.find((item) => item.id === selectedMenuItemId);
-  }, [menuItems, selectedMenuItemId]);
+    return menuItems.find((item) => item.id === selected.menuId);
+  }, [menuItems, selected.menuId]);
 
   const [cart, setCart] = useState<Cart>({
     items: [],
@@ -80,71 +71,104 @@ const TopMenu = () => {
   }, [cart, selectedMenuItem, toggleCart]);
 
   const removeFromCart = useCallback(() => {
-    if (selectedMenuItemId) {
+    if (selected.menuId) {
       const _cart = cloneCart(cart);
-      _cart.items = _cart.items.filter((el) => el.menuId !== selectedMenuItemId);
+      _cart.items = _cart.items.filter((el) => el.menuId !== selected.menuId);
       setCart(_cart);
       toggleCart();
     }
-  }, [cart, selectedMenuItemId, toggleCart]);
+  }, [cart, selected.menuId, toggleCart]);
 
-  const onSelectCategory = useCallback(
+  const updateCartItems = useCallback(() => {
+    setCart(cloneCart(cart));
+    toggleCart();
+  }, [cart, toggleCart]);
+
+  const placeOrder = useCallback(
+    async (cart: Cart) => {
+      alert("Order successfully!");
+      const _cart = cloneCart(cart);
+      _cart.items = _cart.items.filter((el) => el.quantity > 0);
+      setCart(_cart);
+      await order(cart);
+      toggleCart();
+      setIsPlaceOrder(true);
+    },
+    [toggleCart],
+  );
+
+  const selectCategory = useCallback(
     (id: string) => {
-      if (selectedCategoryId === id) {
+      if (selected.categoryId === id) {
         return;
       }
-      setSelectedCategoryId(id);
       const menuItemIdx = menuItems.findIndex((el) => el.categoryId === id);
       if (menuItemIdx > -1) {
         const _page = 1 + Math.floor(menuItemIdx / 9);
         const menuItem = menuItems[menuItemIdx];
         const targetId = page > _page ? menuItem.id : menuItems[(_page - 1) * 9 + 8].id;
-        setSelectedMenuItemId(menuItem.id);
+        setSelected({ categoryId: id, menuId: menuItem.id });
         setPage(_page);
-        _scroll(`menu-item.${targetId}`);
+        scroll(`menu-item.${targetId}`);
+      } else {
+        setSelected({ categoryId: id, menuId: selected.menuId });
       }
     },
-    [menuItems, page, selectedCategoryId],
+    [menuItems, page, selected],
+  );
+
+  const updateCategoryByColumn = useCallback(
+    (column: number) => {
+      const menuItem = menuItems[column * 3 - 3];
+      if (menuItem.categoryId) {
+        setSelected({
+          categoryId: menuItem.categoryId,
+          menuId: selected.menuId,
+        });
+      }
+      setPage(Math.floor(column / 3) + 1);
+    },
+    [menuItems, selected],
+  );
+
+  const gotoPage = useCallback(
+    (_page: number) => {
+      const menuItem = menuItems[(_page - 1) * 9];
+      const targetId = page > _page ? menuItem.id : menuItems[(_page - 1) * 9 + 8].id;
+      setSelected({ categoryId: menuItem.categoryId, menuId: menuItem.id });
+      scroll(`menu-item.${targetId}`);
+      setPage(_page);
+    },
+    [menuItems, page],
+  );
+
+  const selectMenuItem = useCallback(
+    (id: string) => {
+      const menuItem = menuItems.find((el) => el.id === id);
+      if (menuItem?.categoryId) {
+        setSelected({ categoryId: menuItem.categoryId, menuId: id });
+      }
+    },
+    [menuItems],
   );
 
   useEffect(() => {
     getCategories().then((categories: Category[]) => {
       setCategory(categories);
       categories.sort((a, b) => a.order - b.order);
-      setSelectedCategoryId(categories[0]?.id || "");
+      setSelected({
+        categoryId: categories[0]?.id || "",
+        menuId: selected.menuId,
+      });
     });
     getMenuItems().then((items) => {
       items.sort((a, b) => a.order - b.order);
-      const _items = [];
-      let counter = 0,
-        categoryId = items[0].categoryId;
-      for (const item of items) {
-        if (categoryId == item.categoryId) {
-          counter++;
-          _items.push(item);
-          continue;
-        }
-        const r = counter % 9;
-        categoryId = item.categoryId;
-        if (r > 5) {
-          counter += 9 - r;
-          Array(9 - r)
-            .fill(null)
-            .forEach(() => {
-              _items.push({
-                ...blankMenuItem,
-                id: `${Date.now()}.${(Math.random() + 1).toString(36).substring(7)}`,
-              });
-            });
-          _items.push(item);
-          counter++;
-        } else {
-          counter++;
-          _items.push(item);
-        }
-      }
+      const _items = _build(items);
       setMenuItems(_items);
-      setSelectedMenuItemId(_items[0].id);
+      setSelected({
+        categoryId: selected.categoryId || items[0].categoryId,
+        menuId: _items[0].id,
+      });
       setCart({
         items: items.slice(0, 10).map((item) => ({
           menuId: item.id,
@@ -155,75 +179,81 @@ const TopMenu = () => {
         updatedAt: Date.now(),
       });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <Flex direction='column' h='100vh' justify='flex-start' align='flex-center' p={2} style={config.base}>
-      <>
-        <CategoryBand categories={categories} selectedId={selectedCategoryId} onSelect={onSelectCategory} />
-        <MenuList
-          page={page}
-          lastPage={lastPage}
-          onNextPage={() => {
-            const _page = Math.min(page + 1, lastPage);
-            const targetId = menuItems[(_page - 1) * 9 + 8].id;
-            const menuItem = menuItems[(_page - 1) * 9];
-            setSelectedMenuItemId(menuItem.id);
-            setSelectedCategoryId(menuItem.categoryId);
-            _scroll(`menu-item.${targetId}`);
-            setPage(_page);
-          }}
-          onPrevPage={() => {
-            const _page = Math.max(page - 1, 1);
-            const menuItem = menuItems[(_page - 1) * 9];
-            setSelectedMenuItemId(menuItem.id);
-            setSelectedCategoryId(menuItem.categoryId);
-            _scroll(`menu-item.${menuItem.id}`);
-            setPage(_page);
-          }}
-          selectedMenuItemId={selectedMenuItemId}
-          menuItems={menuItems}
-          onSelect={(id) => {
-            const menuItem = menuItems.find((el) => el.id === id);
-            if (menuItem?.categoryId) {
-              setSelectedCategoryId(menuItem.categoryId);
-              setSelectedMenuItemId(id);
-            }
-          }}
-        />
-        <MenuDetail menuItem={selectedMenuItem} />
-        <MenuAction
-          onAdd={isPlaceOrder ? toggleConfirm : addToCart}
-          onRemove={isPlaceOrder ? toggleConfirm : removeFromCart}
-        />
-        <MenuNavigation
-          isPlaceOrder={isPlaceOrder}
-          onOrder={isPlaceOrder ? toggleConfirm : toggleCart}
-          onCheck={toggleView}
-        />
-        <ConfirmModal opened={openConfirm} onClose={toggleConfirm} />
-        <ViewOrderModal key={`view.${cart.updatedAt}`} opened={openView} cart={cart} onClose={toggleView} />
-        <CartModal
-          key={`cart.${cart.updatedAt}`}
-          cart={cart}
-          opened={openCart}
-          onOrder={async (cart) => {
-            alert("Order successfully!");
-            const _cart = cloneCart(cart);
-            _cart.items = _cart.items.filter((el) => el.quantity > 0);
-            setCart(_cart);
-            await order(cart);
-            toggleCart();
-            setIsPlaceOrder(true);
-          }}
-          onSave={(cart) => {
-            setCart(cloneCart(cart));
-            toggleCart();
-          }}
-        />
-      </>
+    <Flex direction='column' h='100vh' justify='flex-start' align='flex-center' p={2}>
+      <CategoryBand categories={categories} selectedId={selected.categoryId} onSelect={selectCategory} />
+      <MenuList
+        page={page}
+        lastPage={lastPage}
+        menuItems={menuItems}
+        onScrollToColumn={updateCategoryByColumn}
+        selectedMenuItemId={selected.menuId}
+        onSelect={selectMenuItem}
+        onNextPage={() => gotoPage(Math.min(page + 1, lastPage))}
+        onPrevPage={() => gotoPage(Math.max(page - 1, 1))}
+      />
+      <MenuDetail menuItem={selectedMenuItem} />
+      <MenuAction
+        onAdd={isPlaceOrder ? toggleConfirm : addToCart}
+        onRemove={isPlaceOrder ? toggleConfirm : removeFromCart}
+      />
+      <MenuNavigation
+        isPlaceOrder={isPlaceOrder}
+        onOrder={isPlaceOrder ? toggleConfirm : toggleCart}
+        onCheck={toggleView}
+      />
+      <ConfirmModal opened={openConfirm} onClose={toggleConfirm} />
+      <ViewOrderModal key={`view.${cart.updatedAt}`} opened={openView} cart={cart} onClose={toggleView} />
+      <CartModal
+        key={`cart.${cart.updatedAt}`}
+        cart={cart}
+        opened={openCart}
+        onOrder={placeOrder}
+        onSave={updateCartItems}
+      />
     </Flex>
   );
 };
 
 export default TopMenu;
+
+function _build(items: Menu[]) {
+  const _items = [];
+  let counter = 0,
+    categoryId = items[0].categoryId;
+  for (const item of items) {
+    if (categoryId == item.categoryId) {
+      counter++;
+      _items.push(item);
+      continue;
+    }
+    const r = counter % 9;
+    categoryId = item.categoryId;
+    if (r > 5) {
+      counter += 9 - r;
+      Array(9 - r)
+        .fill(null)
+        .forEach(() => {
+          _items.push({
+            ...blankMenuItem,
+            id: `${Date.now()}.${(Math.random() + 1).toString(36).substring(7)}`,
+          });
+        });
+      _items.push(item);
+      counter++;
+    } else {
+      counter++;
+      _items.push(item);
+    }
+  }
+  const SIZE = 9;
+  for (let i = 0; i < _items.length; i += SIZE) {
+    swap(_items, 1 + i, 3 + i);
+    swap(_items, 2 + i, 6 + i);
+    swap(_items, 5 + i, 7 + i);
+  }
+  return _items;
+}

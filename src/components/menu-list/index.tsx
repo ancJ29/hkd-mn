@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 import MenuItem from "@/components/menu-item";
 import { Menu } from "@/types";
-import { Box, Image, ScrollArea } from "@mantine/core";
-
+import { Box, ScrollArea } from "@mantine/core";
+import { useCallback } from "react";
+import Arrow from "./arrow";
 
 const boxStyle = {
   display: "grid",
@@ -16,6 +17,7 @@ type MenuListProps = {
   lastPage: number;
   selectedMenuItemId: string;
   menuItems: Menu[];
+  onScrollToColumn: (column: number) => void;
   onPrevPage: () => void;
   onNextPage: () => void;
   onSelect: (id: string) => void;
@@ -28,52 +30,21 @@ const MenuList = ({
   lastPage,
   onPrevPage,
   onNextPage,
+  onScrollToColumn,
   onSelect,
 }: MenuListProps) => {
+  const onScrollPositionChange = useCallback(
+    (scrollPosition: { x: number }) => {
+      onScrollToColumn(Math.floor((scrollPosition.x * 3) / window.innerWidth) + 1);
+    },
+    [onScrollToColumn],
+  );
   return (
-    <Box
-      style={{ position: "relative" }}
-    >
-      <ScrollArea
-        scrollbarSize={0}
-        type='auto'
-        // onScrollPositionChange={(scrollPosition) => {
-        //   setX(scrollPosition.x);
-        //   if (scrollPosition.x > x) {
-        //     console.log("scroll right");
-        //     _onNextPage();
-        //   // } else {
-        //   //   onPrevPage();
-        //   }
-        // }}
-      >
+    <Box style={{ position: "relative" }}>
+      <ScrollArea type='auto' scrollbarSize={0} onScrollPositionChange={onScrollPositionChange}>
         <Box style={boxStyle}>
-          {page > 1 && (
-            <Image
-              h={89}
-              w={45}
-              src='/images/left.svg'
-              style={{
-                position: "absolute",
-                left: 0,
-                top: "50%",
-              }}
-              onClick={onPrevPage}
-            />
-          )}
-          {page < lastPage && (
-            <Image
-              onClick={onNextPage}
-              h={89}
-              w={45}
-              src='/images/right.svg'
-              style={{
-                position: "absolute",
-                right: 0,
-                top: "50%",
-              }}
-            />
-          )}
+          {page > 1 && <Arrow direction='left' onClick={onPrevPage} />}
+          {page < lastPage && <Arrow direction='right' onClick={onNextPage} />}
           {menuItems.map((menuItem) => {
             return (
               <MenuItem

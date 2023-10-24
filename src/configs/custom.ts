@@ -1,7 +1,4 @@
 export default {
-  base: {
-    backgroundColor: "#343434",
-  },
   categoryItem: {
     color: "#fff",
     background: "#1f1f1f",
