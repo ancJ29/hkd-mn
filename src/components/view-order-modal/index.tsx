@@ -21,7 +21,7 @@ const CartModal = ({ cart, opened, onClose }: { cart: Cart; opened: boolean; onC
       <Modal.Title>
         <Flex p={9} align='center' justify='between' bg='#e78f3d' c='white'>
           <Text fw={700} w='100%'>
-            XEM LẠI MÓN | 料理名となります
+          注文内容の確認 | XEM LẠI MÓN
           </Text>
           <Image onClick={onClose} h={25} w={25} src='/close.png' />
         </Flex>
@@ -30,19 +30,19 @@ const CartModal = ({ cart, opened, onClose }: { cart: Cart; opened: boolean; onC
         <Box px={5} py={10}>
           <Flex style={config.cartModal.row}>
             <Text component='div' w='50%' style={config.cartModal.rowText}>
-              料理名となります
+              商品
               <br />
               <Text fw={800}>Tên món</Text>
             </Text>
             <Text component='div' ta='right' w='50%' style={config.cartModal.rowText}>
-              料理名
+              お会計
               <br />
               <Text fw={800}>Thành Tiền</Text>
             </Text>
           </Flex>
-          <ScrollArea>
-            <Box mih='20vh' mah='40vh'>
-              {cart.items.map((item, index: number) => {
+          <ScrollArea scrollbarSize={0}>
+            <Box mih='20vh' mah='60vh'>
+              {cart.items.filter(el => el.quantity > 0).map((item, index: number) => {
                 const style = { ...config.cartModal.row };
                 if (index + 1 === cart.items.length) {
                   style.borderBottom = "none";
@@ -62,29 +62,38 @@ const CartModal = ({ cart, opened, onClose }: { cart: Cart; opened: boolean; onC
               })}
             </Box>
           </ScrollArea>
-          <Flex justify='between' gap='xs' align='center'>
+          <Flex
+            justify='between'
+            gap='xs'
+            align='center'
+            py={12}
+            style={{
+              borderTop: "dotted 1px",
+              borderColor: "#555",
+            }}
+          >
             <Box w='100%' pr={10}>
-              <Flex w={"100%"}>
-                <Text w='60%' fz='14px' fw={500} ta='right'>
+              <Flex w={"100%"} mb={4}>
+                <Text w='60%' fz="1.1rem" fw={500} ta='right'>
                   Thành Tiền:
                 </Text>
-                <Text w='40%' fz='14px' fw={500} ta='right'>
+                <Text w='40%' fz="1.1rem" fw={500} ta='right'>
                   {toLocale(total)}
                 </Text>
               </Flex>
-              <Flex>
-                <Text w='60%' fz='14px' fw={500} ta='right'>
-                  VAT(10%):
+              <Flex w={"100%"} mb={4}>
+                <Text w='60%' fz="1.1rem" fw={500} ta='right'>
+                  VAT:
                 </Text>
-                <Text w='40%' fz='14px' fw={500} ta='right'>
+                <Text w='40%' fz="1.1rem" fw={500} ta='right'>
                   {toLocale(0.1 * total)}
                 </Text>
               </Flex>
               <Flex>
-                <Text w='60%' fz='14px' fw={500} ta='right'>
+                <Text w='60%' fz="1.1rem" fw={500} ta='right'>
                   Tổng Thành Tiền:
                 </Text>
-                <Text w='40%' fz='14px' fw={500} ta='right' c='#ca3a30'>
+                <Text w='40%' fz="1.1rem" fw={500} ta='right' c='#ca3a30'>
                   {toLocale(1.1 * total)}
                 </Text>
               </Flex>

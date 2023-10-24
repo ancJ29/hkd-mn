@@ -15,6 +15,13 @@ import { Flex } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
+function _scroll(id: string) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
 const TopMenu = () => {
   const [categories, setCategory] = useState<Category[]>([]);
   const [menuItems, setMenuItems] = useState<Menu[]>([]);
@@ -73,13 +80,20 @@ const TopMenu = () => {
       const menuItem = menuItems.find((el) => el.categoryId === id);
       if (menuItem) {
         setSelectedMenuItemId(menuItem.id);
-        const el = document.getElementById(`menu-item.${menuItem.id}`);
-        if (el) {
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
+        _scroll(`menu-item.${menuItem.id}`);
       }
     },
     [menuItems, selectedCategoryId],
+  );
+
+  const onIntersect = useCallback(
+    (categoryId: string, prevCategoryId: string) => {
+      if (categoryId && selectedCategoryId === prevCategoryId) {
+        _scroll(`category-item.${categoryId}`);
+        setSelectedCategoryId(categoryId);
+      }
+    },
+    [selectedCategoryId],
   );
 
   useEffect(() => {
@@ -111,6 +125,7 @@ const TopMenu = () => {
         selectedMenuItemId={selectedMenuItemId}
         menuItems={menuItems}
         onSelect={(id) => setSelectedMenuItemId(id)}
+        onIntersect={onIntersect}
       />
       <MenuDetail menuItem={selectedMenuItem} />
       <MenuAction
@@ -130,7 +145,9 @@ const TopMenu = () => {
         opened={openCart}
         onOrder={async (cart) => {
           alert("Order successfully!");
-          setCart(cloneCart(cart));
+          const _cart = cloneCart(cart);
+          _cart.items = _cart.items.filter((el) => el.quantity > 0);
+          setCart(_cart);
           await order(cart);
           toggleCart();
           setIsPlaceOrder(true);

@@ -23,7 +23,6 @@ const CategoryItem = ({ id, active, name, secondaryName, onSelect }: CategoryIte
     <Center
       id={`category-item.${id}`}
       w='24vw'
-      h='10vw'
       ta='center'
       m={2}
       lh={"xs"}

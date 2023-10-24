@@ -11,29 +11,30 @@ const _arrayElement = faker.helpers.arrayElement;
 
 const colors: Record<string, string> = {};
 /* cspell:disable  */
-export const categories = [
-  "DRINKS",
-  "SASHIMI",
-  "SALAD",
-  "TSUKIDASHI",
-  "SUSHI",
-  "MAKI SUSHI",
-  "ROLL",
-  "NABE",
-  "WAGYU",
-  "SPECIAL SET",
-  "GOHAN",
-  "NOODLE",
-  "DESSERT",
-].map((name: string, index: number) => {
+export const categories = ([
+  ["DRINKS", "ドリンク"],
+  ["SASHIMI", "刺身"],
+  ["SALAD", "サラダ"],
+  ["TSUKIDASHI", "突き出し"],
+  ["SUSHI", "寿司"],
+  ["MAKI SUSHI", "巻き寿司"],
+  ["ROLL", "ロール"],
+  ["NABE", "鍋"],
+  ["WAGYU", "和牛"],
+  ["SPECIAL SET", "スペシャルセット"],
+  ["GOHAN", "ご飯"],
+  ["NOODLE", "麺"],
+  ["DESSERT", "デザート"],
+] as [string, string][]).map(([name, secondaryName]: [string, string], index: number) => {
   /* cspell:enable  */
-  const id = _uuid();
+  // const id = _uuid();
+  const id = (index + 1).toString();
   colors[id] = faker.color.rgb().replace("#", "");
   return {
     order: 1 + index,
     id,
     name,
-    secondaryName: "点心",
+    secondaryName,
   };
 });
 

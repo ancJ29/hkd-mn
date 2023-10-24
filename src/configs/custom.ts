@@ -6,7 +6,7 @@ export default {
     color: "#fff",
     background: "#1f1f1f",
     borderRadius: "6px",
-    padding: ".3rem .2rem",
+    padding: ".1rem .2rem",
   },
   activeCategoryItem: {
     background: "#bd4037",

@@ -22,8 +22,8 @@ const CategoryBand = ({
   onSelect,
 }: CategoryBandProps) => {
   return (
-    <ScrollArea type='auto'>
-      <Box style={boxStyle}>
+    <ScrollArea scrollbarSize={0} type='auto'>
+      <Box style={boxStyle} key={selectedId}>
         {categories.map((item: Category) => {
           return (
             <CategoryItem
