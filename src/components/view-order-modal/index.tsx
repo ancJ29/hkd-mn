@@ -34,11 +34,13 @@ const CartModal = ({ cart, opened, onClose }: { cart: Cart; opened: boolean; onC
               <br />
               <Text fw={800}>Tên món</Text>
             </Text>
-            <Text component='div' w='30%' style={config.cartModal.rowText}>
-              お会計
-              <br />
-              <Text fw={800}>Thành Tiền</Text>
-            </Text>
+            <Flex w="30%" justify="right">
+              <Text component='div' style={config.cartModal.rowText}>
+                お会計
+                <br />
+                <Text fw={800}>Thành Tiền</Text>
+              </Text>
+            </Flex>
           </Flex>
           <ScrollArea scrollbarSize={0}>
             <Box mih='20vh' mah='50vh'>
@@ -56,7 +58,7 @@ const CartModal = ({ cart, opened, onClose }: { cart: Cart; opened: boolean; onC
                         <br />
                         {item.menu.name}
                       </Text>
-                      <Text ta='right' w='50%' style={config.cartModal.rowText}>
+                      <Text ta='right' pr={12} w='50%' style={config.cartModal.rowText}>
                         {toLocale(item.menu.price * item.quantity)}
                       </Text>
                     </Flex>

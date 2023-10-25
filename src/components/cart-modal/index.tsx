@@ -73,11 +73,13 @@ const CartModal = ({
               <br />
               <Text fw={800}>Số lượng</Text>
             </Text>
-            <Text component='div' w={config.cartModal.widths[2]} style={config.cartModal.rowText}>
+            <Flex w={config.cartModal.widths[2]} justify="right">
+              <Text component='div' style={config.cartModal.rowText}>
               お会計
-              <br />
-              <Text fw={800}>Thành Tiền</Text>
-            </Text>
+                <br />
+                <Text fw={800}>Thành Tiền</Text>
+              </Text>
+            </Flex>
           </Flex>
           <ScrollArea scrollbarSize={0}>
             <Box mih='20vh' mah='50vh'>
@@ -100,7 +102,12 @@ const CartModal = ({
                         onDecrease={() => onDecrease(item)}
                       />
                     </Center>
-                    <Text ta='right' w={config.cartModal.widths[2]} style={config.cartModal.rowText}>
+                    <Text
+                      ta='center'
+                      fw="bold"
+                      w={config.cartModal.widths[2]}
+                      style={config.cartModal.rowText}
+                    >
                       {toLocale(item.menu.price * item.quantity)}
                     </Text>
                   </Flex>
@@ -120,26 +127,26 @@ const CartModal = ({
           >
             <Box w='100%' pr={10}>
               <Flex w={"100%"} mb={4}>
-                <Text w='60%' fz='1.1rem' fw={500} ta='right'>
+                <Text w='60%' fz='1rem' fw={500} ta='right'>
                   Thành Tiền:
                 </Text>
-                <Text w='40%' fz='1.1rem' fw={500} ta='right'>
+                <Text w='40%' fz='1rem' fw={500} ta='right'>
                   {toLocale(total)}
                 </Text>
               </Flex>
               <Flex mb={4}>
-                <Text w='60%' fz='1.1rem' fw={500} ta='right'>
+                <Text w='60%' fz='1rem' fw={500} ta='right'>
                   VAT:
                 </Text>
-                <Text w='40%' fz='1.1rem' fw={500} ta='right'>
+                <Text w='40%' fz='1rem' fw={500} ta='right'>
                   {toLocale(0.1 * total)}
                 </Text>
               </Flex>
               <Flex>
-                <Text w='60%' fz='1.1rem' fw={500} ta='right'>
+                <Text w='60%' fz='1rem' fw={500} ta='right'>
                   Tổng Thành Tiền:
                 </Text>
-                <Text w='40%' fz='1.1rem' fw={500} ta='right' c='#ca3a30'>
+                <Text w='40%' fz='1rem' fw={500} ta='right' c='#ca3a30'>
                   {toLocale(1.1 * total)}
                 </Text>
               </Flex>

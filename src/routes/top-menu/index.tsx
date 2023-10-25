@@ -92,7 +92,7 @@ const TopMenu = () => {
 
   const placeOrder = useCallback(
     async (cart: Cart) => {
-      alert("Order successfully!");
+      toggleConfirm();
       const _cart = cloneCart(cart);
       _cart.items = _cart.items.filter((el) => el.quantity > 0);
       setCart(_cart);
@@ -100,7 +100,7 @@ const TopMenu = () => {
       toggleCart();
       setIsPlaceOrder(true);
     },
-    [toggleCart],
+    [toggleCart, toggleConfirm],
   );
 
   const selectCategory = useCallback(
