@@ -2,7 +2,7 @@
 import MenuItem from "@/components/menu-item";
 import { Menu } from "@/types";
 import { Box, ScrollArea } from "@mantine/core";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import Arrow from "./arrow";
 
 const boxStyle = {
@@ -33,11 +33,16 @@ const MenuList = ({
   onScrollToColumn,
   onSelect,
 }: MenuListProps) => {
+  const [x, setX] = useState(0);
   const onScrollPositionChange = useCallback(
     (scrollPosition: { x: number }) => {
+      if (Math.abs(scrollPosition.x - x) < 100) {
+        return;
+      }
       onScrollToColumn(Math.floor((scrollPosition.x * 3) / window.innerWidth) + 1);
+      setX(scrollPosition.x);
     },
-    [onScrollToColumn],
+    [onScrollToColumn, x],
   );
   return (
     <Box style={{ position: "relative" }}>
