@@ -27,7 +27,6 @@ export function swap<T>(arr: T[], a: number, b: number) {
 export function scroll(id: string, options?: ScrollIntoViewOptions) {
   const el = document.getElementById(id);
   if (el) {
-    // console.log("scroll to", id);
     el.scrollIntoView(
       options || {
         behavior: "smooth",
@@ -35,5 +34,6 @@ export function scroll(id: string, options?: ScrollIntoViewOptions) {
         inline: "nearest",
       },
     );
+    window.scrollBy(0, -10);
   }
 }

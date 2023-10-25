@@ -10,7 +10,7 @@ import ViewOrderModal from "@/components/view-order-modal";
 import { getCategories, getMenuItems, order } from "@/services/menu";
 import { Cart, Category, Menu } from "@/types";
 import { cloneCart, scroll, swap } from "@/utils";
-import { Flex } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -29,6 +29,7 @@ const blankMenuItem: Menu = {
 const TopMenu = () => {
   const [x, setX] = useState("");
   const [y, setY] = useState("");
+  const [prevColumn, setPrevColumn] = useState(0);
   const [updatedAt, setUpdatedAt] = useState(Date.now());
   const [page, setPage] = useState<number>(1);
   const [categories, setCategory] = useState<Category[]>([]);
@@ -109,7 +110,8 @@ const TopMenu = () => {
       if (menuItemIdx > -1) {
         const _page = 1 + Math.floor(menuItemIdx / 9);
         const menuItem = menuItems[menuItemIdx];
-        const targetId = page > _page ? menuItem.id : menuItems[(_page - 1) * 9 + 8].id;
+        const targetId = menuItem.id;
+        // page < _page ? menuItem.id : menuItems[(_page - 1) * 9 + 8].id;
         setSelected({ categoryId, menuId: menuItem.id });
         setX(categoryId);
         setY(targetId);
@@ -118,13 +120,13 @@ const TopMenu = () => {
         setSelected({ categoryId, menuId: selected.menuId });
       }
     },
-    [menuItems, page, selected],
+    [menuItems, selected],
   );
-
-  const [prevColumn, setPrevColumn] = useState<number>(0);
 
   const updateCategoryByColumn = useCallback(
     (column: number) => {
+      const debug = true;
+      if (debug) return;
       if (updatedAt + 1000 > Date.now()) return;
       if (column === prevColumn) return;
       setPrevColumn(column);
@@ -152,9 +154,7 @@ const TopMenu = () => {
   const selectMenuItem = useCallback(
     (id: string) => {
       const menuItem = menuItems.find((el) => el.id === id);
-      if (menuItem?.categoryId) {
-        setSelected({ categoryId: menuItem.categoryId, menuId: id });
-      }
+      menuItem?.categoryId && setY(id);
     },
     [menuItems],
   );
@@ -209,12 +209,21 @@ const TopMenu = () => {
         scroll(`category-item.${x}`);
       }
     }
-
   }, [selected, x]);
-
   return (
-    <Flex direction='column' h='100vh' justify='flex-start' align='flex-center' p={2}>
-      <CategoryBand categories={categories} selectedId={selected.categoryId} onSelect={selectCategory} />
+    <Flex
+      direction='column'
+      h='100vh'
+      justify='flex-start'
+      align='flex-center'
+      p={2}
+    >
+      <Box id="TOP" h={1}>&nbsp;</Box>
+      <CategoryBand
+        categories={categories}
+        selectedId={selected.categoryId}
+        onSelect={selectCategory}
+      />
       <MenuList
         page={page}
         lastPage={lastPage}
