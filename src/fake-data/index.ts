@@ -63,7 +63,7 @@ export const menuItems = Array.from({ length: categories.length * 20 }, (): Menu
     itemId: id,
     order,
     foreignName: "料理名となります",
-    name: _name(),
+    name: `${counter}.${_name()}`,
     price: _int({ min: 50, max: 200 }) * 1e3,
     inventory: 1,
     base64SmallImage: "",

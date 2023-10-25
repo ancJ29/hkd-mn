@@ -73,9 +73,9 @@ const CartModal = ({
               <br />
               <Text fw={800}>Số lượng</Text>
             </Text>
-            <Flex w={config.cartModal.widths[2]} justify="right">
+            <Flex w={config.cartModal.widths[2]} justify='right'>
               <Text component='div' style={config.cartModal.rowText}>
-              お会計
+                お会計
                 <br />
                 <Text fw={800}>Thành Tiền</Text>
               </Text>
@@ -102,12 +102,7 @@ const CartModal = ({
                         onDecrease={() => onDecrease(item)}
                       />
                     </Center>
-                    <Text
-                      ta='center'
-                      fw="bold"
-                      w={config.cartModal.widths[2]}
-                      style={config.cartModal.rowText}
-                    >
+                    <Text ta='center' fw='bold' w={config.cartModal.widths[2]} style={config.cartModal.rowText}>
                       {toLocale(item.menu.price * item.quantity)}
                     </Text>
                   </Flex>
