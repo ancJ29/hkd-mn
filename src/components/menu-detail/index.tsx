@@ -4,7 +4,7 @@ import { Image, Paper, Text } from "@mantine/core";
 const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
   return (
     <Paper bg='transparent' style={{ position: "relative" }}>
-      <Image mt='4px' h={"25vh"} src={menuItem?.image} />
+      <Image mt='4px' h={"25vh"} src={menuItem?.image || "http://via.placeholder.com/712x524"} />
       <Text
         style={{
           position: "absolute",
