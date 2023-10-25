@@ -34,6 +34,6 @@ export function scroll(id: string, options?: ScrollIntoViewOptions) {
         inline: "nearest",
       },
     );
-    window.scrollBy(0, -10);
+    // window.scrollBy(0, -10);
   }
 }

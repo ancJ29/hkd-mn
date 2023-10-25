@@ -57,14 +57,16 @@ export const menuItems = Array.from({ length: categories.length * 20 }, (): Menu
   }
   const order = category.order * 1e6 + menuItemOrder;
   const color = colors[category.id];
+  const id = _uuid();
   return {
-    id: _uuid(),
+    id: id,
+    itemId: id,
     order,
     foreignName: "料理名となります",
     name: _name(),
     price: _int({ min: 50, max: 200 }) * 1e3,
     inventory: 1,
-
+    base64SmallImage: "",
     smallImage: `http://via.placeholder.com/356x262/${color}`,
     image: `http://via.placeholder.com/712x524/${color}`,
     categoryId: category.id,

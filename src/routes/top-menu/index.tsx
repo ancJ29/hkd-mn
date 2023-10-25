@@ -16,7 +16,9 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 const blankMenuItem: Menu = {
   id: "",
+  itemId: "",
   order: 0,
+  base64SmallImage: "",
   foreignName: "",
   name: "",
   price: 0,
@@ -154,36 +156,42 @@ const TopMenu = () => {
   const selectMenuItem = useCallback(
     (id: string) => {
       const menuItem = menuItems.find((el) => el.id === id);
+      console.log("selectMenuItem", menuItem);
       menuItem?.categoryId && setY(id);
     },
     [menuItems],
   );
 
   useEffect(() => {
-    getCategories().then((categories: Category[]) => {
-      setCategory(categories);
-      categories.sort((a, b) => a.order - b.order);
-      setSelected({
-        categoryId: categories[0]?.id || "",
-        menuId: selected.menuId,
-      });
-    });
     getMenuItems().then((items) => {
-      items.sort((a, b) => a.order - b.order);
-      const _items = _build(items);
-      setMenuItems(_items);
-      setSelected({
-        categoryId: selected.categoryId || items[0].categoryId,
-        menuId: _items[0].id,
-      });
-      setCart({
-        items: items.slice(0, 10).map((item) => ({
-          menuId: item.id,
-          quantity: 1,
-          menu: item,
-        })),
-        total: 0,
-        updatedAt: Date.now(),
+      getCategories().then((categories: Category[]) => {
+        // console.log("categories", categories);
+        // console.log(
+        //   "menuIds",
+        //   items.map((el) => el.id),
+        // );
+        setCategory(categories);
+        categories.sort((a, b) => a.order - b.order);
+        setSelected({
+          categoryId: categories[0]?.id || "",
+          menuId: selected.menuId,
+        });
+        items.sort((a, b) => a.order - b.order);
+        const _items = _build(items);
+        setMenuItems(_items);
+        setSelected({
+          categoryId: selected.categoryId || items[0].categoryId,
+          menuId: _items[0].id,
+        });
+        setCart({
+          items: items.slice(0, 10).map((item) => ({
+            menuId: item.id,
+            quantity: 1,
+            menu: item,
+          })),
+          total: 0,
+          updatedAt: Date.now(),
+        });
       });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -210,30 +218,26 @@ const TopMenu = () => {
       }
     }
   }, [selected, x]);
+
+  const debug = false;
   return (
-    <Flex
-      direction='column'
-      h='100vh'
-      justify='flex-start'
-      align='flex-center'
-      p={2}
-    >
-      <Box id="TOP" h={1}>&nbsp;</Box>
-      <CategoryBand
-        categories={categories}
-        selectedId={selected.categoryId}
-        onSelect={selectCategory}
-      />
-      <MenuList
-        page={page}
-        lastPage={lastPage}
-        menuItems={menuItems}
-        onScrollToColumn={updateCategoryByColumn}
-        selectedMenuItemId={selected.menuId}
-        onSelect={selectMenuItem}
-        onNextPage={() => gotoPage(Math.min(page + 1, lastPage))}
-        onPrevPage={() => gotoPage(Math.max(page - 1, 1))}
-      />
+    <Flex direction='column' h='100vh' justify='flex-start' align='flex-center' p={2}>
+      <Box id='TOP' h={1}>
+        &nbsp;
+      </Box>
+      <CategoryBand categories={categories} selectedId={selected.categoryId} onSelect={selectCategory} />
+      {!debug && (
+        <MenuList
+          page={page}
+          lastPage={lastPage}
+          menuItems={menuItems}
+          onScrollToColumn={updateCategoryByColumn}
+          selectedMenuItemId={selected.menuId}
+          onSelect={selectMenuItem}
+          onNextPage={() => gotoPage(Math.min(page + 1, lastPage))}
+          onPrevPage={() => gotoPage(Math.max(page - 1, 1))}
+        />
+      )}
       <MenuDetail menuItem={selectedMenuItem} />
       <MenuAction
         onAdd={isPlaceOrder ? toggleConfirm : addToCart}
