@@ -13,7 +13,7 @@ const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
     <Box w='33vw' id={`menu-item.${menuItem.id}`}>
       <Image
         bg='#ddd'
-        w='33vw'
+        w='33.3vw'
         radius='md'
         style={{
           border: active ? "solid 4px #f00" : "solid 1px #7A7C7F",

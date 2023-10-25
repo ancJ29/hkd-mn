@@ -27,6 +27,9 @@ const blankMenuItem: Menu = {
 };
 
 const TopMenu = () => {
+  const [x, setX] = useState("");
+  const [y, setY] = useState("");
+  const [updatedAt, setUpdatedAt] = useState(Date.now());
   const [page, setPage] = useState<number>(1);
   const [categories, setCategory] = useState<Category[]>([]);
   const [menuItems, setMenuItems] = useState<Menu[]>([]);
@@ -108,8 +111,9 @@ const TopMenu = () => {
         const menuItem = menuItems[menuItemIdx];
         const targetId = page > _page ? menuItem.id : menuItems[(_page - 1) * 9 + 8].id;
         setSelected({ categoryId: id, menuId: menuItem.id });
+        setX(id);
+        setY(targetId);
         setPage(_page);
-        scroll(`menu-item.${targetId}`);
       } else {
         setSelected({ categoryId: id, menuId: selected.menuId });
       }
@@ -117,18 +121,21 @@ const TopMenu = () => {
     [menuItems, page, selected],
   );
 
+  const [prevColumn, setPrevColumn] = useState<number>(0);
+
   const updateCategoryByColumn = useCallback(
     (column: number) => {
+      if (y && updatedAt + 1000 > Date.now()) return;
+      setY("");
+      if (column === prevColumn) return;
+      setPrevColumn(column);
       const menuItem = menuItems[column * 3 - 3];
       if (menuItem.categoryId) {
-        setSelected({
-          categoryId: menuItem.categoryId,
-          menuId: selected.menuId,
-        });
+        setX(menuItem.categoryId);
       }
       setPage(Math.floor(column / 3) + 1);
     },
-    [menuItems, selected],
+    [menuItems, prevColumn, updatedAt, y],
   );
 
   const gotoPage = useCallback(
@@ -136,7 +143,8 @@ const TopMenu = () => {
       const menuItem = menuItems[(_page - 1) * 9];
       const targetId = page > _page ? menuItem.id : menuItems[(_page - 1) * 9 + 8].id;
       setSelected({ categoryId: menuItem.categoryId, menuId: menuItem.id });
-      scroll(`menu-item.${targetId}`);
+      setY(targetId);
+      // setUpdatedAt(Date.now());
       setPage(_page);
     },
     [menuItems, page],
@@ -181,6 +189,26 @@ const TopMenu = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (y) {
+      setUpdatedAt(Date.now());
+      scroll(`menu-item.${y}`);
+      if (selected.menuId !== y) {
+        setSelected({ categoryId: selected.categoryId, menuId: y });
+      }
+    }
+  }, [selected, y]);
+
+  useEffect(() => {
+    console.log("x", x, selected.categoryId);
+    if (x) {
+      if (selected.categoryId !== x) {
+        setSelected({ categoryId: x, menuId: selected.menuId });
+        scroll(`category-item.${x}`);
+      }
+    }
+  }, [selected, x]);
 
   return (
     <Flex direction='column' h='100vh' justify='flex-start' align='flex-center' p={2}>
