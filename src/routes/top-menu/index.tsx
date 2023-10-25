@@ -101,21 +101,21 @@ const TopMenu = () => {
   );
 
   const selectCategory = useCallback(
-    (id: string) => {
-      if (selected.categoryId === id) {
+    (categoryId: string) => {
+      if (selected.categoryId === categoryId) {
         return;
       }
-      const menuItemIdx = menuItems.findIndex((el) => el.categoryId === id);
+      const menuItemIdx = menuItems.findIndex((el) => el.categoryId === categoryId);
       if (menuItemIdx > -1) {
         const _page = 1 + Math.floor(menuItemIdx / 9);
         const menuItem = menuItems[menuItemIdx];
         const targetId = page > _page ? menuItem.id : menuItems[(_page - 1) * 9 + 8].id;
-        setSelected({ categoryId: id, menuId: menuItem.id });
-        setX(id);
+        setSelected({ categoryId, menuId: menuItem.id });
+        setX(categoryId);
         setY(targetId);
         setPage(_page);
       } else {
-        setSelected({ categoryId: id, menuId: selected.menuId });
+        setSelected({ categoryId, menuId: selected.menuId });
       }
     },
     [menuItems, page, selected],
@@ -125,8 +125,7 @@ const TopMenu = () => {
 
   const updateCategoryByColumn = useCallback(
     (column: number) => {
-      if (y && updatedAt + 1000 > Date.now()) return;
-      setY("");
+      if (updatedAt + 1000 > Date.now()) return;
       if (column === prevColumn) return;
       setPrevColumn(column);
       const menuItem = menuItems[column * 3 - 3];
@@ -135,7 +134,7 @@ const TopMenu = () => {
       }
       setPage(Math.floor(column / 3) + 1);
     },
-    [menuItems, prevColumn, updatedAt, y],
+    [menuItems, prevColumn, updatedAt],
   );
 
   const gotoPage = useCallback(
@@ -201,13 +200,16 @@ const TopMenu = () => {
   }, [selected, y]);
 
   useEffect(() => {
-    console.log("x", x, selected.categoryId);
     if (x) {
+      // console.log("x", x);
       if (selected.categoryId !== x) {
+        setUpdatedAt(Date.now());
         setSelected({ categoryId: x, menuId: selected.menuId });
+        // console.log("scroll...", x);
         scroll(`category-item.${x}`);
       }
     }
+
   }, [selected, x]);
 
   return (
