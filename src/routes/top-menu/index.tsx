@@ -32,7 +32,7 @@ const TopMenu = () => {
   const [x, setX] = useState("");
   const [y, setY] = useState("");
   const [prevColumn, setPrevColumn] = useState(0);
-  const [updatedAt, setUpdatedAt] = useState(Date.now());
+  const [scrollAt, setScrollAt] = useState(Date.now());
   const [page, setPage] = useState<number>(1);
   const [categories, setCategory] = useState<Category[]>([]);
   const [menuItems, setMenuItems] = useState<Menu[]>([]);
@@ -85,10 +85,13 @@ const TopMenu = () => {
     }
   }, [cart, selected.menuId, toggleCart]);
 
-  const updateCartItems = useCallback(() => {
-    setCart(cloneCart(cart));
-    toggleCart();
-  }, [cart, toggleCart]);
+  const updateCartItems = useCallback(
+    (cart: Cart) => {
+      setCart(cloneCart(cart));
+      toggleCart();
+    },
+    [toggleCart],
+  );
 
   const placeOrder = useCallback(
     async (cart: Cart) => {
@@ -103,24 +106,46 @@ const TopMenu = () => {
     [toggleCart, toggleConfirm],
   );
 
+  // done!!!
   const selectCategory = useCallback(
     (categoryId: string) => {
       if (selected.categoryId === categoryId) {
         return;
       }
-      const menuItemIdx = menuItems.findIndex((el) => el.categoryId === categoryId);
-      if (menuItemIdx > -1) {
-        const _page = 1 + Math.floor(menuItemIdx / 9);
-        const menuItem = menuItems[menuItemIdx];
-        const targetId = menuItem.id;
-        // page < _page ? menuItem.id : menuItems[(_page - 1) * 9 + 8].id;
-        setSelected({ categoryId, menuId: menuItem.id });
-        setX(categoryId);
-        setY(targetId);
-        setPage(_page);
-      } else {
+      const { menuItemIdx, menuItem } = _getFirstMenuItem(categoryId, menuItems);
+      if (menuItemIdx < 0) {
         setSelected({ categoryId, menuId: selected.menuId });
+        return;
       }
+      const _page = 1 + Math.floor(menuItemIdx / 9);
+      const targetId = _getTargetId(page, _page, menuItems);
+      setSelected({ categoryId, menuId: menuItem.id });
+      setX(categoryId);
+      setY(targetId);
+      setPage(_page);
+    },
+    [menuItems, page, selected],
+  );
+
+  const gotoPage = useCallback(
+    (_page: number) => {
+      const menuItem = _getFirstItemOfPage(menuItems, _page);
+      const targetId = _getTargetId(page, _page, menuItems);
+      setSelected({ categoryId: menuItem.categoryId, menuId: menuItem.id });
+      setX(menuItem.categoryId);
+      setY(targetId);
+      setPage(_page);
+    },
+    [menuItems, page],
+  );
+
+  const selectMenuItem = useCallback(
+    (menuId: string) => {
+      const menuItem = menuItems.find((el) => el.id === menuId);
+      const categoryId = menuItem?.categoryId || selected.categoryId;
+      setSelected({ categoryId, menuId });
+      setX(categoryId);
+      setY(menuId);
     },
     [menuItems, selected],
   );
@@ -129,7 +154,7 @@ const TopMenu = () => {
     (column: number) => {
       const debug = true;
       if (debug) return;
-      if (updatedAt + 1000 > Date.now()) return;
+      if (scrollAt + 1000 > Date.now()) return;
       if (column === prevColumn) return;
       setPrevColumn(column);
       const menuItem = menuItems[column * 3 - 3];
@@ -138,28 +163,7 @@ const TopMenu = () => {
       }
       setPage(Math.floor(column / 3) + 1);
     },
-    [menuItems, prevColumn, updatedAt],
-  );
-
-  const gotoPage = useCallback(
-    (_page: number) => {
-      const menuItem = menuItems[(_page - 1) * 9];
-      const targetId = page > _page ? menuItem.id : menuItems[(_page - 1) * 9 + 8].id;
-      setSelected({ categoryId: menuItem.categoryId, menuId: menuItem.id });
-      setY(targetId);
-      // setUpdatedAt(Date.now());
-      setPage(_page);
-    },
-    [menuItems, page],
-  );
-
-  const selectMenuItem = useCallback(
-    (id: string) => {
-      const menuItem = menuItems.find((el) => el.id === id);
-      console.log("selectMenuItem", menuItem);
-      menuItem?.categoryId && setY(id);
-    },
-    [menuItems],
+    [menuItems, prevColumn, scrollAt],
   );
 
   useEffect(() => {
@@ -199,23 +203,15 @@ const TopMenu = () => {
 
   useEffect(() => {
     if (y) {
-      setUpdatedAt(Date.now());
+      setScrollAt(Date.now());
       scroll(`menu-item.${y}`);
-      if (selected.menuId !== y) {
-        setSelected({ categoryId: selected.categoryId, menuId: y });
-      }
     }
   }, [selected, y]);
 
   useEffect(() => {
     if (x) {
-      // console.log("x", x);
-      if (selected.categoryId !== x) {
-        setUpdatedAt(Date.now());
-        setSelected({ categoryId: x, menuId: selected.menuId });
-        // console.log("scroll...", x);
-        scroll(`category-item.${x}`);
-      }
+      setScrollAt(Date.now());
+      scroll(`category-item.${x}`);
     }
   }, [selected, x]);
 
@@ -299,4 +295,24 @@ function _build(items: Menu[]) {
     swap(_items, 5 + i, 7 + i);
   }
   return _items;
+}
+
+function _getFirstMenuItem(categoryId: string, menuItems: Menu[]) {
+  const menuItemIdx = menuItems.findIndex((el) => el.categoryId === categoryId);
+  const menuItem = menuItems[menuItemIdx];
+  return { menuItemIdx, menuItem };
+};
+
+function _getFirstItemOfPage (menuItems: Menu[], page: number) {
+  return menuItems[(page - 1) * 9];
+}
+
+function _getLastItemOfPage (menuItems: Menu[], page: number) {
+  return menuItems[(page - 1) * 9 + 8];
+}
+
+function _getTargetId (currentPage: number, targetPage: number, menuItems: Menu[]) {
+  return currentPage > targetPage
+    ? _getFirstItemOfPage(menuItems, targetPage).id
+    : _getLastItemOfPage(menuItems, targetPage).id;
 }

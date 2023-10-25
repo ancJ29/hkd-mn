@@ -12,7 +12,7 @@ export default {
   menuAction: {
     fontSize: "24px",
     fontWeight: 700,
-    background: "#bd4037",
+    background: "#cc342c",
     color: "white",
   },
   menuDetail: {
