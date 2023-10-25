@@ -4,7 +4,7 @@ const ConfirmModal = ({ opened, onClose }: { opened: boolean; onClose: () => voi
   return (
     <Modal centered opened={opened} onClose={onClose} withCloseButton={false} p='none'>
       <Center style={{ position: "relative" }}>
-        <Image src='/images/ordered.svg' />
+        <Image src='/images/ordered.png' />
         <Image
           onClick={onClose}
           h={25}
