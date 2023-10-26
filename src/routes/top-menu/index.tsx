@@ -160,7 +160,7 @@ const TopMenu = () => {
       const menuItem = menuItems[column * 3 - 3];
       setPage(Math.floor(column / 3) + 1);
       if (menuItem.categoryId) {
-        setSelected({ categoryId: menuItem.categoryId, menuId: selected.id });
+        setSelected({ categoryId: menuItem.categoryId, menuId: selected.menuId });
         setX(menuItem.categoryId);
       }
     },
@@ -218,7 +218,7 @@ const TopMenu = () => {
 
   const debug = false;
   return (
-    <Flex direction='column' h='100vh' justify='flex-start' align='flex-center' p={2}>
+    <Flex direction='column' h='100vh' justify='flex-start' align='flex-center' p={2} style={{ overflow: "auto" }}>
       <Box id='TOP' h={1}>
         &nbsp;
       </Box>
@@ -303,17 +303,17 @@ function _getFirstMenuItem(categoryId: string, menuItems: Menu[]) {
   const menuItemIdx = menuItems.findIndex((el) => el.categoryId === categoryId);
   const menuItem = menuItems[menuItemIdx];
   return { menuItemIdx, menuItem };
-};
+}
 
-function _getFirstItemOfPage (menuItems: Menu[], page: number) {
+function _getFirstItemOfPage(menuItems: Menu[], page: number) {
   return menuItems[(page - 1) * 9];
 }
 
-function _getLastItemOfPage (menuItems: Menu[], page: number) {
+function _getLastItemOfPage(menuItems: Menu[], page: number) {
   return menuItems[(page - 1) * 9 + 8];
 }
 
-function _getTargetId (currentPage: number, targetPage: number, menuItems: Menu[]) {
+function _getTargetId(currentPage: number, targetPage: number, menuItems: Menu[]) {
   return currentPage > targetPage
     ? _getFirstItemOfPage(menuItems, targetPage).id
     : _getLastItemOfPage(menuItems, targetPage).id;

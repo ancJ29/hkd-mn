@@ -28,7 +28,7 @@ const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
           w='33.3vw'
           radius='md'
           style={{
-            border: active ? "solid 4px #f00" : "solid 1px #7A7C7F",
+            border: src ? (active ? "solid 4px #f00" : "solid 1px #7A7C7F") : "none",
             cursor: "pointer",
           }}
           onClick={() => onSelect && onSelect(menuItem.id)}
