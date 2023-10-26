@@ -34,11 +34,13 @@ const CartModal = ({ cart, opened, onClose }: { cart: Cart; opened: boolean; onC
               <br />
               <Text fw={800}>Tên món</Text>
             </Text>
-            <Flex w='30%' justify='right'>
+            <Flex w='30%' justify='right' pr={12}>
               <Text component='div' style={config.cartModal.rowText}>
                 お会計
                 <br />
-                <Text fw={800}>Thành Tiền</Text>
+                <Text fw={800} style={config.cartModal.rowText}>
+                  Thành Tiền
+                </Text>
               </Text>
             </Flex>
           </Flex>

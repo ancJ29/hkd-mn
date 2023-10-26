@@ -33,7 +33,7 @@ export default {
       padding: ".5rem .1rem",
     },
     rowText: {
-      fontSize: "1rem",
+      fontSize: "0.9rem",
     },
   },
 };
