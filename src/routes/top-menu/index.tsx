@@ -152,18 +152,19 @@ const TopMenu = () => {
 
   const updateCategoryByColumn = useCallback(
     (column: number) => {
-      const debug = true;
-      if (debug) return;
+      const debug = false;
+      if (!debug) return;
       if (scrollAt + 1000 > Date.now()) return;
       if (column === prevColumn) return;
       setPrevColumn(column);
       const menuItem = menuItems[column * 3 - 3];
+      setPage(Math.floor(column / 3) + 1);
       if (menuItem.categoryId) {
+        setSelected({ categoryId: menuItem.categoryId, menuId: selected.id });
         setX(menuItem.categoryId);
       }
-      setPage(Math.floor(column / 3) + 1);
     },
-    [menuItems, prevColumn, scrollAt],
+    [menuItems, prevColumn, scrollAt, selected],
   );
 
   useEffect(() => {
@@ -224,6 +225,7 @@ const TopMenu = () => {
       <CategoryBand categories={categories} selectedId={selected.categoryId} onSelect={selectCategory} />
       {!debug && (
         <MenuList
+          key={menuItems.length}
           page={page}
           lastPage={lastPage}
           menuItems={menuItems}

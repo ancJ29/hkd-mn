@@ -39,7 +39,7 @@ const MenuList = ({
       if (Math.abs(scrollPosition.x - x) < 100) {
         return;
       }
-      onScrollToColumn(Math.floor((scrollPosition.x * 3) / window.innerWidth) + 1);
+      onScrollToColumn(Math.ceil((scrollPosition.x * 3) / window.innerWidth) + 1);
       setX(scrollPosition.x);
     },
     [onScrollToColumn, x],

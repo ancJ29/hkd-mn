@@ -56,7 +56,7 @@ export const menuItems = Array.from({ length: categories.length * 20 }, (): Menu
     category = categories[1];
   }
   const order = category.order * 1e6 + menuItemOrder;
-  const color = colors[category.id];
+  // const color = colors[category.id];
   const id = _uuid();
   return {
     id: id,
@@ -67,8 +67,8 @@ export const menuItems = Array.from({ length: categories.length * 20 }, (): Menu
     price: _int({ min: 50, max: 200 }) * 1e3,
     inventory: 1,
     base64SmallImage: "",
-    smallImage: `http://via.placeholder.com/356x262/${color}`,
-    image: `http://via.placeholder.com/712x524/${color}`,
+    smallImage: `/images/assets/a_${counter % 9}.png`,
+    image: `/images/assets/a_${counter % 9}.png`,
     categoryId: category.id,
   };
 });
