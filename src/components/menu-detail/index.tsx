@@ -9,6 +9,7 @@ const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
         inherit
         ml={4}
         style={{
+          textShadow: "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
           position: "absolute",
           bottom: "4px",
           ...config.menuDetail.name,
