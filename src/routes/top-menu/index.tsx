@@ -106,7 +106,6 @@ const TopMenu = () => {
     [toggleCart, toggleConfirm],
   );
 
-  // done!!!
   const selectCategory = useCallback(
     (categoryId: string) => {
       if (selected.categoryId === categoryId) {
@@ -218,7 +217,14 @@ const TopMenu = () => {
 
   const debug = false;
   return (
-    <Flex direction='column' h='100vh' justify='flex-start' align='flex-center' p={2} style={{ overflow: "auto" }}>
+    <Flex
+      direction='column'
+      h='100dvh'
+      justify='flex-start'
+      align='flex-center'
+      p={2}
+      style={{ overflow: "auto" }}
+    >
       <Box id='TOP' h={1}>
         &nbsp;
       </Box>

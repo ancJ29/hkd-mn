@@ -1,42 +1,32 @@
-import config from "@/configs/custom";
-import { Center, Text } from "@mantine/core";
+import { Center, Image } from "@mantine/core";
 import { useMemo } from "react";
 
 type CategoryItemProps = {
-  id: string;
   name: string;
-  secondaryName: string;
   active?: boolean;
-  onSelect?: (id: string) => void;
+  onClick?: () => void;
 };
 
-const CategoryItem = ({ id, active, name, secondaryName, onSelect }: CategoryItemProps) => {
-  const style = useMemo(
-    () => ({
-      ...config.categoryItem,
-      ...(active ? config.activeCategoryItem : {}),
-    }),
-    [active],
+const CategoryItem = ({ active, name, onClick }: CategoryItemProps) => {
+  const url = useMemo(
+    () => {
+      if (active) {
+        return `/images/category/active/${name.toUpperCase()}.svg`;
+      }
+      return `/images/category/inactive/${name.toUpperCase()}.svg`;
+    },
+    [active, name],
   );
 
   return (
     <Center
-      id={`category-item.${id}`}
       w='15vw'
       ta='center'
       m={2}
       lh={"xs"}
-      style={style}
-      onClick={() => onSelect && onSelect(id)}
+      onClick={onClick}
     >
-      <Text component='div'>
-        <Text component='div' style={{ fontSize: ".7rem" }}>
-          {secondaryName.toUpperCase()}
-        </Text>
-        <Text component='div' style={{ fontSize: ".6rem", fontWeight: "600" }}>
-          {name.toUpperCase()}
-        </Text>
-      </Text>
+      <Image src={url}/>
     </Center>
   );
 };

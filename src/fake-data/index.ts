@@ -13,7 +13,7 @@ const colors: Record<string, string> = {};
 /* cspell:disable  */
 export const categories = (
   [
-    ["DRINKS", "ドリンク"],
+    ["DRINK", "ドリンク"],
     ["SASHIMI", "刺身"],
     ["SALAD", "サラダ"],
     ["TSUKIDASHI", "突き出し"],
