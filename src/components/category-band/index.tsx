@@ -16,7 +16,6 @@ type CategoryBandProps = {
 };
 
 const CategoryBand = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   categories,
   selectedId,
   onSelect,
@@ -27,11 +26,9 @@ const CategoryBand = ({
         return (
           <CategoryItem
             key={item.id}
-            id={item.id}
             name={item.name}
-            secondaryName={item.secondaryName}
             active={selectedId === item.id}
-            onSelect={onSelect}
+            onClick={() => onSelect && onSelect(item.id)}
           />
         );
       })}

@@ -57,7 +57,7 @@ export async function getBillDetail(table: string, bill: string) {
     cache: true,
   });
   // eslint-disable-next-line no-console
-  console.log(data);
+  // console.log(data);
   return data;
 }
 
