@@ -22,7 +22,7 @@ const CategoryItem = ({ id, active, name, secondaryName, onSelect }: CategoryIte
   return (
     <Center
       id={`category-item.${id}`}
-      w='24vw'
+      w='15vw'
       ta='center'
       m={2}
       lh={"xs"}
@@ -33,7 +33,7 @@ const CategoryItem = ({ id, active, name, secondaryName, onSelect }: CategoryIte
         <Text component='div' style={{ fontSize: ".7rem" }}>
           {secondaryName.toUpperCase()}
         </Text>
-        <Text component='div' style={{ fontSize: ".8rem", fontWeight: "600" }}>
+        <Text component='div' style={{ fontSize: ".6rem", fontWeight: "600" }}>
           {name.toUpperCase()}
         </Text>
       </Text>

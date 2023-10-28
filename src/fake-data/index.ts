@@ -21,10 +21,9 @@ export const categories = (
     ["MAKI SUSHI", "巻き寿司"],
     ["ROLL", "ロール"],
     ["NABE", "鍋"],
-    ["WAGYU", "和牛"],
+    ["WAGYU +", "和牛 +"],
     ["SPECIAL SET", "スペシャルセット"],
-    ["GOHAN", "ご飯"],
-    ["NOODLE", "麺"],
+    ["OTHERS", "その他"],
     ["DESSERT", "デザート"],
   ] as [string, string][]
 ).map(([name, secondaryName]: [string, string], index: number) => {

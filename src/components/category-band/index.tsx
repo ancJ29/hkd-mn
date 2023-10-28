@@ -1,6 +1,6 @@
 import CategoryItem from "@/components/category-item";
 import { Category } from "@/types";
-import { Box, ScrollArea } from "@mantine/core";
+import { Box } from "@mantine/core";
 
 const boxStyle = {
   display: "grid",
@@ -22,22 +22,20 @@ const CategoryBand = ({
   onSelect,
 }: CategoryBandProps) => {
   return (
-    <ScrollArea scrollbarSize={0} type='auto'>
-      <Box style={boxStyle} key={selectedId}>
-        {categories.map((item: Category) => {
-          return (
-            <CategoryItem
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              secondaryName={item.secondaryName}
-              active={selectedId === item.id}
-              onSelect={onSelect}
-            />
-          );
-        })}
-      </Box>
-    </ScrollArea>
+    <Box style={boxStyle} key={selectedId}>
+      {categories.map((item: Category) => {
+        return (
+          <CategoryItem
+            key={item.id}
+            id={item.id}
+            name={item.name}
+            secondaryName={item.secondaryName}
+            active={selectedId === item.id}
+            onSelect={onSelect}
+          />
+        );
+      })}
+    </Box>
   );
 };
 

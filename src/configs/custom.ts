@@ -2,7 +2,6 @@ export default {
   categoryItem: {
     color: "#fff",
     background: "#1f1f1f",
-    borderRadius: "6px",
     padding: ".1rem .2rem",
     border: "solid 1px #7A7C7F",
   },
