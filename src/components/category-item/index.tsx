@@ -8,25 +8,16 @@ type CategoryItemProps = {
 };
 
 const CategoryItem = ({ active, name, onClick }: CategoryItemProps) => {
-  const url = useMemo(
-    () => {
-      if (active) {
-        return `/images/category/active/${name.toUpperCase()}.svg`;
-      }
-      return `/images/category/inactive/${name.toUpperCase()}.svg`;
-    },
-    [active, name],
-  );
+  const url = useMemo(() => {
+    if (active) {
+      return `/images/categories/active/${name.toUpperCase()}.svg`;
+    }
+    return `/images/categories/inactive/${name.toUpperCase()}.svg`;
+  }, [active, name]);
 
   return (
-    <Center
-      w='15vw'
-      ta='center'
-      m={2}
-      lh={"xs"}
-      onClick={onClick}
-    >
-      <Image src={url}/>
+    <Center w='15vw' ta='center' m={2} lh={"xs"} onClick={onClick}>
+      <Image src={url} />
     </Center>
   );
 };

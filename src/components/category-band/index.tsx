@@ -15,11 +15,7 @@ type CategoryBandProps = {
   onSelect?: (id: string) => void;
 };
 
-const CategoryBand = ({
-  categories,
-  selectedId,
-  onSelect,
-}: CategoryBandProps) => {
+const CategoryBand = ({ categories, selectedId, onSelect }: CategoryBandProps) => {
   return (
     <Box style={boxStyle} key={selectedId}>
       {categories.map((item: Category) => {

@@ -16,12 +16,16 @@ export default {
   },
   menuDetail: {
     name: {
+      color: "white",
       fontWeight: "bold",
       fontSize: "18px",
+      textShadow: "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
     },
     price: {
+      color: "white",
       fontWeight: 800,
       fontSize: "30px",
+      textShadow: " 2px 2px 4px #000000",
     },
   },
   cartModal: {

@@ -1,40 +1,42 @@
 import config from "@/configs/custom";
 import { Menu } from "@/types";
-import { Image, Paper, Text } from "@mantine/core";
+import { Image, Text } from "@mantine/core";
 const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
   return (
-    <Paper bg='transparent' style={{ position: "relative" }}>
-      <Image mt='4px' h={"25vh"} src={menuItem?.image || "http://via.placeholder.com/712x524"} />
-      <Text
-        inherit
-        ml={4}
-        style={{
-          textShadow: "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
-          position: "absolute",
-          bottom: "4px",
-          ...config.menuDetail.name,
-        }}
-        c={"white"}
-      >
-        {menuItem?.foreignName}
-        <br />
-        {menuItem?.name}
-      </Text>
-      <Text
-        inherit
-        mr={4}
-        style={{
-          textShadow: " 2px 2px 4px #000000",
-          position: "absolute",
-          bottom: "4px",
-          right: "4px",
-          ...config.menuDetail.price,
-        }}
-        c={"white"}
-      >
-        {menuItem?.price?.toLocaleString().replace(/,/g, ".")}đ
-      </Text>
-    </Paper>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        overflow: "scroll",
+        position: "relative",
+        // display: "flex",
+        // flexDirection: "column",
+        // alignItems: "center",
+        // justifyContent: "center",
+      }}
+    >
+      <Image
+        my='auto'
+        src={menuItem?.image}
+        fallbackSrc='http://via.placeholder.com/712x524'
+      />
+      <div style={{ position: "sticky", bottom: "0" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Text style={config.menuDetail.name}>
+            {menuItem?.foreignName}
+            <br />
+            {menuItem?.name}
+          </Text>
+          <Text style={config.menuDetail.price}>{menuItem?.price?.toLocaleString().replace(/,/g, ".")}đ</Text>
+        </div>
+      </div>
+    </div>
   );
 };
 

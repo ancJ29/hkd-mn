@@ -1,7 +1,12 @@
 html,
 body,
 label {
+  font-family: "Noto Sans", sans-serif;
+}
+
+body {
+  height: 100dvh;
+  overflow: hidden;
   background-image: url("/images/bg.png");
   background-repeat: repeat-y;
-  font-family: "Noto Sans", sans-serif;
 }
