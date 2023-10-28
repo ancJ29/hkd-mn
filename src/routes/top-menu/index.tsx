@@ -9,7 +9,7 @@ import MenuNavigation from "@/components/menu-navigation";
 import ViewOrderModal from "@/components/view-order-modal";
 import { getCategories, getMenuItems, order } from "@/services/menu";
 import { Cart, Category, Menu } from "@/types";
-import { cloneCart, scroll, swap } from "@/utils";
+import { cloneCart, swap } from "@/utils";
 import { useToggle } from "@mantine/hooks";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -158,6 +158,7 @@ const TopMenu = () => {
           categoryId: selected.categoryId || items[0].categoryId,
           menuId: _items[0].id,
         });
+        setScrollTarget(_items[0].id);
         setCart({
           items: items.slice(0, 10).map((item) => ({
             menuId: item.id,
@@ -172,10 +173,6 @@ const TopMenu = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    scrollTarget && scroll(`menu-item.${scrollTarget}`);
-  }, [scrollTarget]);
-  const debug = true;
   return (
     <div style={{ height: "100dvh", display: "flex", flexDirection: "column" }}>
       <CategoryBand categories={categories} selectedId={selected.categoryId} onSelect={selectCategory} />
@@ -184,6 +181,7 @@ const TopMenu = () => {
         page={page}
         lastPage={lastPage}
         menuItems={menuItems}
+        scrollTarget={scrollTarget}
         selectedMenuItemId={selected.menuId}
         onSelect={selectMenuItem}
         onNextPage={() => gotoPage(Math.min(page + 1, lastPage))}
@@ -199,7 +197,7 @@ const TopMenu = () => {
       >
         <MenuDetail menuItem={selectedMenuItem} />
       </div>
-      {debug && (
+      {!isPlaceOrder && (
         <MenuAction
           onAdd={isPlaceOrder ? toggleConfirm : addToCart}
           onRemove={isPlaceOrder ? toggleConfirm : removeFromCart}
