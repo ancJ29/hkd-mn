@@ -23,17 +23,3 @@ export function swap<T>(arr: T[], a: number, b: number) {
     arr[b] = tmp;
   }
 }
-
-export function scroll(id: string, options?: ScrollIntoViewOptions) {
-  const el = document.getElementById(id);
-  if (el) {
-    el.scrollIntoView(
-      options || {
-        behavior: "smooth",
-        block: "start",
-        inline: "nearest",
-      },
-    );
-    window.scrollBy(0, -10);
-  }
-}

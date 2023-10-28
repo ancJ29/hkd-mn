@@ -1,15 +1,25 @@
 /* eslint-disable no-console */
 import { Menu } from "@/types";
 import { Box, Image } from "@mantine/core";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 type MenuItemProps = {
   menuItem: Menu;
   active?: boolean;
+  isScrollTarget?: boolean;
   onSelect?: (id: string) => void;
 };
 
-const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
+const MenuItem = ({ active, menuItem, isScrollTarget, onSelect }: MenuItemProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    isScrollTarget && ref.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
+  }, [isScrollTarget]);
+
   const src = useMemo(() => {
     if (!menuItem.categoryId) {
       return "";
@@ -20,7 +30,7 @@ const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
     return menuItem.smallImage || "http://via.placeholder.com/356x262";
   }, [menuItem]);
   return (
-    <Box w='33vw' id={`menu-item.${menuItem.id}`}>
+    <Box w='33vw' id={`menu-item.${menuItem.id}`} ref={ref}>
       <Image
         bg='#ddd'
         w='33.3vw'
