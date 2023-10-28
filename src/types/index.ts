@@ -32,24 +32,6 @@ export const menuSchema = z
     };
   });
 
-/* cspell:disable  */
-const secondaryNames: Record<string, string> = {
-  DRINK: "ドリンク",
-  SASHIMI: "刺身",
-  SALAD: "サラダ",
-  TSUKIDASHI: "突き出し",
-  SUSHI: "寿司",
-  "MAKI SUSHI": "巻き寿司",
-  ROLL: "ロール",
-  NABE: "鍋",
-  WAGYU: "和牛",
-  SPECIAL: "スペシャルセット",
-  GOHAN: "ご飯",
-  NOODLE: "麺",
-  DESSERT: "デザート",
-};
-/* cspell:enable  */
-
 export const categorySchema = z
   .object({
     idx: z.number(),
@@ -68,7 +50,6 @@ export const categorySchema = z
       id: data.groupindex.toString(),
       name: data.grpname || "--",
       order: data.groupindex,
-      secondaryName: secondaryNames[data.grpname] || "--",
     };
   });
 
