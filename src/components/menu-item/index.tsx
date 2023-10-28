@@ -10,7 +10,6 @@ type MenuItemProps = {
 };
 
 const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
-  const debug = true;
   const src = useMemo(() => {
     if (!menuItem.categoryId) {
       return "";
@@ -22,19 +21,17 @@ const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
   }, [menuItem]);
   return (
     <Box w='33vw' id={`menu-item.${menuItem.id}`}>
-      {debug && (
-        <Image
-          bg='#ddd'
-          w='33.3vw'
-          radius='md'
-          style={{
-            border: src ? (active ? "solid 4px #f00" : "solid 1px #7A7C7F") : "none",
-            cursor: "pointer",
-          }}
-          onClick={() => onSelect && onSelect(menuItem.id)}
-          src={src}
-        />
-      )}
+      <Image
+        bg='#ddd'
+        w='33.3vw'
+        radius='md'
+        style={{
+          border: src ? (active ? "solid 4px #f00" : "solid 1px #7A7C7F") : "none",
+          cursor: "pointer",
+        }}
+        onClick={() => onSelect && onSelect(menuItem.id)}
+        src={src}
+      />
     </Box>
   );
 };

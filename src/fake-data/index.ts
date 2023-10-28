@@ -11,7 +11,7 @@ const _arrayElement = faker.helpers.arrayElement;
 
 const colors: Record<string, string> = {};
 /* cspell:disable  */
-export const categories = ([
+export const categories = [
   "DRINK",
   "SASHIMI",
   "SALAD",
@@ -24,7 +24,7 @@ export const categories = ([
   "SPECIAL SET",
   "OTHERS",
   "DESSERT",
-]).map((name: string, index: number) => {
+].map((name: string, index: number) => {
   /* cspell:enable  */
   const id = (index + 1).toString();
   colors[id] = faker.color.rgb().replace("#", "");

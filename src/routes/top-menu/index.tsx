@@ -10,7 +10,6 @@ import ViewOrderModal from "@/components/view-order-modal";
 import { getCategories, getMenuItems, order } from "@/services/menu";
 import { Cart, Category, Menu } from "@/types";
 import { cloneCart, scroll, swap } from "@/utils";
-import { Box, Flex } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -29,10 +28,7 @@ const blankMenuItem: Menu = {
 };
 
 const TopMenu = () => {
-  const [x, setX] = useState("");
-  const [y, setY] = useState("");
-  const [prevColumn, setPrevColumn] = useState(0);
-  const [scrollAt, setScrollAt] = useState(Date.now());
+  const [scrollTarget, setScrollTarget] = useState("");
   const [page, setPage] = useState<number>(1);
   const [categories, setCategory] = useState<Category[]>([]);
   const [menuItems, setMenuItems] = useState<Menu[]>([]);
@@ -119,8 +115,7 @@ const TopMenu = () => {
       const _page = 1 + Math.floor(menuItemIdx / 9);
       const targetId = _getTargetId(page, _page, menuItems);
       setSelected({ categoryId, menuId: menuItem.id });
-      setX(categoryId);
-      setY(targetId);
+      setScrollTarget(targetId);
       setPage(_page);
     },
     [menuItems, page, selected],
@@ -131,8 +126,7 @@ const TopMenu = () => {
       const menuItem = _getFirstItemOfPage(menuItems, _page);
       const targetId = _getTargetId(page, _page, menuItems);
       setSelected({ categoryId: menuItem.categoryId, menuId: menuItem.id });
-      setX(menuItem.categoryId);
-      setY(targetId);
+      setScrollTarget(targetId);
       setPage(_page);
     },
     [menuItems, page],
@@ -143,37 +137,14 @@ const TopMenu = () => {
       const menuItem = menuItems.find((el) => el.id === menuId);
       const categoryId = menuItem?.categoryId || selected.categoryId;
       setSelected({ categoryId, menuId });
-      setX(categoryId);
-      setY(menuId);
+      setScrollTarget(menuId);
     },
     [menuItems, selected],
-  );
-
-  const updateCategoryByColumn = useCallback(
-    (column: number) => {
-      const debug = false;
-      if (!debug) return;
-      if (scrollAt + 1000 > Date.now()) return;
-      if (column === prevColumn) return;
-      setPrevColumn(column);
-      const menuItem = menuItems[column * 3 - 3];
-      setPage(Math.floor(column / 3) + 1);
-      if (menuItem.categoryId) {
-        setSelected({ categoryId: menuItem.categoryId, menuId: selected.menuId });
-        setX(menuItem.categoryId);
-      }
-    },
-    [menuItems, prevColumn, scrollAt, selected],
   );
 
   useEffect(() => {
     getMenuItems().then((items) => {
       getCategories().then((categories: Category[]) => {
-        // console.log("categories", categories);
-        // console.log(
-        //   "menuIds",
-        //   items.map((el) => el.id),
-        // );
         setCategory(categories);
         categories.sort((a, b) => a.order - b.order);
         setSelected({
@@ -202,51 +173,38 @@ const TopMenu = () => {
   }, []);
 
   useEffect(() => {
-    if (y) {
-      setScrollAt(Date.now());
-      scroll(`menu-item.${y}`);
-    }
-  }, [selected, y]);
-
-  useEffect(() => {
-    if (x) {
-      setScrollAt(Date.now());
-      scroll(`category-item.${x}`);
-    }
-  }, [selected, x]);
-
-  const debug = false;
+    scrollTarget && scroll(`menu-item.${scrollTarget}`);
+  }, [scrollTarget]);
+  const debug = true;
   return (
-    <Flex
-      direction='column'
-      h='100dvh'
-      justify='flex-start'
-      align='flex-center'
-      p={2}
-      style={{ overflow: "auto" }}
-    >
-      <Box id='TOP' h={1}>
-        &nbsp;
-      </Box>
+    <div style={{ height: "100dvh", display: "flex", flexDirection: "column" }}>
       <CategoryBand categories={categories} selectedId={selected.categoryId} onSelect={selectCategory} />
-      {!debug && (
-        <MenuList
-          key={menuItems.length}
-          page={page}
-          lastPage={lastPage}
-          menuItems={menuItems}
-          onScrollToColumn={updateCategoryByColumn}
-          selectedMenuItemId={selected.menuId}
-          onSelect={selectMenuItem}
-          onNextPage={() => gotoPage(Math.min(page + 1, lastPage))}
-          onPrevPage={() => gotoPage(Math.max(page - 1, 1))}
+      <MenuList
+        key={menuItems.length}
+        page={page}
+        lastPage={lastPage}
+        menuItems={menuItems}
+        selectedMenuItemId={selected.menuId}
+        onSelect={selectMenuItem}
+        onNextPage={() => gotoPage(Math.min(page + 1, lastPage))}
+        onPrevPage={() => gotoPage(Math.max(page - 1, 1))}
+      />
+      <div
+        style={{
+          // TODO: fix this using mantine
+          flexGrow: 1,
+          display: "flex",
+          overflow: "hidden",
+        }}
+      >
+        <MenuDetail menuItem={selectedMenuItem} />
+      </div>
+      {debug && (
+        <MenuAction
+          onAdd={isPlaceOrder ? toggleConfirm : addToCart}
+          onRemove={isPlaceOrder ? toggleConfirm : removeFromCart}
         />
       )}
-      <MenuDetail menuItem={selectedMenuItem} />
-      <MenuAction
-        onAdd={isPlaceOrder ? toggleConfirm : addToCart}
-        onRemove={isPlaceOrder ? toggleConfirm : removeFromCart}
-      />
       <MenuNavigation
         isPlaceOrder={isPlaceOrder}
         onOrder={isPlaceOrder ? toggleConfirm : toggleCart}
@@ -261,7 +219,7 @@ const TopMenu = () => {
         onOrder={placeOrder}
         onSave={updateCartItems}
       />
-    </Flex>
+    </div>
   );
 };
 
