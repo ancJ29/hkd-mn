@@ -9,9 +9,11 @@ import MenuNavigation from "@/components/menu-navigation";
 import ViewOrderModal from "@/components/view-order-modal";
 import { getCategories, getMenuItems, order } from "@/services/menu";
 import { Cart, Category, Menu } from "@/types";
-import { cloneCart, swap } from "@/utils";
+import { cloneCart, scroll, swap } from "@/utils";
+import { Box, Center } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import ReactLoading from "react-loading";
 
 const blankMenuItem: Menu = {
   id: "",
@@ -158,7 +160,6 @@ const TopMenu = () => {
           categoryId: selected.categoryId || items[0].categoryId,
           menuId: _items[0].id,
         });
-        setScrollTarget(_items[0].id);
         setCart({
           items: items.slice(0, 10).map((item) => ({
             menuId: item.id,
@@ -173,6 +174,24 @@ const TopMenu = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    scrollTarget && scroll(`menu-item.${scrollTarget}`);
+  }, [scrollTarget]);
+
+  if (categories.length < 1) {
+    return (
+      <Box h="100dvh" w="100vw">
+        <Center h="100%">
+          <ReactLoading
+            type="bubbles"
+            height={100}
+            width={100}
+            color="#cc342c"
+          />
+        </Center>
+      </Box>
+    );
+  }
   return (
     <div style={{ height: "100dvh", display: "flex", flexDirection: "column" }}>
       <CategoryBand categories={categories} selectedId={selected.categoryId} onSelect={selectCategory} />
@@ -181,7 +200,6 @@ const TopMenu = () => {
         page={page}
         lastPage={lastPage}
         menuItems={menuItems}
-        scrollTarget={scrollTarget}
         selectedMenuItemId={selected.menuId}
         onSelect={selectMenuItem}
         onNextPage={() => gotoPage(Math.min(page + 1, lastPage))}

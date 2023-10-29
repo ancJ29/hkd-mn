@@ -14,7 +14,6 @@ const boxStyle = {
 type MenuListProps = {
   page: number;
   lastPage: number;
-  scrollTarget: string;
   selectedMenuItemId: string;
   menuItems: Menu[];
   onPrevPage: () => void;
@@ -27,7 +26,6 @@ const MenuList = ({
   menuItems,
   page,
   lastPage,
-  scrollTarget,
   onPrevPage,
   onNextPage,
   onSelect,
@@ -41,7 +39,6 @@ const MenuList = ({
           {menuItems.map((menuItem) => {
             return (
               <MenuItem
-                isScrollTarget={menuItem.id === scrollTarget}
                 key={menuItem.id}
                 menuItem={menuItem}
                 active={menuItem.id === selectedMenuItemId}

@@ -13,8 +13,15 @@ export async function getCategories(): Promise<Category[]> {
   return categories;
 }
 
+function _delay (ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export async function getMenuItems(): Promise<Menu[]> {
-  if (FAKE) return _menuItems;
+  if (FAKE) {
+    await _delay(1000);
+    return _menuItems;
+  }
   if (menuItems.length > 0) {
     return menuItems;
   }
