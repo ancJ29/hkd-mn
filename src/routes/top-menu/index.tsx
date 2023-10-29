@@ -180,14 +180,9 @@ const TopMenu = () => {
 
   if (categories.length < 1) {
     return (
-      <Box h="100dvh" w="100vw">
-        <Center h="100%">
-          <ReactLoading
-            type="bubbles"
-            height={100}
-            width={100}
-            color="#cc342c"
-          />
+      <Box h='100dvh' w='100vw'>
+        <Center h='100%'>
+          <ReactLoading type='bubbles' height={100} width={100} color='#cc342c' />
         </Center>
       </Box>
     );

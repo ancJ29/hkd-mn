@@ -15,11 +15,7 @@ const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
         // justifyContent: "center",
       }}
     >
-      <Image
-        my='auto'
-        src={menuItem?.image}
-        fallbackSrc='http://via.placeholder.com/712x524'
-      />
+      <Image my='auto' src={menuItem?.image} fallbackSrc='http://via.placeholder.com/712x524' />
       <div style={{ position: "sticky", bottom: "0" }}>
         <div
           style={{
