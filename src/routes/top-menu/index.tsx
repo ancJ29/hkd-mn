@@ -210,12 +210,10 @@ const TopMenu = () => {
       >
         <MenuDetail menuItem={selectedMenuItem} />
       </div>
-      {!isPlaceOrder && (
-        <MenuAction
-          onAdd={isPlaceOrder ? toggleConfirm : addToCart}
-          onRemove={isPlaceOrder ? toggleConfirm : removeFromCart}
-        />
-      )}
+      <MenuAction
+        onAdd={isPlaceOrder ? toggleConfirm : addToCart}
+        onRemove={isPlaceOrder ? toggleConfirm : removeFromCart}
+      />
       <MenuNavigation
         isPlaceOrder={isPlaceOrder}
         onOrder={isPlaceOrder ? toggleConfirm : toggleCart}
