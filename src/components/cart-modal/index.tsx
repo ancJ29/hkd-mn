@@ -22,17 +22,29 @@ const CartModal = ({
 }) => {
   const [cart, setCart] = useState<Cart>(cloneDeep(_cart));
 
-  const total = useMemo(
-    () =>
-      cart.items.reduce((total, item) => {
-        return total + item.quantity * item.menu.price;
-      }, 0),
-    [cart.items],
-  );
+  const subTotal = useMemo(() => {
+    if (cart.total) return cart.total;
+    return cart.items.reduce((total, item) => {
+      return total + item.quantity * item.menu.price;
+    }, 0);
+  }, [cart.items, cart.total]);
+
+  const vat = useMemo(() => {
+    if (cart.vat) return cart.vat;
+    return 0.1 * subTotal;
+  }, [subTotal, cart.vat]);
+
+  const total = useMemo(() => {
+    if (cart.total) return cart.total;
+    return subTotal + vat;
+  }, [vat, subTotal, cart.total]);
 
   const onIncrease = useCallback(
     (item: CartItem) => {
       item.quantity++;
+      cart.subTotal = Math.round(cart.total + item.menu.price);
+      cart.vat = Math.round(cart.vat + item.menu.price * 0.1);
+      cart.total = Math.round(cart.total + item.menu.price * 1.1);
       setCart(cloneCart(cart));
     },
     [cart],
@@ -40,7 +52,16 @@ const CartModal = ({
 
   const onDecrease = useCallback(
     (item: CartItem) => {
+      if (item.quantity === Math.max(item.quantity - 1, 0)) {
+        return;
+      }
       item.quantity = Math.max(item.quantity - 1, 0);
+      cart.subTotal = Math.round(cart.total - item.menu.price);
+      cart.vat = Math.round(cart.vat - item.menu.price * 0.1);
+      cart.total = Math.round(cart.total - item.menu.price * 1.1);
+      if (item.quantity === 0) {
+        cart.items = cart.items.filter((i) => i.menuId !== item.menuId);
+      }
       setCart(cloneCart(cart));
     },
     [cart],
@@ -126,7 +147,7 @@ const CartModal = ({
                   Thành Tiền:
                 </Text>
                 <Text w='40%' fz='1rem' fw={500} ta='right'>
-                  {toLocale(total)}
+                  {toLocale(subTotal)}
                 </Text>
               </Flex>
               <Flex mb={4}>
@@ -134,7 +155,7 @@ const CartModal = ({
                   VAT:
                 </Text>
                 <Text w='40%' fz='1rem' fw={500} ta='right'>
-                  {toLocale(0.1 * total)}
+                  {toLocale(vat)}
                 </Text>
               </Flex>
               <Flex>
@@ -142,7 +163,7 @@ const CartModal = ({
                   Tổng Thành Tiền:
                 </Text>
                 <Text w='40%' fz='1rem' fw={500} ta='right' c='#ca3a30'>
-                  {toLocale(1.1 * total)}
+                  {toLocale(total)}
                 </Text>
               </Flex>
             </Box>

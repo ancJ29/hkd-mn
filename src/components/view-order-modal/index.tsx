@@ -8,13 +8,22 @@ import { Box, Flex, Image, Modal, ScrollArea, Text } from "@mantine/core";
 import { useMemo } from "react";
 
 const CartModal = ({ cart, opened, onClose }: { cart: Cart; opened: boolean; onClose: () => void }) => {
-  const total = useMemo(
-    () =>
-      cart.items.reduce((total, item) => {
-        return total + item.quantity * item.menu.price;
-      }, 0),
-    [cart.items],
-  );
+  const subTotal = useMemo(() => {
+    if (cart.total) return cart.total;
+    return cart.items.reduce((total, item) => {
+      return total + item.quantity * item.menu.price;
+    }, 0);
+  }, [cart.items, cart.total]);
+
+  const vat = useMemo(() => {
+    if (cart.vat) return cart.vat;
+    return 0.1 * subTotal;
+  }, [subTotal, cart.vat]);
+
+  const total = useMemo(() => {
+    if (cart.total) return cart.total;
+    return subTotal + vat;
+  }, [vat, subTotal, cart.total]);
 
   return (
     <Modal centered size='lg' opened={opened} onClose={onClose} withCloseButton={false}>
@@ -84,7 +93,7 @@ const CartModal = ({ cart, opened, onClose }: { cart: Cart; opened: boolean; onC
                   Thành Tiền:
                 </Text>
                 <Text w='40%' fz='1.1rem' fw={500} ta='right'>
-                  {toLocale(total)}
+                  {toLocale(subTotal)}
                 </Text>
               </Flex>
               <Flex w={"100%"} mb={4}>
@@ -92,7 +101,7 @@ const CartModal = ({ cart, opened, onClose }: { cart: Cart; opened: boolean; onC
                   VAT:
                 </Text>
                 <Text w='40%' fz='1.1rem' fw={500} ta='right'>
-                  {toLocale(0.1 * total)}
+                  {toLocale(vat)}
                 </Text>
               </Flex>
               <Flex>
@@ -100,7 +109,7 @@ const CartModal = ({ cart, opened, onClose }: { cart: Cart; opened: boolean; onC
                   Tổng Thành Tiền:
                 </Text>
                 <Text w='40%' fz='1.1rem' fw={500} ta='right' c='#ca3a30'>
-                  {toLocale(1.1 * total)}
+                  {toLocale(total)}
                 </Text>
               </Flex>
             </Box>

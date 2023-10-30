@@ -15,7 +15,7 @@ const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
       return "";
     }
     if (menuItem.base64SmallImage) {
-      return `data:image/png;base64,${menuItem.smallImage}`;
+      return `data:image/png;base64,${menuItem.base64SmallImage}`;
     }
     return menuItem.smallImage || "http://via.placeholder.com/356x262";
   }, [menuItem]);
@@ -24,6 +24,7 @@ const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
       <Image
         bg='#ddd'
         w='33.3vw'
+        mah='15vh'
         radius='md'
         style={{
           border: src ? (active ? "solid 4px #f00" : "solid 1px #7A7C7F") : "none",

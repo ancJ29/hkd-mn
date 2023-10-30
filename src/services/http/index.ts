@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import isValidIP from "@/services/ip-checker";
 import logger from "@/services/logger";
 import axios from "axios";
@@ -15,13 +16,14 @@ export default async function callApi<T>({ method, path, data, defaultValue, cac
     logger.info(`API CALL from invalid IP: ${path}`);
     return defaultValue || undefined;
   }
-
+  // console.log("callApi", `${host}${path}`, cache);
   const fromCache = cache ? _getCache(path) : undefined;
   if (fromCache) {
     return fromCache;
   }
 
   try {
+    console.log("callApi", `${host}${path}`);
     const res = await axios({
       method,
       url: `${host}${path}`,

@@ -7,8 +7,8 @@ import MenuDetail from "@/components/menu-detail";
 import MenuList from "@/components/menu-list";
 import MenuNavigation from "@/components/menu-navigation";
 import ViewOrderModal from "@/components/view-order-modal";
-import { getCategories, getMenuItems, order } from "@/services/menu";
-import { Cart, Category, Menu } from "@/types";
+import { getBillDetail, getCategories, getMenuItems, order } from "@/services/menu";
+import { Cart, CartItem, Category, Menu } from "@/types";
 import { cloneCart, scroll, swap } from "@/utils";
 import { Box, Center } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
@@ -19,6 +19,8 @@ const blankMenuItem: Menu = {
   id: "",
   itemId: "",
   order: 0,
+  raw: {},
+  code: "",
   base64SmallImage: "",
   foreignName: "",
   name: "",
@@ -28,6 +30,10 @@ const blankMenuItem: Menu = {
   image: "",
   categoryId: "",
 };
+
+// TODO: load from URL
+const tableId = "F1-A1";
+const billId = 1;
 
 const TopMenu = () => {
   const [scrollTarget, setScrollTarget] = useState("");
@@ -51,6 +57,8 @@ const TopMenu = () => {
   const [cart, setCart] = useState<Cart>({
     items: [],
     total: 0,
+    subTotal: 0,
+    vat: 0,
     updatedAt: Date.now(),
   });
 
@@ -97,7 +105,7 @@ const TopMenu = () => {
       const _cart = cloneCart(cart);
       _cart.items = _cart.items.filter((el) => el.quantity > 0);
       setCart(_cart);
-      await order(cart);
+      await order(cart, tableId);
       toggleCart();
       setIsPlaceOrder(true);
     },
@@ -148,26 +156,60 @@ const TopMenu = () => {
     getMenuItems().then((items) => {
       getCategories().then((categories: Category[]) => {
         setCategory(categories);
+        // console.log("categories\n", JSON.stringify(categories, null, 2));
+        // console.log("categories\n", JSON.stringify(categories.map((el) => {
+        //   return `${el.id}, ${el.name}`;
+        // }), null, 2));
         categories.sort((a, b) => a.order - b.order);
         setSelected({
           categoryId: categories[0]?.id || "",
           menuId: selected.menuId,
         });
         items.sort((a, b) => a.order - b.order);
+        // console.log("menu\n", JSON.stringify(items, null, 2));
         const _items = _build(items);
+        // console.log("_items", items.length);
         setMenuItems(_items);
         setSelected({
           categoryId: selected.categoryId || items[0].categoryId,
           menuId: _items[0].id,
         });
-        setCart({
-          items: items.slice(0, 10).map((item) => ({
-            menuId: item.id,
-            quantity: 1,
-            menu: item,
-          })),
-          total: 0,
-          updatedAt: Date.now(),
+        // setCart({
+        //   items: items.slice(0, 10).map((item) => ({
+        //     menuId: item.id,
+        //     quantity: 1,
+        //     menu: item,
+        //   })),
+        //   total: 0,
+        //   subTotal: 0,
+        //   vat: 0,
+        //   updatedAt: Date.now(),
+        // });
+        getBillDetail(tableId, billId.toString()).then((bill) => {
+          console.log("bills", bill);
+          const cartItems: Record<string, CartItem> = {};
+          bill.items.forEach((bill) => {
+            const menu = items.find((el) => el.code === bill.itemCode);
+            if (menu) {
+              if (!cartItems[menu.id]) {
+                cartItems[menu.id] = {
+                  menuId: menu.id,
+                  quantity: bill.quantity,
+                  menu,
+                };
+              } else {
+                cartItems[menu.id].quantity += bill.quantity;
+              }
+            }
+          });
+          setCart({
+            items: Object.values(cartItems),
+            total: bill.total,
+            vat: bill.vat,
+            subTotal: bill.subTotal,
+            updatedAt: Date.now(),
+          });
+          // console.log("getBillDetail");
         });
       });
     });
@@ -188,7 +230,14 @@ const TopMenu = () => {
     );
   }
   return (
-    <div style={{ height: "100dvh", display: "flex", flexDirection: "column" }}>
+    <div
+      style={{
+        height: "100dvh",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
+      }}
+    >
       <CategoryBand categories={categories} selectedId={selected.categoryId} onSelect={selectCategory} />
       <MenuList
         key={menuItems.length}
