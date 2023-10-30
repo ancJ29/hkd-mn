@@ -1,7 +1,17 @@
 import config from "@/configs/custom";
 import { Menu } from "@/types";
 import { Image, Text } from "@mantine/core";
+import { useMemo } from "react";
 const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
+  const imageUrl = useMemo(() => {
+    if (menuItem?.image) {
+      return menuItem.image;
+    }
+    if (menuItem?.base64SmallImage) {
+      return `data:image/png;base64,${menuItem.base64SmallImage}`;
+    }
+    return "";
+  }, [menuItem]);
   return (
     <div
       style={{
@@ -15,7 +25,7 @@ const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
         // justifyContent: "center",
       }}
     >
-      <Image my='auto' src={menuItem?.image} fallbackSrc='http://via.placeholder.com/712x524' />
+      <Image my='auto' src={imageUrl} fallbackSrc='http://via.placeholder.com/712x524' />
       <div style={{ position: "sticky", bottom: "0" }}>
         <div
           style={{

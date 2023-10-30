@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
 import { categories as _categories, menuItems as _menuItems } from "@/fake-data";
 import callApi from "@/services/http";
-import { Cart, Category, Menu, categorySchemaArray, menuSchemaArray } from "@/types";
+import { Bill, Cart, Category, Menu, billSchema, categorySchemaArray, menuSchemaArray } from "@/types";
+import { v4 as uuidv4 } from "uuid";
 import logger from "../logger";
 
-const FAKE = 1;
+const FAKE = false;
 const categories: Category[] = [];
 let menuItems: Menu[] = [];
 
@@ -32,8 +33,21 @@ export async function getMenuItems(): Promise<Menu[]> {
     path,
     method: "GET",
     defaultValue: [],
-    cache: true,
+    cache: false,
   });
+  // console.log(
+  //   data.length,
+  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //   data.map((el: any) => {
+  //     return {
+  //       name: el.prod_name,
+  //       jp: el.prod_name_jp,
+  //       en: el.prod_name_en,
+  //       grpname: el.grpname,
+  //       groupindex: el.groupindex,
+  //     };
+  //   }),
+  // );
   const res1 = menuSchemaArray.safeParse(data);
   const res2 = categorySchemaArray.safeParse(data);
   if (res2.success) {
@@ -48,6 +62,8 @@ export async function getMenuItems(): Promise<Menu[]> {
   }
   if (res1.success) {
     menuItems = res1.data.filter((el) => "" !== el.categoryId);
+    // console.log(menuItems.length);
+
     return menuItems;
   } else {
     logger.error("[menu-service] Schema parse error for getMenu!!!", data);
@@ -55,20 +71,63 @@ export async function getMenuItems(): Promise<Menu[]> {
   return [];
 }
 
-export async function getBillDetail(table: string, bill: string) {
-  const path = `/api/Get_Table_Bill_Detail?ban=${table}&bill=${bill}}`;
+export async function getBillDetail(tableId: string, billId: string): Promise<Bill> {
+  const path = `/api/Get_Table_Bill_Detail?ban=${tableId}&bill=${billId}`;
   const data = await callApi({
     path,
     method: "GET",
     defaultValue: [],
-    cache: true,
+    cache: false,
   });
-  // eslint-disable-next-line no-console
-  // console.log(data);
-  return data;
+  const res = billSchema.safeParse(data);
+  if (res.success) {
+    return res.data;
+  }
+  return {
+    total: 0,
+    subTotal: 0,
+    vat: 0,
+    items: [],
+  };
 }
 
-export async function order(cart: Cart) {
+export async function order(cart: Cart, tableId: string) {
+  if (FAKE) {
+    await _delay(1000);
+    return;
+  }
   // eslint-disable-next-line no-console
-  console.log(cart);
+  /* cspell:disable  */
+  const data = cart.items.map((el, index) => ({
+    "Printerdescription": "",
+    "Uom": el.menu.raw.uom,
+    "ban": tableId,
+    "bill": 1,
+    "customers": 0,
+    "dispercent": 0,
+    "kind": "FOOD",
+    "line": index + 1,
+    "logincode": "QRCODE",
+    "loginname": "QRCODE",
+    "mainprz": el.menu.price,
+    "note": "",
+    "orderid": uuidv4(),
+    "ParentID": null,
+    "prntype": el.menu.raw.prntype,
+    "prod_code": el.menu.raw.prod_code,
+    "prod_id": el.menu.raw.itemid,
+    "prod_name": el.menu.name,
+    "quant": el.quantity,
+    "selection": [],
+    "stationid": 9,
+    "total": el.quantity * el.menu.price,
+  }));
+  console.log(data);
+  await callApi({
+    path: "/api/Save_Order",
+    method: "POST",
+    data,
+    cache: false,
+  });
+  /* cspell:disable  */
 }

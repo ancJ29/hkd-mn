@@ -57,7 +57,9 @@ export const menuItems = Array.from({ length: categories.length * 20 }, (): Menu
   return {
     id: id,
     itemId: id,
+    code: id,
     order,
+    raw: {},
     foreignName: "料理名となります",
     name: `${counter}.${_name()}`,
     price: _int({ min: 50, max: 200 }) * 1e3,
