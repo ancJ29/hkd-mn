@@ -23,11 +23,9 @@ const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
     <Box w='33vw' id={`menu-item.${menuItem.id}`}>
       <Image
         bg='#ddd'
-        w='33.3vw'
-        mah='15vh'
-        radius='md'
+        w='33vw'
         style={{
-          border: src ? (active ? "solid 4px #f00" : "solid 1px #7A7C7F") : "none",
+          border: src ? (active ? "solid 2px #f00" : "solid 1px #7A7C7F") : "none",
           cursor: "pointer",
         }}
         onClick={() => onSelect && onSelect(menuItem.id)}

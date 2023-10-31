@@ -36,7 +36,7 @@ const CartModal = ({ cart, opened, onClose }: { cart: Cart; opened: boolean; onC
         </Flex>
       </Modal.Title>
       <Modal.Body key={cart.updatedAt}>
-        <Box px={5} py={10}>
+        <Box px={9} py={10}>
           <Flex style={config.cartModal.row}>
             <Text component='div' w='70%' style={config.cartModal.rowText}>
               商品
