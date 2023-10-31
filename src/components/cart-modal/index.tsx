@@ -72,7 +72,7 @@ const CartModal = ({
   }, [cart, onSave]);
 
   return (
-    <Modal centered size='lg' opened={opened} onClose={onClose} withCloseButton={false}>
+    <Modal centered size='lg' opened={opened} onClose={onClose} withCloseButton={false} radius='1.8rem'>
       <Modal.Title>
         <Flex p={9} align='center' justify='between' bg='#3477ae' c='white'>
           <Text fw={700} w='100%'>
@@ -82,7 +82,7 @@ const CartModal = ({
         </Flex>
       </Modal.Title>
       <Modal.Body key={_cart.updatedAt}>
-        <Box px={5} py={10}>
+        <Box px={9} py={10}>
           <Flex style={config.cartModal.row}>
             <Text component='div' w={config.cartModal.widths[0]} style={config.cartModal.rowText}>
               商品
@@ -131,19 +131,10 @@ const CartModal = ({
               })}
             </Box>
           </ScrollArea>
-          <Flex
-            justify='between'
-            gap='xs'
-            align='center'
-            py={12}
-            style={{
-              borderTop: "dotted 1px",
-              borderColor: "#555",
-            }}
-          >
+          <Flex justify='space-between' gap='xs' align='center' pt={12} pb={6}>
             <Box w='100%' pr={10}>
               <Flex w={"100%"} mb={4}>
-                <Text w='60%' fz='1rem' fw={500} ta='right'>
+                <Text w='60%' fz='1rem' fw={700} ta='right'>
                   Thành Tiền:
                 </Text>
                 <Text w='40%' fz='1rem' fw={500} ta='right'>
@@ -151,7 +142,7 @@ const CartModal = ({
                 </Text>
               </Flex>
               <Flex mb={4}>
-                <Text w='60%' fz='1rem' fw={500} ta='right'>
+                <Text w='60%' fz='1rem' fw={700} ta='right'>
                   VAT:
                 </Text>
                 <Text w='40%' fz='1rem' fw={500} ta='right'>
@@ -159,7 +150,7 @@ const CartModal = ({
                 </Text>
               </Flex>
               <Flex>
-                <Text w='60%' fz='1rem' fw={500} ta='right'>
+                <Text w='60%' fz='1rem' fw={700} ta='right'>
                   Tổng Thành Tiền:
                 </Text>
                 <Text w='40%' fz='1rem' fw={500} ta='right' c='#ca3a30'>
@@ -167,7 +158,7 @@ const CartModal = ({
                 </Text>
               </Flex>
             </Box>
-            <Image h={"60px"} src='/images/order.png' onClick={() => onOrder(cart)} />
+            <Image h='70px' src='/images/order.png' onClick={() => onOrder(cart)} />
           </Flex>
         </Box>
       </Modal.Body>

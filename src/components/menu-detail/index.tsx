@@ -19,6 +19,7 @@ const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
         height: "100%",
         overflow: "scroll",
         position: "relative",
+        padding: "2px",
         // display: "flex",
         // flexDirection: "column",
         // alignItems: "center",
@@ -26,7 +27,7 @@ const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
       }}
     >
       <Image my='auto' src={imageUrl} fallbackSrc='http://via.placeholder.com/712x524' />
-      <div style={{ position: "sticky", bottom: "0" }}>
+      <div style={{ position: "sticky", bottom: "0", padding: ".3rem" }}>
         <div
           style={{
             display: "flex",
