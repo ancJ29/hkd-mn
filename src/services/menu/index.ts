@@ -5,7 +5,7 @@ import { Bill, Cart, Category, Menu, billSchema, categorySchemaArray, menuSchema
 import { v4 as uuidv4 } from "uuid";
 import logger from "../logger";
 
-const FAKE = false;
+const FAKE = true;
 const categories: Category[] = [];
 let menuItems: Menu[] = [];
 
