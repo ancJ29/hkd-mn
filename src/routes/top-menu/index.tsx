@@ -174,43 +174,43 @@ const TopMenu = () => {
           categoryId: selected.categoryId || items[0].categoryId,
           menuId: _items[0].id,
         });
-        // setCart({
-        //   items: items.slice(0, 10).map((item) => ({
-        //     menuId: item.id,
-        //     quantity: 1,
-        //     menu: item,
-        //   })),
-        //   total: 0,
-        //   subTotal: 0,
-        //   vat: 0,
-        //   updatedAt: Date.now(),
-        // });
-        getBillDetail(tableId, billId.toString()).then((bill) => {
-          console.log("bills", bill);
-          const cartItems: Record<string, CartItem> = {};
-          bill.items.forEach((bill) => {
-            const menu = items.find((el) => el.code === bill.itemCode);
-            if (menu) {
-              if (!cartItems[menu.id]) {
-                cartItems[menu.id] = {
-                  menuId: menu.id,
-                  quantity: bill.quantity,
-                  menu,
-                };
-              } else {
-                cartItems[menu.id].quantity += bill.quantity;
-              }
-            }
-          });
-          setCart({
-            items: Object.values(cartItems),
-            total: bill.total,
-            vat: bill.vat,
-            subTotal: bill.subTotal,
-            updatedAt: Date.now(),
-          });
-          // console.log("getBillDetail");
+        setCart({
+          items: items.slice(0, 10).map((item) => ({
+            menuId: item.id,
+            quantity: 1,
+            menu: item,
+          })),
+          total: 0,
+          subTotal: 0,
+          vat: 0,
+          updatedAt: Date.now(),
         });
+        // getBillDetail(tableId, billId.toString()).then((bill) => {
+        //   console.log("bills", bill);
+        //   const cartItems: Record<string, CartItem> = {};
+        //   bill.items.forEach((bill) => {
+        //     const menu = items.find((el) => el.code === bill.itemCode);
+        //     if (menu) {
+        //       if (!cartItems[menu.id]) {
+        //         cartItems[menu.id] = {
+        //           menuId: menu.id,
+        //           quantity: bill.quantity,
+        //           menu,
+        //         };
+        //       } else {
+        //         cartItems[menu.id].quantity += bill.quantity;
+        //       }
+        //     }
+        //   });
+        //   setCart({
+        //     items: Object.values(cartItems),
+        //     total: bill.total,
+        //     vat: bill.vat,
+        //     subTotal: bill.subTotal,
+        //     updatedAt: Date.now(),
+        //   });
+        //   // console.log("getBillDetail");
+        // });
       });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
