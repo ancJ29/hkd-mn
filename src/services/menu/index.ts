@@ -72,6 +72,14 @@ export async function getMenuItems(): Promise<Menu[]> {
 }
 
 export async function getBillDetail(tableId: string, billId: string): Promise<Bill> {
+  if (FAKE) {
+    return {
+      total: 0,
+      subTotal: 0,
+      vat: 0,
+      items: [],
+    };
+  }
   const path = `/api/Get_Table_Bill_Detail?ban=${tableId}&bill=${billId}`;
   const data = await callApi({
     path,
