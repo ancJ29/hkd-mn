@@ -1,9 +1,13 @@
 import config from "@/configs/custom";
 import { Menu } from "@/types";
-import { Image, Text } from "@mantine/core";
+import { Box, Image, Text } from "@mantine/core";
 import { useMemo } from "react";
 const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
   const imageUrl = useMemo(() => {
+    const debug = true;
+    if (debug) {
+      return "/images/sample.jpeg";
+    }
     if (menuItem?.image) {
       return menuItem.image;
     }
@@ -13,21 +17,14 @@ const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
     return "";
   }, [menuItem]);
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        overflow: "scroll",
-        position: "relative",
-        padding: "2px",
-        // display: "flex",
-        // flexDirection: "column",
-        // alignItems: "center",
-        // justifyContent: "center",
-      }}
-    >
-      <Image my='auto' src={imageUrl} fallbackSrc='http://via.placeholder.com/712x524' />
-      <div style={{ position: "sticky", bottom: "0", padding: ".3rem" }}>
+    <Box w="100%" h="100%">
+      <Image
+        my='auto'
+        h="100%"
+        src={imageUrl}
+        fallbackSrc='http://via.placeholder.com/712x524'
+      />
+      <Box pos="sticky" bottom={0} p=".3rem">
         <div
           style={{
             display: "flex",
@@ -42,8 +39,8 @@ const MenuDetail = ({ menuItem }: { menuItem?: Menu }) => {
           </Text>
           <Text style={config.menuDetail.price}>{menuItem?.price?.toLocaleString().replace(/,/g, ".")}đ</Text>
         </div>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
