@@ -7,8 +7,8 @@ import MenuDetail from "@/components/menu-detail";
 import MenuList from "@/components/menu-list";
 import MenuNavigation from "@/components/menu-navigation";
 import ViewOrderModal from "@/components/view-order-modal";
-import { getBillDetail, getCategories, getMenuItems, order } from "@/services/menu";
-import { Cart, CartItem, Category, Menu } from "@/types";
+import { getCategories, getMenuItems, order } from "@/services/menu";
+import { Cart, Category, Menu } from "@/types";
 import { cloneCart, scroll, swap } from "@/utils";
 import { Box, Center } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
@@ -33,7 +33,7 @@ const blankMenuItem: Menu = {
 
 // TODO: load from URL
 const tableId = "F1-A1";
-const billId = 1;
+// const billId = 1;
 
 const TopMenu = () => {
   const [scrollTarget, setScrollTarget] = useState("");
