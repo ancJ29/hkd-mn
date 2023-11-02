@@ -3,8 +3,8 @@ import { Image } from "@mantine/core";
 const Arrow = ({ onClick, direction }: { direction: "left" | "right"; onClick?: () => void }) => {
   return (
     <Image
-      h={89}
-      w={45}
+      h={80}
+      w={40}
       src={direction === "left" ? "/images/left.svg" : "/images/right.svg"}
       style={{
         ...(direction === "left" ? { left: 0 } : { right: 0 }),

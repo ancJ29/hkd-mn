@@ -50,8 +50,8 @@ const CategoryItem = ({ active, name, onClick }: CategoryItemProps) => {
   }, [active, name]);
 
   return (
-    <Center w='15vw' ta='center' m={2} lh={"xs"} onClick={onClick}>
-      <Image src={url} />
+    <Center w='16vw' ta='center' my={2} onClick={onClick}>
+      <Image w='16vw' src={url} />
     </Center>
   );
 };
