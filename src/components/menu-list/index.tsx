@@ -9,7 +9,7 @@ const boxStyle = {
   gridAutoFlow: "column",
   gridTemplateRows: "auto auto auto", // 3 row
   gridAutoColumns: "auto",
-  gridGap: ".3rem",
+  gridGap: ".2rem",
 };
 type MenuListProps = {
   page: number;
@@ -24,8 +24,6 @@ type MenuListProps = {
 const MenuList = ({
   selectedMenuItemId,
   menuItems,
-  page,
-  lastPage,
   onPrevPage,
   onNextPage,
   onSelect,
@@ -34,8 +32,8 @@ const MenuList = ({
     <Box style={{ position: "relative", padding: ".1rem" }}>
       <ScrollArea type='auto' scrollbarSize={0}>
         <Box style={boxStyle}>
-          {page > 1 && <Arrow direction='left' onClick={onPrevPage} />}
-          {page < lastPage && <Arrow direction='right' onClick={onNextPage} />}
+          <Arrow direction='left' onClick={onPrevPage} />
+          <Arrow direction='right' onClick={onNextPage} />
           {menuItems.map((menuItem) => {
             return (
               <MenuItem

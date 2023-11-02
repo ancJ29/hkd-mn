@@ -20,10 +20,10 @@ const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
     return menuItem.smallImage || "http://via.placeholder.com/356x262";
   }, [menuItem]);
   return (
-    <Box w='33vw' id={`menu-item.${menuItem.id}`}>
+    <Box w='32.3vw' id={`menu-item.${menuItem.id}`}>
       <Image
         bg='#ddd'
-        w='33vw'
+        w='32.3vw'
         style={{
           border: src ? (active ? "solid 2px #f00" : "solid 1px #7A7C7F") : "none",
           cursor: "pointer",

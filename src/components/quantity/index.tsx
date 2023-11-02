@@ -11,24 +11,21 @@ const Quantity = ({
 }) => {
   return (
     <Flex
-      w='100%'
+      align='center'
       bg='#534E4D'
       style={{
-        border: "solid 1px",
-        borderRadius: "5px",
-        fontWeight: 700,
-        fontSize: "1rem",
+        borderRadius: ".4rem",
+        border :".01rem solid #534E4D",
       }}
-      justify='space-between'
     >
-      <Center w='33%'>
+      <Center style={{ flex: "1" }}>
         <Image src='/svg/sub.svg' onClick={onDecrease} />
       </Center>
-      <Center c='white' w='33%'>
+      <Center c='white' fz={20} fw={900} style={{ flex: "1" }}>
         {total}
       </Center>
-      <Center w='33%'>
-        <Image src='/svg/add.svg' onClick={onIncrease} />
+      <Center h='100%' style={{ flex: "1" }}>
+        <Image h='100%' src='/svg/add.svg' onClick={onIncrease} />
       </Center>
     </Flex>
   );

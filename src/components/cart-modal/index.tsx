@@ -72,7 +72,7 @@ const CartModal = ({
   }, [cart, onSave]);
 
   return (
-    <Modal centered size='lg' opened={opened} onClose={onClose} withCloseButton={false} radius='1.8rem'>
+    <Modal centered size='lg' opened={opened} onClose={onClose} withCloseButton={false} radius='1.4rem'>
       <Modal.Title>
         <Flex p={9} align='center' justify='between' bg='#3477ae' c='white'>
           <Text fw={700} w='100%'>
