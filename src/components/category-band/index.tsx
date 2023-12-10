@@ -1,13 +1,7 @@
 import CategoryItem from "@/components/category-item";
 import { Category } from "@/types";
-import { Box } from "@mantine/core";
-
-const boxStyle = {
-  display: "grid",
-  gridAutoFlow: "column",
-  gridTemplateRows: "auto auto", // 2 row
-  gridAutoColumns: "auto",
-};
+import { Box, Image, ScrollArea } from "@mantine/core";
+import classes from "./index.module.css";
 
 type CategoryBandProps = {
   selectedId?: string;
@@ -15,20 +9,29 @@ type CategoryBandProps = {
   onSelect?: (id: string) => void;
 };
 
-const CategoryBand = ({ categories, selectedId, onSelect }: CategoryBandProps) => {
+const CategoryBand = ({
+  categories,
+  selectedId,
+  onSelect,
+}: CategoryBandProps) => {
   return (
-    <Box style={boxStyle} key={selectedId}>
-      {categories.map((item: Category) => {
-        return (
-          <CategoryItem
-            key={item.id}
-            name={item.name}
-            active={selectedId === item.id}
-            onClick={() => onSelect && onSelect(item.id)}
-          />
-        );
-      })}
-    </Box>
+    <div className={classes.container}>
+      <Image w={120} mx={35} my={28} src='/images/logo.svg' />
+      <ScrollArea type='auto' scrollbarSize={0}>
+        <Box className={classes.box} key={selectedId}>
+          {categories.map((item: Category) => {
+            return (
+              <CategoryItem
+                key={item.id}
+                name={item.name}
+                active={selectedId === item.id}
+                onSelect={() => onSelect && onSelect(item.id)}
+              />
+            );
+          })}
+        </Box>
+      </ScrollArea>
+    </div>
   );
 };
 

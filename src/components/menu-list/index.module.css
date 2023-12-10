@@ -1,0 +1,13 @@
+.container {
+  position: relative;
+  padding: 0.1rem;
+}
+
+.box {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: auto auto auto;
+  grid-auto-columns: auto;
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1rem;
+}

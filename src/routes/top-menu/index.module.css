@@ -1,0 +1,6 @@
+.container {
+  height: calc(100dvh - 400px);
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}

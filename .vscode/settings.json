@@ -1,20 +1,4 @@
 {
-  "cSpell.words": [
-    "emenu",
-    "Flickr",
-    "groupindex",
-    "grpname",
-    "itemid",
-    "mantine",
-    "Nhật",
-    "Sachi",
-    "Sometype",
-    "Sushi Hokkaido Sachi | Nhà hàng Nhật Bản số 1 Việt Nam",
-    "TSUKIDASHI",
-    "uuidv",
-    "Việt",
-    "Việt Nam"
-  ],
   "editor.tabSize": 2,
   "editor.codeActionsOnSave": {
     "source.organizeImports": true,
@@ -24,5 +8,5 @@
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
-  "cSpell.ignoreWords": ["hàng"]
+  "cSpell.words": ["emenu", "groupindex", "mantine", "grpname", "arrowParens"]
 }
