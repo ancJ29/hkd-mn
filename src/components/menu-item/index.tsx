@@ -1,36 +1,27 @@
-/* eslint-disable no-console */
 import { Menu } from "@/types";
-import { Box, Image } from "@mantine/core";
-import { useMemo } from "react";
+import { Box, Image, Text } from "@mantine/core";
+import classes from "./index.module.css";
 
 type MenuItemProps = {
   menuItem: Menu;
   active?: boolean;
-  onSelect?: (id: string) => void;
+  onSelect: (item: Menu) => void;
 };
 
 const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
-  const src = useMemo(() => {
-    if (!menuItem.categoryId) {
-      return "";
-    }
-    if (menuItem.base64SmallImage) {
-      return `data:image/png;base64,${menuItem.base64SmallImage}`;
-    }
-    return menuItem.smallImage || "http://via.placeholder.com/356x262";
-  }, [menuItem]);
+  // console.log(`render MenuItem ${menuItem.id}...`);
   return (
-    <Box w='32.3vw' id={`menu-item.${menuItem.id}`}>
+    <Box w='31.3vw' id={`menu-item.${menuItem.id}`}>
       <Image
-        bg='#ddd'
-        w='32.3vw'
-        style={{
-          border: src ? (active ? "solid 2px #f00" : "solid 1px #7A7C7F") : "none",
-          cursor: "pointer",
-        }}
-        onClick={() => onSelect && onSelect(menuItem.id)}
-        src={src}
+        w='31.3vw'
+        className={[classes.container, active ? classes.active : ""].join(" ")}
+        onClick={() => onSelect(menuItem)}
+        src={menuItem.smallImage}
       />
+
+      <Text c='white' ml={20} mt={5} fz={"1.5rem"}>
+        {menuItem.name}
+      </Text>
     </Box>
   );
 };

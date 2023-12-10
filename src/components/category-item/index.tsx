@@ -1,58 +1,26 @@
-import { Center, Image } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import { useMemo } from "react";
+import classes from "./index.module.css";
 
 type CategoryItemProps = {
   name: string;
   active?: boolean;
-  onClick?: () => void;
+  onSelect?: () => void;
 };
 
-/* cspell:disable  */
-/*
-  "DRINK",
-  "SASHIMI",
-  "SALAD",
-  "TSUKIDASHI",
-  "SUSHI",
-  "MAKI_SUSHI",
-  "ROLL",
-  "NABE",
-  "WAGYU",
-  "SPECIAL",
-  "OTHERS",
-  "DESSERT",
-*/
-const names: Record<string, string> = {
-  // "DRINK": "",
-  SEASONAL: "OTHERS",
-  // "SASHIMI": "",
-  // "SALAD": "",
-  // "TSUKIDASHI": "",
-  // "SUSHI": "",
-  "MAKI SUSHI": "MAKI_SUSHI",
-  // "ROLL": "",
-  // "NABE": "",
-  // "WAGYU": "",
-  "SPECIAL SET": "SPECIAL",
-  GOHAN: "OTHERS",
-  NOODLE: "OTHERS",
-  DESERT: "DESSERT",
-};
-/* cspell:enable  */
-
-const CategoryItem = ({ active, name, onClick }: CategoryItemProps) => {
-  const url = useMemo(() => {
-    const _name = names[name.toUpperCase()] || name.toUpperCase();
-    if (active) {
-      return `/images/categories/active/${_name}.svg`;
-    }
-    return `/images/categories/inactive/${_name}.svg`;
-  }, [active, name]);
+const CategoryItem = ({ active, name, onSelect }: CategoryItemProps) => {
+  // TODO: use css
+  const width = useMemo(() => `${name.length * 1.8}rem`, [name]);
 
   return (
-    <Center w='16vw' ta='center' my={2} onClick={onClick}>
-      <Image w='16vw' src={url} />
-    </Center>
+    <Box
+      className={[classes.container, active ? classes.active : ""].join(" ")}
+      onClick={onSelect}
+    >
+      <Text className={classes.title} style={{ width }}>
+        {name}
+      </Text>
+    </Box>
   );
 };
 

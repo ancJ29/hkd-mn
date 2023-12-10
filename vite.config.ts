@@ -1,16 +1,24 @@
 import react from "@vitejs/plugin-react";
 import path from "path";
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: 9000,
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+export default ({ mode }: { mode: string }) => {
+  const env = loadEnv(mode, process.cwd(), "");
+
+  return defineConfig({
+    plugins: [react()],
+    server: {
+      port: 9000,
     },
-  },
-});
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
+    },
+    define: {
+      "import.meta.env.BASE_URL": JSON.stringify(env.BASE_URL),
+      "import.meta.env.IS_FAKED": JSON.stringify(env.IS_FAKED),
+    },
+  });
+};

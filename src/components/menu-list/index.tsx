@@ -1,8 +1,7 @@
-/* eslint-disable no-console */
 import MenuItem from "@/components/menu-item";
 import { Menu } from "@/types";
 import { Box, ScrollArea } from "@mantine/core";
-import Arrow from "./arrow";
+import classes from "./index.module.css";
 
 const boxStyle = {
   display: "grid",
@@ -12,34 +11,23 @@ const boxStyle = {
   gridGap: ".2rem",
 };
 type MenuListProps = {
-  page: number;
-  lastPage: number;
-  selectedMenuItemId: string;
+  selectedMenuItem?: Menu;
   menuItems: Menu[];
-  onPrevPage: () => void;
-  onNextPage: () => void;
-  onSelect: (id: string) => void;
+  onSelect: (item: Menu) => void;
 };
 
-const MenuList = ({
-  selectedMenuItemId,
-  menuItems,
-  onPrevPage,
-  onNextPage,
-  onSelect,
-}: MenuListProps) => {
+const MenuList = ({ selectedMenuItem, menuItems, onSelect }: MenuListProps) => {
+  console.log("render MenuList...");
   return (
-    <Box style={{ position: "relative", padding: ".1rem" }}>
+    <Box className={classes.container}>
       <ScrollArea type='auto' scrollbarSize={0}>
-        <Box style={boxStyle}>
-          <Arrow direction='left' onClick={onPrevPage} />
-          <Arrow direction='right' onClick={onNextPage} />
+        <Box className={classes.box}>
           {menuItems.map((menuItem) => {
             return (
               <MenuItem
                 key={menuItem.id}
                 menuItem={menuItem}
-                active={menuItem.id === selectedMenuItemId}
+                active={menuItem.id === selectedMenuItem?.id}
                 onSelect={onSelect}
               />
             );

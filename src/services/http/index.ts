@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import isValidIP from "@/services/ip-checker";
 import logger from "@/services/logger";
 import axios from "axios";
@@ -10,20 +9,24 @@ type ApiCallProps<T> = {
   defaultValue?: unknown;
 };
 
-const host = "http://125.253.116.236:56585";
-export default async function callApi<T>({ method, path, data, defaultValue, cache = false }: ApiCallProps<T>) {
+const host = import.meta.env.BASE_URL;
+export default async function callApi<T>({
+  method,
+  path,
+  data,
+  defaultValue,
+  cache = false,
+}: ApiCallProps<T>) {
   if (!isValidIP()) {
     logger.info(`API CALL from invalid IP: ${path}`);
     return defaultValue || undefined;
   }
-  // console.log("callApi", `${host}${path}`, cache);
   const fromCache = cache ? _getCache(path) : undefined;
   if (fromCache) {
     return fromCache;
   }
 
   try {
-    console.log("callApi", `${host}${path}`);
     const res = await axios({
       method,
       url: `${host}${path}`,
@@ -33,7 +36,9 @@ export default async function callApi<T>({ method, path, data, defaultValue, cac
       },
     });
     logger.error(`API ERROR for path ${path}: ${res.status} ${res.statusText}`);
-    return res.status < 400 ? _cache(res.data, { cache, path }) : defaultValue || undefined;
+    return res.status < 400
+      ? _cache(res.data, { cache, path })
+      : defaultValue || undefined;
   } catch (error) {
     logger.error(`API ERROR for path ${path}: ${error || "Unknown error"}`);
   }
