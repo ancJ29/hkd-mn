@@ -1,13 +1,13 @@
 html,
 body,
 label {
-  font-family: "Noto Sans", sans-serif;
+  font-family: "MyriadProRegular", sans-serif;
 }
 
 body {
   height: 100dvh;
   overflow: hidden;
-  background-image: url("/images/bg.png");
+  background-image: url("/images/bg.svg");
   background-repeat: repeat-y;
   background-size: cover;
   touch-action: manipulation; // https://stackoverflow.com/a/53236027

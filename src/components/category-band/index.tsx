@@ -16,8 +16,8 @@ const CategoryBand = ({
 }: CategoryBandProps) => {
   return (
     <div className={classes.container}>
-      <Image w={120} mx={35} my={28} src='/images/logo.svg' />
-      <ScrollArea type='auto' scrollbarSize={0}>
+      <Image w={100} mx={35} my={28} src="/images/logo.svg" />
+      <ScrollArea type="auto" scrollbarSize={0}>
         <Box className={classes.box} key={selectedId}>
           {categories.map((item: Category) => {
             return (

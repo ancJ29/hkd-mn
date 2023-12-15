@@ -1,0 +1,16 @@
+.detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 3rem;
+  line-height: 50px;
+  text-shadow: 1.5px 1.5px 3px #000;
+}
+
+.price {
+  font-family: "SourceSans3Black";
+  line-height: 110px;
+  text-shadow: 1.5px 1.5px 3px #000;
+}
