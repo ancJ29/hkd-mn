@@ -1,4 +1,5 @@
 import { Menu } from "@/types";
+import { toLocaleString } from "@/utils";
 import { Box, Flex, Image, Text } from "@mantine/core";
 import MenuNavigation, { MenuAction } from "../menu-navigation";
 import classes from "./index.module.css";
@@ -27,12 +28,7 @@ const MenuDetail = ({
             </Text>
             <Text c="white" fz="5rem" className={classes.price}>
               {menuItem?.price
-                ? menuItem.price
-                    .toLocaleString("vi-Vi", {
-                      style: "currency",
-                      currency: "VND",
-                    })
-                    .replace("₫", "")
+                ? toLocaleString(menuItem.price)
                 : ""}
             </Text>
           </div>

@@ -10,5 +10,5 @@ export function toLocaleString(value: number) {
   return value.toLocaleString("vi-Vi", {
     style: "currency",
     currency: "VND",
-  });
+  }).replace("₫", "");
 }
