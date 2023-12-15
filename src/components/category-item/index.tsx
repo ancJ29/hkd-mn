@@ -1,5 +1,4 @@
 import { Box, Text } from "@mantine/core";
-import { useMemo } from "react";
 import classes from "./index.module.css";
 
 type CategoryItemProps = {
@@ -9,15 +8,16 @@ type CategoryItemProps = {
 };
 
 const CategoryItem = ({ active, name, onSelect }: CategoryItemProps) => {
-  // TODO: use css
-  const width = useMemo(() => `${name.length * 1.8}rem`, [name]);
-
   return (
     <Box
       className={[classes.container, active ? classes.active : ""].join(" ")}
       onClick={onSelect}
     >
-      <Text className={classes.title} style={{ width }}>
+      <Text
+        className={[classes.title, active ? "" : classes.titleInactive].join(
+          " ",
+        )}
+      >
         {name}
       </Text>
     </Box>

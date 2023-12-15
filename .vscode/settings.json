@@ -1,9 +1,9 @@
 {
   "editor.tabSize": 2,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true,
-    "source.addMissingImports": true,
-    "source.removeUnusedImports": true
+    "source.organizeImports": "explicit",
+    "source.addMissingImports": "explicit",
+    "source.removeUnusedImports": "explicit"
   },
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,

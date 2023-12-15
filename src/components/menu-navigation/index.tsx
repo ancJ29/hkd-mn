@@ -17,42 +17,43 @@ type MenuNavigationProps = {
 const MenuNavigation = memo(
   ({ total = 0, onAction }: MenuNavigationProps) => {
     console.log("render MenuNavigation");
-    const label = useMemo(() => <Text fz='2rem'>{total}</Text>, [total]);
+    const label = useMemo(() => <Text fz="2rem">{total}</Text>, [total]);
     return (
       <Flex
         className={classes.container}
-        w={"100%"}
         justify={"space-between"}
         align={"center"}
       >
+        <div />
         <Image
           className={classes.icon}
-          src='/images/menu.svg'
+          src="/images/menu.svg"
           onClick={onAction.bind(null, MenuAction.MENU)}
         />
         <Image
           className={classes.icon}
-          src='/images/explore.svg'
+          src="/images/explore.svg"
           onClick={onAction.bind(null, MenuAction.EXPLORE)}
         />
         <Indicator
           offset={20}
           label={label}
-          color='red'
+          color="red"
           size={60}
           disabled={total < 1}
         >
           <Image
             className={classes.icon}
-            src='/images/cart.svg'
+            src="/images/cart.svg"
             onClick={onAction.bind(null, MenuAction.CART)}
           />
         </Indicator>
         <Image
           className={classes.icon}
-          src='/images/history.svg'
+          src="/images/history.svg"
           onClick={onAction.bind(null, MenuAction.HISTORY)}
         />
+        <div />
       </Flex>
     );
   },

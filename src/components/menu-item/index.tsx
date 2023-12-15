@@ -9,17 +9,22 @@ type MenuItemProps = {
 };
 
 const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
-  // console.log(`render MenuItem ${menuItem.id}...`);
   return (
-    <Box w='31.3vw' id={`menu-item.${menuItem.id}`}>
-      <Image
-        w='31.3vw'
-        className={[classes.container, active ? classes.active : ""].join(" ")}
-        onClick={() => onSelect(menuItem)}
-        src={menuItem.smallImage}
-      />
+    <Box w="30vw" id={`menu-item.${menuItem.id}`} className={classes.container}>
+      <div
+        className={[classes.imageContainer, active ? classes.active : ""].join(
+          " ",
+        )}
+      >
+        <Image
+          w="30vw"
+          className={classes.image}
+          onClick={() => onSelect(menuItem)}
+          src={menuItem.smallImage}
+        />
+      </div>
 
-      <Text c='white' ml={20} mt={5} fz={"1.5rem"}>
+      <Text c="white" ml={20} mt={5} fz={"1.5rem"} ff="MyriadProLight">
         {menuItem.name}
       </Text>
     </Box>

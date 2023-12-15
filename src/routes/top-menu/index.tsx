@@ -1,7 +1,7 @@
 import CategoryBand from "@/components/category-band";
 import MenuDetail from "@/components/menu-detail";
 import MenuList from "@/components/menu-list";
-import MenuNavigation, { MenuAction } from "@/components/menu-navigation";
+import { MenuAction } from "@/components/menu-navigation";
 import { getCategories, getMenuItems } from "@/services/menu";
 import { Category, Menu } from "@/types";
 import { AppShell } from "@mantine/core";
@@ -41,14 +41,14 @@ const TopMenu = () => {
 
   return (
     <AppShell header={{ height: 60, offset: false }}>
-      <AppShell.Header h='200px' bg='transparent' withBorder={false}>
+      <AppShell.Header h="200px" bg="transparent" withBorder={false}>
         <CategoryBand
           categories={categories}
           selectedId={selectedCategoryId}
           onSelect={setSelectedCategoryId}
         />
       </AppShell.Header>
-      <AppShell.Main mt='200px'>
+      <AppShell.Main mt="200px">
         <div className={classes.container}>
           <MenuList
             key={menuItems.length}
@@ -56,17 +56,14 @@ const TopMenu = () => {
             selectedMenuItem={selectedMenuItem}
             onSelect={setSelectedMenuItem}
           />
-          <div style={{ flexGrow: 1 }}>&nbsp;</div>
           <MenuDetail
             menuItem={selectedMenuItem}
             total={totals[selectedMenuItem?.id || "-"] || 1}
             onChange={onChange.bind(null, selectedMenuItem?.id || "-")}
+            onAction={actionHandler}
           />
         </div>
       </AppShell.Main>
-      <AppShell.Footer withBorder={false}>
-        <MenuNavigation onAction={actionHandler} />
-      </AppShell.Footer>
     </AppShell>
   );
 };

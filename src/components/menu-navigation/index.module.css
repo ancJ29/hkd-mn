@@ -1,6 +1,7 @@
 .container {
-  /* width: 100%; */
-  background-color: #faf5e6;
+  background-color: #faf5e6c4;
+  border-radius: 20px;
+  margin: 0 2.5rem;
 }
 
 .icon {
