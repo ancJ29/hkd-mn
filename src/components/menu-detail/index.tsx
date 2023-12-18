@@ -21,7 +21,7 @@ const MenuDetail = ({
     <Box pt="4rem" pos={"relative"} style={{ flexGrow: 1 }}>
       <Image src={menuItem?.image} h="100%" />
       <Box pos="absolute" bottom={0} pb="2rem" w="100%">
-        <Flex justify="space-between" align="center" pl="2.7rem" pr="1rem">
+        <Flex justify="space-between" align="center" pl="2.7rem" pr="1.3rem">
           <div className={classes.detail}>
             <Text c="white" className={classes.name}>
               {menuItem?.name || ""}
@@ -32,22 +32,26 @@ const MenuDetail = ({
                 : ""}
             </Text>
           </div>
-
           <Flex justify="space-between" align="center">
-            <Image
-              h={150}
-              src={"/images/decrease.svg"}
-              onClick={onChange.bind(null, Math.max(total - 1, 1))}
-            />
+            <Box h={150}>
+              <Image
+                h={150}
+                src={"/images/decrease.svg"}
+                onClick={onChange.bind(null, Math.max(total - 1, 1))}
+              />
+            </Box>
             <Text c="white" fz="6rem" fw="700" ff="SourceSans3Black">
               {total}
             </Text>
-            <Image
-              h={150}
-              src={"/images/increase.svg"}
-              onClick={onChange.bind(null, total + 1)}
-            />
-          </Flex>
+            <Box h={150}>
+              <Image
+                h={150}
+                src={"/images/increase.svg"}
+                onClick={onChange.bind(null, total + 1)}
+              />
+            </Box>
+        </Flex>
+
         </Flex>
         <MenuNavigation onAction={onAction} />
       </Box>
