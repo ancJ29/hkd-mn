@@ -56,8 +56,8 @@ export const menuItems = [
   return {
     id: _uuid(),
     name,
-    image: `/images/assets/a_${index % 9}.png`,
-    smallImage: `/images/assets/a_${index % 9}.png`,
+    image: `/images/assets/a_detail_${index % 9}.jpg`,
+    smallImage: `/images/assets/a_${index % 9}.jpg`,
     price: _int({ min: 50, max: 200 }) * 1e3,
   };
 }) as Menu[];

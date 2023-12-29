@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  margin-right: 30px;
+  margin-top: -20px;
+}
+
+.item {
+  margin-right: 5px;
+}
+
+.item:last-child {
+  margin-right: 0;
+}

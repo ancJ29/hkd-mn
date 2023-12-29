@@ -3,13 +3,6 @@ import { Menu } from "@/types";
 import { Box, ScrollArea } from "@mantine/core";
 import classes from "./index.module.css";
 
-const boxStyle = {
-  display: "grid",
-  gridAutoFlow: "column",
-  gridTemplateRows: "auto auto auto", // 3 row
-  gridAutoColumns: "auto",
-  gridGap: ".2rem",
-};
 type MenuListProps = {
   selectedMenuItem?: Menu;
   menuItems: Menu[];
