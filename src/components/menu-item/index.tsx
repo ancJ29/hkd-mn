@@ -10,21 +10,22 @@ type MenuItemProps = {
 
 const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
   return (
-    <Box w="30vw" id={`menu-item.${menuItem.id}`} className={classes.container}>
+    <Box w="31vw" id={`menu-item.${menuItem.id}`} className={classes.container}>
       <div
         className={[classes.imageContainer, active ? classes.active : ""].join(
           " ",
         )}
       >
         <Image
-          w="30vw"
+          w="31vw"
+          h="210px"
           className={classes.image}
           onClick={() => onSelect(menuItem)}
           src={menuItem.smallImage}
         />
       </div>
 
-      <Text c="white" ml={20} mt={5} fz={"1.5rem"} ff="MyriadProLight">
+      <Text c="white" ml={32} fz={"1.5rem"} ff="MyriadProLight">
         {menuItem.name}
       </Text>
     </Box>

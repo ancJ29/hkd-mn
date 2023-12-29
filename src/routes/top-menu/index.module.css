@@ -1,4 +1,15 @@
 .container {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.appShellMain {
+  margin-left: -2px;
+}
+
+.main {
   height: calc(100dvh - 190px);
   display: flex;
   flex-direction: column;

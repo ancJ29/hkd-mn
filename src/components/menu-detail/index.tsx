@@ -18,7 +18,7 @@ const MenuDetail = ({
   onAction,
 }: MenuDetailProps) => {
   return (
-    <Box pt="4rem" pos={"relative"} style={{ flexGrow: 1 }}>
+    <Box pt="3rem" pos={"relative"} className={classes.container}>
       <Image src={menuItem?.image} h="100%" />
       <Box pos="absolute" bottom={0} pb="2rem" w="100%">
         <Flex justify="space-between" align="center" pl="2.7rem" pr="1.3rem">
