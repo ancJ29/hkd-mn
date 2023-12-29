@@ -37,7 +37,7 @@ const MenuDetail = ({
               <Image
                 h={150}
                 src={"/images/decrease.svg"}
-                onClick={onChange.bind(null, Math.max(total - 1, 1))}
+                onClick={onChange.bind(null, Math.max(total - 1, 0))}
               />
             </Box>
             <Text c="white" fz="6rem" fw="700" ff="SourceSans3Black">

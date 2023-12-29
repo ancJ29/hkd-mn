@@ -62,7 +62,7 @@ const TopMenu = () => {
             />
             <MenuDetail
               menuItem={selectedMenuItem}
-              total={totals[selectedMenuItem?.id || "-"] || 1}
+              total={totals[selectedMenuItem?.id || "-"] || 0}
               onChange={onChange.bind(null, selectedMenuItem?.id || "-")}
               onAction={actionHandler}
             />
