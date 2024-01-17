@@ -10,14 +10,22 @@ export enum MenuAction {
 }
 
 type MenuNavigationProps = {
-  total?: number;
+  totals: {
+    [key: string]: number;
+  };
   onAction: (action: MenuAction) => void;
 };
 
 const MenuNavigation = memo(
-  ({ total = 0, onAction }: MenuNavigationProps) => {
+  ({ totals, onAction }: MenuNavigationProps) => {
     console.log("render MenuNavigation");
-    const label = useMemo(() => <Text fz="2rem">{total}</Text>, [total]);
+
+    let total = 0;
+    Object.keys(totals).forEach((key) => {
+      total += totals[key];
+    });
+
+    const label = useMemo(() => <Text fz='1rem'>{total}</Text>, [total]);
     return (
       <Flex
         className={classes.container}
@@ -27,30 +35,30 @@ const MenuNavigation = memo(
         <div />
         <Image
           className={classes.icon}
-          src="/images/menu.svg"
+          src='/images/menu.svg'
           onClick={onAction.bind(null, MenuAction.MENU)}
         />
         <Image
           className={classes.icon}
-          src="/images/explore.svg"
+          src='/images/explore.svg'
           onClick={onAction.bind(null, MenuAction.EXPLORE)}
         />
         <Indicator
-          offset={20}
+          offset={26}
           label={label}
-          color="red"
-          size={60}
+          color='red'
+          size={26}
           disabled={total < 1}
         >
           <Image
             className={classes.icon}
-            src="/images/cart.svg"
+            src='/images/cart.svg'
             onClick={onAction.bind(null, MenuAction.CART)}
           />
         </Indicator>
         <Image
           className={classes.icon}
-          src="/images/history.svg"
+          src='/images/history.svg'
           onClick={onAction.bind(null, MenuAction.HISTORY)}
         />
         <div />
@@ -58,7 +66,7 @@ const MenuNavigation = memo(
     );
   },
   (oldProps: MenuNavigationProps, newProps: MenuNavigationProps) => {
-    if (oldProps.total !== newProps.total) {
+    if (oldProps.totals !== newProps.totals) {
       return false;
     }
     return oldProps.onAction === newProps.onAction;

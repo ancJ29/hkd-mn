@@ -10,7 +10,7 @@
 }
 
 .main {
-  height: calc(100dvh - 190px);
+  height: calc(100dvh - 185px);
   display: flex;
   flex-direction: column;
   overflow: scroll;

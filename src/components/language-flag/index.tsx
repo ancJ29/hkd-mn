@@ -24,19 +24,19 @@ const LanguageFlag = () => {
 
   const handleChangeSelectedFlag = (id: string) => {
     setSelectedFlag(id);
-  }
+  };
 
   return (
     <div className={classes.container}>
-      {flagData.map((e, i) =>
-         <Image
+      {flagData.map((e, i) => (
+        <Image
           key={i}
           h={e.id === selectedFlag ? 55 : 40}
           src={e.id === selectedFlag ? e.active : e.inActive}
           onClick={() => handleChangeSelectedFlag(e.id)}
           className={classes.item}
         />
-      )}
+      ))}
     </div>
   );
 };
