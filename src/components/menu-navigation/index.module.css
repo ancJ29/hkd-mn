@@ -1,9 +1,10 @@
 .container {
   background-color: #faf5e6c4;
-  border-radius: 20px;
-  margin: 0 2.5rem;
+  border-radius: 50px;
+  margin: 0 8.5rem;
 }
 
 .icon {
-  height: 200px;
+  height: 100px;
+  margin: 24px 0;
 }

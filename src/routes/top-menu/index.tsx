@@ -36,14 +36,13 @@ const TopMenu = () => {
   }, []);
 
   const onChange = useCallback((id: string, total: number) => {
-    const newTotals = { ...totals, [id]: total };
-    setTotals(newTotals);
+    setTotals((state) => ({ ...state, [id]: total}));
   }, []);
 
   return (
     <div className={classes.container}>
       <AppShell header={{ height: 60, offset: false }}>
-        <AppShell.Header h="195px" bg="transparent" withBorder={false}>
+        <AppShell.Header h='185px' bg='transparent' withBorder={false}>
           <CategoryBand
             categories={categories}
             selectedId={selectedCategoryId}
@@ -52,7 +51,7 @@ const TopMenu = () => {
 
           <LanguageFlag />
         </AppShell.Header>
-        <AppShell.Main mt="195px" className={classes.appShellMain}>
+        <AppShell.Main mt='185px' className={classes.appShellMain}>
           <div className={classes.main}>
             <MenuList
               key={menuItems.length}
@@ -62,7 +61,7 @@ const TopMenu = () => {
             />
             <MenuDetail
               menuItem={selectedMenuItem}
-              total={totals[selectedMenuItem?.id || "-"] || 0}
+              totals={totals}
               onChange={onChange.bind(null, selectedMenuItem?.id || "-")}
               onAction={actionHandler}
             />

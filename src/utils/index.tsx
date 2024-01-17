@@ -7,8 +7,10 @@ export function swap<T>(arr: T[], a: number, b: number) {
 }
 
 export function toLocaleString(value: number) {
-  return value.toLocaleString("vi-Vi", {
-    style: "currency",
-    currency: "VND",
-  }).replace("₫", "");
+  return value
+    .toLocaleString("vi-Vi", {
+      style: "currency",
+      currency: "VND",
+    })
+    .replace("₫", "");
 }

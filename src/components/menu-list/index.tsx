@@ -13,7 +13,7 @@ const MenuList = ({ selectedMenuItem, menuItems, onSelect }: MenuListProps) => {
   console.log("render MenuList...");
   return (
     <Box className={classes.container}>
-      <ScrollArea type="auto" scrollbarSize={0}>
+      <ScrollArea type='auto' scrollbarSize={0}>
         <Box className={classes.box}>
           {menuItems.map((menuItem) => {
             return (
