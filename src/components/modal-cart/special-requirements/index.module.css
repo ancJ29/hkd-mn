@@ -1,0 +1,9 @@
+.container {
+  margin-top: 10px;
+}
+
+.text {
+  margin-bottom: 2px;
+  font-size: 1.3rem;
+  font-style: italic;
+}

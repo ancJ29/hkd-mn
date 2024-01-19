@@ -25,7 +25,10 @@ const MenuNavigation = memo(
       total += totals[key];
     });
 
-    const label = useMemo(() => <Text fz='1rem'>{total}</Text>, [total]);
+    const label = useMemo(
+      () => <Text className={classes.text}>{total}</Text>,
+      [total],
+    );
     return (
       <Flex
         className={classes.container}
@@ -35,30 +38,30 @@ const MenuNavigation = memo(
         <div />
         <Image
           className={classes.icon}
-          src='/images/menu.svg'
+          src="/images/menu.svg"
           onClick={onAction.bind(null, MenuAction.MENU)}
         />
         <Image
           className={classes.icon}
-          src='/images/explore.svg'
+          src="/images/explore.svg"
           onClick={onAction.bind(null, MenuAction.EXPLORE)}
         />
         <Indicator
           offset={26}
           label={label}
-          color='red'
-          size={26}
+          color="#f21825"
+          size={32}
           disabled={total < 1}
         >
           <Image
             className={classes.icon}
-            src='/images/cart.svg'
+            src="/images/cart.svg"
             onClick={onAction.bind(null, MenuAction.CART)}
           />
         </Indicator>
         <Image
           className={classes.icon}
-          src='/images/history.svg'
+          src="/images/history.svg"
           onClick={onAction.bind(null, MenuAction.HISTORY)}
         />
         <div />

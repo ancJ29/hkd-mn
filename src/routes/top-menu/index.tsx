@@ -3,6 +3,7 @@ import LanguageFlag from "@/components/language-flag";
 import MenuDetail from "@/components/menu-detail";
 import MenuList from "@/components/menu-list";
 import { MenuAction } from "@/components/menu-navigation";
+import ModalCart from "@/components/modal-cart";
 import { getCategories, getMenuItems } from "@/services/menu";
 import { Category, Menu } from "@/types";
 import { AppShell } from "@mantine/core";
@@ -18,6 +19,7 @@ const TopMenu = () => {
   );
   const [menuItems, setMenuItems] = useState<Menu[]>([]);
   const [totals, setTotals] = useState<{ [key: string]: number }>({});
+  const [openedCart, setOpenedCart] = useState(false);
 
   useEffect(() => {
     console.log("fetch data...");
@@ -32,17 +34,24 @@ const TopMenu = () => {
   }, []);
 
   const actionHandler = useCallback((action: MenuAction) => {
-    alert(`onAction: ${action}`);
+    switch (action) {
+      case MenuAction.CART: {
+        setOpenedCart(true);
+        break;
+      }
+    }
   }, []);
 
   const onChange = useCallback((id: string, total: number) => {
-    setTotals((state) => ({ ...state, [id]: total}));
+    setTotals((state) => ({ ...state, [id]: total }));
   }, []);
 
   return (
     <div className={classes.container}>
+      <ModalCart opened={openedCart} onClose={() => setOpenedCart(false)} />
+
       <AppShell header={{ height: 60, offset: false }}>
-        <AppShell.Header h='185px' bg='transparent' withBorder={false}>
+        <AppShell.Header h="185px" bg="transparent" withBorder={false}>
           <CategoryBand
             categories={categories}
             selectedId={selectedCategoryId}
@@ -51,7 +60,7 @@ const TopMenu = () => {
 
           <LanguageFlag />
         </AppShell.Header>
-        <AppShell.Main mt='185px' className={classes.appShellMain}>
+        <AppShell.Main mt="185px" className={classes.appShellMain}>
           <div className={classes.main}>
             <MenuList
               key={menuItems.length}
