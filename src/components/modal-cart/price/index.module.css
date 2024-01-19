@@ -1,0 +1,29 @@
+.container {
+  padding: 20px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  text-align: end;
+  justify-content: center;
+}
+
+.textPrice {
+  font-weight: 500;
+  font-size: 2rem;
+  font-family: "Source Sans 3";
+  color: #343433;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.price {
+  font-family: "SourceSans3Black";
+  font-size: 2.5rem;
+}
+
+.red {
+  color: #e22227;
+}

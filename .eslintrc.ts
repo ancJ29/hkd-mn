@@ -29,17 +29,15 @@ export default {
     "prettier",
   ],
   rules: {
-    "no-console": "error",
-    "import/no-unresolved": "off",
-    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/indent": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
     "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/semi": ["error"],
+    "@typescript-eslint/semi": ["error", "always"],
     "comma-dangle": ["error", "only-multiline"],
     "no-unused-vars": "off",
     "object-curly-spacing": ["error", "always"],
     "prefer-const": "error",
-    quotes: ["error", "double"],
+    "quote-props": ["error", "as-needed"],
     "react/jsx-closing-bracket-location": ["error", "tag-aligned"],
     "react/jsx-first-prop-new-line": ["error", "multiline-multiprop"],
     "react/jsx-max-props-per-line": [
@@ -47,6 +45,6 @@ export default {
       { maximum: 1, when: "multiline" },
     ],
     "react/react-in-jsx-scope": "off",
-    semi: "off",
+    indent: ["error", 2],
   },
 };

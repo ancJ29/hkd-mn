@@ -16,9 +16,5 @@ export default ({ mode }: { mode: string }) => {
         "@": path.resolve(__dirname, "./src"),
       },
     },
-    define: {
-      "import.meta.env.BASE_URL": JSON.stringify(env.BASE_URL),
-      "import.meta.env.IS_FAKED": JSON.stringify(env.IS_FAKED),
-    },
   });
 };
