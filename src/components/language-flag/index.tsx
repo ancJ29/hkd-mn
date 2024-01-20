@@ -1,6 +1,6 @@
 import { Image } from "@mantine/core";
 import { useState } from "react";
-import classes from "./index.module.css";
+import classes from "./index.module.scss";
 
 const LanguageFlag = () => {
   const [selectedFlag, setSelectedFlag] = useState("vn");
@@ -31,7 +31,7 @@ const LanguageFlag = () => {
       {flagData.map((e, i) => (
         <Image
           key={i}
-          h={e.id === selectedFlag ? 55 : 40}
+          h={e.id === selectedFlag ? 25 : 20}
           src={e.id === selectedFlag ? e.active : e.inActive}
           onClick={() => handleChangeSelectedFlag(e.id)}
           className={classes.item}

@@ -1,23 +1,21 @@
 import CategoryBand from "@/components/category-band";
 import LanguageFlag from "@/components/language-flag";
 import MenuDetail from "@/components/menu-detail";
+import { MenuAction } from "@/components/menu-detail/menu-navigation";
 import MenuList from "@/components/menu-list";
-import { MenuAction } from "@/components/menu-navigation";
-import ModalCart from "@/components/modal-cart";
+import ModalCart from "@/components/modal/cart";
 import { getCategories, getMenuItems } from "@/services/menu";
 import { Category, Menu } from "@/types";
 import { AppShell } from "@mantine/core";
 import { useCallback, useEffect, useState } from "react";
-import classes from "./index.module.css";
+import classes from "./index.module.scss";
 
-const debug = true;
 const TopMenu = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
-  const [selectedMenuItem, setSelectedMenuItem] = useState<Menu | undefined>(
-    undefined,
-  );
+
   const [menuItems, setMenuItems] = useState<Menu[]>([]);
+  const [selectedMenuItem, setSelectedMenuItem] = useState<Menu | undefined>(undefined);
   const [totals, setTotals] = useState<{ [key: string]: number }>({});
   const [openedCart, setOpenedCart] = useState(false);
 
@@ -50,17 +48,12 @@ const TopMenu = () => {
     <div className={classes.container}>
       <ModalCart opened={openedCart} onClose={() => setOpenedCart(false)} />
 
-      <AppShell header={{ height: 60, offset: false }}>
-        <AppShell.Header h="185px" bg="transparent" withBorder={false}>
-          <CategoryBand
-            categories={categories}
-            selectedId={selectedCategoryId}
-            onSelect={setSelectedCategoryId}
-          />
-
+      <AppShell header={{ height: 80, offset: false }}>
+        <AppShell.Header h="80px" bg="transparent" withBorder={false}>
+          <CategoryBand categories={categories} selectedId={selectedCategoryId} onSelect={setSelectedCategoryId} />
           <LanguageFlag />
         </AppShell.Header>
-        <AppShell.Main mt="185px" className={classes.appShellMain}>
+        <AppShell.Main mt="80px">
           <div className={classes.main}>
             <MenuList
               key={menuItems.length}

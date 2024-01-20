@@ -8,5 +8,5 @@
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
-  "cSpell.words": ["emenu", "groupindex", "mantine", "grpname", "arrowParens"]
+  "cSpell.words": ["arrowParens", "autosize", "emenu", "groupindex", "grpname", "mantine"]
 }

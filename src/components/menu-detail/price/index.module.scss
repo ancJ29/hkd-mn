@@ -1,0 +1,18 @@
+.detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 16px;
+  text-shadow: 6px 5px 12px #000;
+  color: white;
+  margin-bottom: -10px;
+}
+
+.price {
+  font-size: 30px;
+  color: white;
+  font-family: "Source Sans 3 Black";
+  text-shadow: 6px 5px 12px #000;
+}

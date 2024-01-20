@@ -1,7 +1,7 @@
 html,
 body,
 label {
-  font-family: "MyriadProRegular", sans-serif;
+  font-family: "Myriad Pro", sans-serif;
 }
 
 body {
@@ -10,5 +10,5 @@ body {
   background-image: url("/images/bg.svg");
   background-repeat: repeat-y;
   background-size: cover;
-  touch-action: manipulation; // https://stackoverflow.com/a/53236027
+  touch-action: manipulation;
 }

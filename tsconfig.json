@@ -21,9 +21,9 @@
     "strictBindCallApply": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+    },
   },
   "include": ["src/vite-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

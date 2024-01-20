@@ -1,7 +1,7 @@
-import CategoryItem from "@/components/category-item";
 import { Category } from "@/types";
 import { Box, Image, ScrollArea } from "@mantine/core";
-import classes from "./index.module.css";
+import CategoryItem from "./category-item";
+import classes from "./index.module.scss";
 
 type CategoryBandProps = {
   selectedId?: string;
@@ -9,14 +9,11 @@ type CategoryBandProps = {
   onSelect?: (id: string) => void;
 };
 
-const CategoryBand = ({
-  categories,
-  selectedId,
-  onSelect,
-}: CategoryBandProps) => {
+const CategoryBand = ({ categories, selectedId, onSelect }: CategoryBandProps) => {
   return (
     <div className={classes.container}>
-      <Image w={80} mx={30} src="/images/logo.svg" />
+      <Image w={40} mx={12} src="/images/logo.svg" />
+
       <ScrollArea type="auto" scrollbarSize={0}>
         <Box className={classes.box} key={selectedId}>
           {categories.map((item: Category) => {
