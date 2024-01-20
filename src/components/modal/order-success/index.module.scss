@@ -1,0 +1,14 @@
+.contentContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  font-weight: 600;
+  font-size: 14px;
+  flex-wrap: wrap;
+  font-family: "Source Sans 3";
+  white-space: pre-line;
+}

@@ -4,9 +4,9 @@ import { faker } from "@faker-js/faker";
 faker.seed(20231022);
 const _uuid = faker.string.uuid;
 const _int = faker.number.int;
-const _arrayElement = faker.helpers.arrayElement;
+// const _arrayElement = faker.helpers.arrayElement;
 
-const colors: Record<string, string> = {};
+// const colors: Record<string, string> = {};
 export const categories = [
   /* cspell:disable  */
   "Thức uống",
@@ -26,9 +26,9 @@ export const categories = [
   name,
 }));
 
-function _name() {
-  return faker.commerce.productName().split(" ").slice(0, 2).join(" ");
-}
+// function _name() {
+//   return faker.commerce.productName().split(" ").slice(0, 2).join(" ");
+// }
 
 export const menuItems = [
   /* cspell:disable  */
@@ -56,8 +56,8 @@ export const menuItems = [
   return {
     id: _uuid(),
     name,
-    image: `/images/assets/a_detail_${index % 9}.jpg`,
-    smallImage: `/images/assets/a_${index % 9}.jpg`,
+    image: `/images/menu/a_detail_${index % 9}.jpg`,
+    smallImage: `/images/menu/a_${index % 9}.jpg`,
     price: _int({ min: 50, max: 200 }) * 1e3,
   };
 }) as Menu[];

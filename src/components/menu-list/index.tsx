@@ -1,7 +1,7 @@
-import MenuItem from "@/components/menu-item";
 import { Menu } from "@/types";
 import { Box, ScrollArea } from "@mantine/core";
-import classes from "./index.module.css";
+import classes from "./index.module.scss";
+import MenuItem from "./menu-item";
 
 type MenuListProps = {
   selectedMenuItem?: Menu;
@@ -10,7 +10,6 @@ type MenuListProps = {
 };
 
 const MenuList = ({ selectedMenuItem, menuItems, onSelect }: MenuListProps) => {
-  console.log("render MenuList...");
   return (
     <Box className={classes.container}>
       <ScrollArea type="auto" scrollbarSize={0}>

@@ -1,0 +1,22 @@
+.container {
+  padding: 10px 40px;
+  background-color: #fcfbf7;
+}
+
+.itemContainer {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.button {
+  height: 40px;
+  border-radius: 100px;
+  background-color: #92c83e;
+}
+
+.buttonText {
+  font-family: "Source Sans 3 Black";
+  font-weight: 600;
+  font-size: 18px;
+  color: white;
+}

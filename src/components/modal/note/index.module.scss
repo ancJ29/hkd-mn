@@ -1,0 +1,39 @@
+.title {
+  text-align: center;
+  font-size: 16px;
+  color: #888888;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-family: "Source Sans 3";
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.deleteButton {
+  width: 100%;
+  margin-right: 10px;
+  border-radius: 100px;
+  height: 35px;
+  background-color: #f79349;
+  border: 1px solid #b1927c;
+}
+
+.saveButton {
+  width: 100%;
+  margin-left: 10px;
+  border-radius: 100px;
+  height: 35px;
+  background-color: #2a4071;
+}
+
+.textButton {
+  color: white;
+  font-size: 13px;
+  margin-top: 2px;
+}
