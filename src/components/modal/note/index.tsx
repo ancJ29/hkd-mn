@@ -1,5 +1,5 @@
+import Modal from "@/components/modal";
 import { Button, Text, Textarea } from "@mantine/core";
-import Modal from "..";
 import classes from "./index.module.scss";
 
 type ModalNoteProps = {
@@ -13,16 +13,18 @@ const ModalNote = ({ opened, onClose }: ModalNoteProps) => {
       opened={opened}
       onClose={onClose}
       zIndex={300}
-      overlayProps={{
-        backgroundOpacity: 0.55,
-        blur: 5,
-      }}
       withCloseButton={false}
       size="80%"
     >
       <Text className={classes.title}>Thêm ghi chú</Text>
 
-      <Textarea placeholder="Nhập yêu cầu thêm tại đây" autosize minRows={3} maxRows={3} size="xs" />
+      <Textarea
+        placeholder="Nhập yêu cầu thêm tại đây"
+        autosize
+        minRows={3}
+        maxRows={3}
+        size="xs"
+      />
 
       <div className={classes.buttonContainer}>
         <Button className={classes.deleteButton}>

@@ -10,7 +10,13 @@ type ApiCallProps<T> = {
 };
 
 const host = import.meta.env.BASE_URL;
-export default async function callApi<T>({ method, path, data, defaultValue, cache = false }: ApiCallProps<T>) {
+export default async function callApi<T>({
+  method,
+  path,
+  data,
+  defaultValue,
+  cache = false,
+}: ApiCallProps<T>) {
   if (!isValidIP()) {
     logger.info(`API CALL from invalid IP: ${path}`);
     return defaultValue || undefined;
@@ -30,7 +36,9 @@ export default async function callApi<T>({ method, path, data, defaultValue, cac
       },
     });
     logger.error(`API ERROR for path ${path}: ${res.status} ${res.statusText}`);
-    return res.status < 400 ? _cache(res.data, { cache, path }) : defaultValue || undefined;
+    return res.status < 400
+      ? _cache(res.data, { cache, path })
+      : defaultValue || undefined;
   } catch (error) {
     logger.error(`API ERROR for path ${path}: ${error || "Unknown error"}`);
   }

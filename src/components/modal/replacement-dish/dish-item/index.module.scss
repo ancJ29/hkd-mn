@@ -1,0 +1,18 @@
+.container {
+  display: grid;
+  grid-template-columns: 4.5fr 2.5fr 3fr;
+  border-top: 1px black dotted;
+  height: 38px;
+  align-items: center;
+}
+
+.text {
+  font-family: "Source Sans 3";
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.total {
+  font-family: "Source Sans 3 Black";
+  font-size: 16px;
+}

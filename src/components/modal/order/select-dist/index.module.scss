@@ -1,0 +1,24 @@
+.unAvailable {
+  color: #eb1f28;
+}
+
+.selectFoodContainer {
+  border-bottom: 1px black dotted;
+  border-top: 1px black dotted;
+  padding: 15px 0;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.foodText {
+  font-size: 14px;
+  font-family: "Source Sans 3";
+  font-weight: 600;
+}
+
+.image {
+  margin-right: 5px;
+}

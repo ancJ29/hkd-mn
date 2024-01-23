@@ -1,0 +1,31 @@
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+}
+
+.button {
+  width: 100%;
+  border-radius: 100px;
+  box-shadow: 2px 2px 4px 0px #666361;
+}
+
+.cancelButton {
+  background-color: #f6891f;
+  margin-right: 5px;
+}
+
+.confirmButton {
+  background-color: #92c83e;
+  margin-left: 5px;
+}
+
+.disabledButton {
+  background-color: #a5a5a5;
+}
+
+.textButton {
+  color: white;
+  font-size: 16px;
+  font-family: "Source Sans 3 Black";
+}

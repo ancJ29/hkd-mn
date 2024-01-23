@@ -9,8 +9,13 @@ type CategoryItemProps = {
 
 const CategoryItem = ({ active, name, onSelect }: CategoryItemProps) => {
   return (
-    <Box className={[classes.container, active ? classes.active : ""].join(" ")} onClick={onSelect}>
-      <Text className={[classes.title, active ? "" : classes.titleInactive].join(" ")}>{name}</Text>
+    <Box
+      className={[classes.container, active ? classes.active : ""].join(" ")}
+      onClick={onSelect}
+    >
+      <Text className={[classes.title, active ? "" : classes.titleInactive].join(" ")}>
+        {name}
+      </Text>
     </Box>
   );
 };

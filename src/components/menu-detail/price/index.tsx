@@ -11,7 +11,9 @@ const Price = ({ menuItem }: PriceProps) => {
   return (
     <div className={classes.detail}>
       <Text className={classes.name}>{menuItem?.name || ""}</Text>
-      <Text className={classes.price}>{menuItem?.price ? toLocaleString(menuItem.price) : ""}</Text>
+      <Text className={classes.price}>
+        {menuItem?.price ? toLocaleString(menuItem.price) : ""}
+      </Text>
     </div>
   );
 };
