@@ -1,12 +1,12 @@
+import Modal from "@/components/modal";
+import Price from "@/components/modal/cart/price";
+import SpecialRequirements from "@/components/modal/cart/special-requirements";
+import TableHeader from "@/components/modal/cart/table-header";
+import TableItem from "@/components/modal/cart/table-item";
+import ModalOrderSuccess from "@/components/modal/order-success";
 import { Button, Text } from "@mantine/core";
 import { useState } from "react";
-import Modal from "..";
-import ModalOrderSuccess from "../order-success";
 import classes from "./index.module.scss";
-import Price from "./price";
-import SpecialRequirements from "./special-requirements";
-import TableHeader from "./table-header";
-import TableItem from "./table-item";
 
 type ModalCartProps = {
   opened: boolean;
@@ -23,7 +23,10 @@ const ModalCart = ({ opened, onClose }: ModalCartProps) => {
 
   return (
     <>
-      <ModalOrderSuccess opened={openedModalOrderSuccess} onClose={() => setOpenedModalOrderSuccess(false)} />
+      <ModalOrderSuccess
+        opened={openedModalOrderSuccess}
+        onClose={() => setOpenedModalOrderSuccess(false)}
+      />
       <Modal opened={opened} onClose={onClose} title="GIỎ HÀNG CỦA BẠN">
         <TableHeader />
 

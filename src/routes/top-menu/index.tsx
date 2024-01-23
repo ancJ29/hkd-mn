@@ -1,14 +1,13 @@
-import CategoryBand from "@/components/category-band";
-import LanguageFlag from "@/components/language-flag";
 import MenuDetail from "@/components/menu-detail";
 import { MenuAction } from "@/components/menu-detail/menu-navigation";
+import MenuLayout from "@/components/menu-layout";
 import MenuList from "@/components/menu-list";
 import ModalCart from "@/components/modal/cart";
+import ModalOrder from "@/components/modal/order";
+import ModalSideDish from "@/components/modal/side-dish";
 import { getCategories, getMenuItems } from "@/services/menu";
 import { Category, Menu } from "@/types";
-import { AppShell } from "@mantine/core";
 import { useCallback, useEffect, useState } from "react";
-import classes from "./index.module.scss";
 
 const TopMenu = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -33,10 +32,10 @@ const TopMenu = () => {
 
   const actionHandler = useCallback((action: MenuAction) => {
     switch (action) {
-      case MenuAction.CART: {
-        setOpenedCart(true);
-        break;
-      }
+    case MenuAction.CART: {
+      setOpenedCart(true);
+      break;
+    }
     }
   }, []);
 
@@ -45,32 +44,32 @@ const TopMenu = () => {
   }, []);
 
   return (
-    <div className={classes.container}>
+    <>
       <ModalCart opened={openedCart} onClose={() => setOpenedCart(false)} />
 
-      <AppShell header={{ height: 80, offset: false }}>
-        <AppShell.Header h="80px" bg="transparent" withBorder={false}>
-          <CategoryBand categories={categories} selectedId={selectedCategoryId} onSelect={setSelectedCategoryId} />
-          <LanguageFlag />
-        </AppShell.Header>
-        <AppShell.Main mt="80px">
-          <div className={classes.main}>
-            <MenuList
-              key={menuItems.length}
-              menuItems={menuItems}
-              selectedMenuItem={selectedMenuItem}
-              onSelect={setSelectedMenuItem}
-            />
-            <MenuDetail
-              menuItem={selectedMenuItem}
-              totals={totals}
-              onChange={onChange.bind(null, selectedMenuItem?.id || "-")}
-              onAction={actionHandler}
-            />
-          </div>
-        </AppShell.Main>
-      </AppShell>
-    </div>
+      <ModalOrder opened={false} onClose={() => null} />
+
+      <ModalSideDish opened={false} onClose={() => null} />
+
+      <MenuLayout
+        categories={categories}
+        selectedCategoryId={selectedCategoryId}
+        setSelectedCategoryId={setSelectedCategoryId}
+      >
+        <MenuList
+          key={menuItems.length}
+          menuItems={menuItems}
+          selectedMenuItem={selectedMenuItem}
+          onSelect={setSelectedMenuItem}
+        />
+        <MenuDetail
+          menuItem={selectedMenuItem}
+          totals={totals}
+          onChange={onChange.bind(null, selectedMenuItem?.id || "-")}
+          onAction={actionHandler}
+        />
+      </MenuLayout>
+    </>
   );
 };
 

@@ -39,7 +39,13 @@ const MenuNavigation = memo(
           src="/images/tab/explore.svg"
           onClick={onAction.bind(null, MenuAction.EXPLORE)}
         />
-        <Indicator offset={10} label={label} color="#f21825" size={16} disabled={total < 1}>
+        <Indicator
+          offset={10}
+          label={label}
+          color="#f21825"
+          size={16}
+          disabled={total < 1}
+        >
           <Image
             w={40}
             className={classes.icon}

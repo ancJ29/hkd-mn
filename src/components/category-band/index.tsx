@@ -1,6 +1,6 @@
+import CategoryItem from "@/components/category-band/category-item";
 import { Category } from "@/types";
 import { Box, Image, ScrollArea } from "@mantine/core";
-import CategoryItem from "./category-item";
 import classes from "./index.module.scss";
 
 type CategoryBandProps = {

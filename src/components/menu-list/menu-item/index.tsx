@@ -12,7 +12,11 @@ const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
   return (
     <Box w="32vw" className={classes.container}>
       <Flex className={[classes.imageContainer, active ? classes.active : ""].join(" ")}>
-        <Image className={classes.image} onClick={() => onSelect(menuItem)} src={menuItem.smallImage} />
+        <Image
+          className={classes.image}
+          onClick={() => onSelect(menuItem)}
+          src={menuItem.smallImage}
+        />
       </Flex>
 
       <Text c="white" ml={12} fz="10px">

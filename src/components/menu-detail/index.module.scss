@@ -18,3 +18,35 @@
   padding-left: 20px;
   padding-right: 10px;
 }
+
+.smallImage {
+  position: absolute;
+  width: 20%;
+  left: 40%;
+  bottom: 200px;
+  display: none;
+  opacity: 50;
+}
+
+.sendToCart {
+  display: block;
+  z-index: 600;
+  animation: moveDown 1s;
+}
+
+@keyframes moveDown {
+  0% {
+    width: 20%;
+    opacity: 1;
+  }
+  80% {
+    width: 5%;
+    opacity: 0.5;
+  }
+  100% {
+    width: 5%;
+    opacity: 0;
+    display: none;
+    transform: translateY(160px) translateX(14.5vw);
+  }
+}

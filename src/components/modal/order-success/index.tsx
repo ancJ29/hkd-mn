@@ -1,5 +1,5 @@
+import Modal from "@/components/modal";
 import { Image, Text } from "@mantine/core";
-import Modal from "..";
 import classes from "./index.module.scss";
 
 type ModalOrderSuccessProps = {
@@ -8,7 +8,8 @@ type ModalOrderSuccessProps = {
 };
 
 const ModalOrderSuccess = ({ opened, onClose }: ModalOrderSuccessProps) => {
-  const content = "Quý khách đã đặt món thành công.\nMón ăn sẽ được phục vụ Quý khách tại bàn trong thời gian sớm.";
+  const content =
+    "Quý khách đã đặt món thành công.\nMón ăn sẽ được phục vụ Quý khách tại bàn trong thời gian sớm.";
 
   return (
     <Modal opened={opened} onClose={onClose}>

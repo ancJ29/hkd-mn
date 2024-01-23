@@ -1,7 +1,7 @@
+import MenuItem from "@/components/menu-list/menu-item";
 import { Menu } from "@/types";
 import { Box, ScrollArea } from "@mantine/core";
 import classes from "./index.module.scss";
-import MenuItem from "./menu-item";
 
 type MenuListProps = {
   selectedMenuItem?: Menu;
