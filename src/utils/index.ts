@@ -14,3 +14,8 @@ export function toLocaleString(value: number) {
     })
     .replace("₫", "");
 }
+
+export const parseJSON = (value: string) => {
+  const parseData = JSON.parse(value);
+  return parseData;
+};

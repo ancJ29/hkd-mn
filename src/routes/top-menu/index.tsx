@@ -1,20 +1,17 @@
+import Loading from "@/components/loading";
 import MenuDetail from "@/components/menu-detail";
-import { MenuAction } from "@/components/menu-detail/menu-navigation";
 import MenuLayout from "@/components/menu-layout";
 import MenuList from "@/components/menu-list";
 import ModalCart from "@/components/modal/cart";
 import ModalOrder from "@/components/modal/order";
 import ModalSideDish from "@/components/modal/side-dish";
-import { getCategories, getMenuItems } from "@/services/menu";
-import { Category, Menu } from "@/types";
+import { getMenuItems } from "@/services/menu";
+import { Menu } from "@/types";
+import { parseJSON } from "@/utils";
+import { TOTALS } from "@/utils/constant";
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const TopMenu = () => {
-  const navigate = useNavigate();
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState("");
-
   const [menuItems, setMenuItems] = useState<Menu[]>([]);
   const [selectedMenuItem, setSelectedMenuItem] = useState<Menu | undefined>(undefined);
   const [totals, setTotals] = useState<{ [key: string]: number }>({});
@@ -22,32 +19,31 @@ const TopMenu = () => {
 
   useEffect(() => {
     console.log("fetch data...");
-    getCategories().then((categories) => {
-      setCategories(categories);
-      setSelectedCategoryId(categories[0]?.id || "");
-    });
     getMenuItems().then((items) => {
       setMenuItems(items);
       setSelectedMenuItem(items[0] || null);
     });
+    setUpTotals();
   }, []);
 
-  const actionHandler = useCallback((action: MenuAction) => {
-    switch (action) {
-    case MenuAction.CART: {
-      setOpenedCart(true);
-      break;
-    }
-    case MenuAction.EXPLORE: {
-      navigate("/explore");
-      break;
-    }
-    }
+  const setUpTotals = () => {
+    sessionStorage.getItem(TOTALS) === null
+      ? setTotals({})
+      : setTotals(parseJSON(sessionStorage.getItem(TOTALS) ?? ""));
+  };
+
+  const onChangeTotals = useCallback((id: string, total: number) => {
+    setTotals((state) => {
+      const newState = { ...state, [id]: total };
+      sessionStorage.setItem(TOTALS, JSON.stringify(newState));
+      window.dispatchEvent(new Event(TOTALS));
+      return newState;
+    });
   }, []);
 
-  const onChange = useCallback((id: string, total: number) => {
-    setTotals((state) => ({ ...state, [id]: total }));
-  }, []);
+  if(menuItems.length < 1) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -57,11 +53,7 @@ const TopMenu = () => {
 
       <ModalSideDish opened={false} onClose={() => null} />
 
-      <MenuLayout
-        categories={categories}
-        selectedCategoryId={selectedCategoryId}
-        setSelectedCategoryId={setSelectedCategoryId}
-      >
+      <MenuLayout>
         <MenuList
           key={menuItems.length}
           menuItems={menuItems}
@@ -71,8 +63,7 @@ const TopMenu = () => {
         <MenuDetail
           menuItem={selectedMenuItem}
           totals={totals}
-          onChange={onChange.bind(null, selectedMenuItem?.id || "-")}
-          onAction={actionHandler}
+          onChange={onChangeTotals.bind(null, selectedMenuItem?.id || "-")}
         />
       </MenuLayout>
     </>

@@ -17,7 +17,7 @@ const SelectDish = ({ isAvailable, onOpenModalSelectReplaceDish }: SelectDishPro
 
       <Image
         w="30"
-        src={`/images/${isAvailable ? "available" : "unAvailable"}.svg`}
+        src={`/images/${isAvailable ? "available" : "un_available"}.svg`}
         className={classes.image}
         onClick={onOpenModalSelectReplaceDish}
       />
