@@ -28,8 +28,8 @@ const MenuNavigation = memo(
     return (
       <Flex
         className={`${className} ${classes.container}`}
-        justify={"space-between"}
-        align={"center"}
+        justify="space-between"
+        align="center"
       >
         <div />
         <Image

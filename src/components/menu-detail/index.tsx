@@ -1,4 +1,3 @@
-import MenuNavigation, { MenuAction } from "@/components/menu-detail/menu-navigation";
 import Price from "@/components/menu-detail/price";
 import QuantitySelector from "@/components/menu-detail/quantity-selector";
 import { Menu } from "@/types";
@@ -12,10 +11,9 @@ type MenuDetailProps = {
     [key: string]: number;
   };
   onChange: (total: number) => void;
-  onAction: (action: MenuAction) => void;
 };
 
-const MenuDetail = ({ menuItem, totals, onChange, onAction }: MenuDetailProps) => {
+const MenuDetail = ({ menuItem, totals, onChange }: MenuDetailProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const total = totals[menuItem?.id || "-"] || 0;
 
@@ -43,7 +41,6 @@ const MenuDetail = ({ menuItem, totals, onChange, onAction }: MenuDetailProps) =
             onProductAdd={handleProductAdd}
           />
         </Flex>
-        <MenuNavigation onAction={onAction} totals={totals} />
       </Box>
     </Box>
   );

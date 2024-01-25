@@ -17,10 +17,9 @@
 .active::before {
   content: "";
   position: absolute;
-  left: 7%;
-  width: 86%;
-  height: 2px;
-  background-color: #ea2229;
+  width: 92%;
+  height: 10px;
+  background-color: #C5232A;
   border-top-left-radius: 100px;
   border-top-right-radius: 100px;
 }
@@ -28,20 +27,19 @@
 .active::after {
   content: "";
   position: absolute;
-  left: 7%;
-  width: 86%;
-  height: 2px;
-  background-color: #ea2229;
+  width: 92%;
+  height: 10px;
+  background-color: #C5232A;
   border-bottom-left-radius: 100px;
   border-bottom-right-radius: 100px;
 }
 
 .active::before {
-  top: -1.5px;
+  top: -2px;
 }
 
 .active::after {
-  bottom: -1.5px;
+  bottom: -2px;
 }
 
 .image {
@@ -56,6 +54,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  z-index: 100;
 }
 
 .noSelect:focus {

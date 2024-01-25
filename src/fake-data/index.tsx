@@ -62,14 +62,14 @@ export const menuItems = [
   };
 }) as Menu[];
 
-export const foodAdvertisement = [...Array(3).keys()].map((_, index) => {
+export const foodAdvertisement = [...Array(6).keys()].map((_, index) => {
   return {
     id: _uuid(),
     image: `/images/food_highlight/a_${index % 3}.svg`,
   };
 }) as Advertisement[];
 
-export const materialAdvertisement = [...Array(3).keys()].map((_, index) => {
+export const materialAdvertisement = [...Array(6).keys()].map((_, index) => {
   return {
     id: _uuid(),
     image: `/images/materials/a_${index % 3}.svg`,
