@@ -11,7 +11,7 @@ const NameAndNote = ({ onOpenedModalNote }: NameAndNoteProps) => {
       <Text className={classes.name}>Komochi Nisshin Sashimi</Text>
 
       <div className={classes.noteContainer}>
-        <Image h={10} src="/images/edit.svg" />
+        <Image w={10} src="/images/edit.svg" />
         <Text className={classes.note} onClick={onOpenedModalNote}>
           Thêm ghi chú
         </Text>

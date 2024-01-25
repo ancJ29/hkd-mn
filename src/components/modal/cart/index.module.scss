@@ -8,15 +8,21 @@
   overflow-y: auto;
 }
 
+.containerButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .button {
-  height: 40px;
+  width: 80%;
+  height: 44px;
   border-radius: 100px;
   background-color: #92c83e;
 }
 
 .buttonText {
   font-family: "Source Sans 3 Black";
-  font-weight: 600;
-  font-size: 18px;
+  font-size: 20px;
   color: white;
 }

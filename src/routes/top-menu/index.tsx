@@ -8,8 +8,10 @@ import ModalSideDish from "@/components/modal/side-dish";
 import { getCategories, getMenuItems } from "@/services/menu";
 import { Category, Menu } from "@/types";
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TopMenu = () => {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
 
@@ -34,6 +36,10 @@ const TopMenu = () => {
     switch (action) {
     case MenuAction.CART: {
       setOpenedCart(true);
+      break;
+    }
+    case MenuAction.EXPLORE: {
+      navigate("/explore");
       break;
     }
     }

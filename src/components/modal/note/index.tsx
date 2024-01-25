@@ -14,7 +14,7 @@ const ModalNote = ({ opened, onClose }: ModalNoteProps) => {
       onClose={onClose}
       zIndex={300}
       withCloseButton={false}
-      size="80%"
+      size="85%"
     >
       <Text className={classes.title}>Thêm ghi chú</Text>
 

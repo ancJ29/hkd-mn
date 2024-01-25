@@ -14,10 +14,11 @@ type MenuNavigationProps = {
     [key: string]: number;
   };
   onAction: (action: MenuAction) => void;
+  className?: string;
 };
 
 const MenuNavigation = memo(
-  ({ totals, onAction }: MenuNavigationProps) => {
+  ({ totals, onAction, className }: MenuNavigationProps) => {
     let total = 0;
     Object.keys(totals).forEach((key) => {
       total += totals[key];
@@ -25,7 +26,11 @@ const MenuNavigation = memo(
 
     const label = useMemo(() => <Text className={classes.text}>{total}</Text>, [total]);
     return (
-      <Flex className={classes.container} justify={"space-between"} align={"center"}>
+      <Flex
+        className={`${className} ${classes.container}`}
+        justify={"space-between"}
+        align={"center"}
+      >
         <div />
         <Image
           h={40}

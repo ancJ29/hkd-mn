@@ -3,12 +3,14 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  padding-bottom: 10px;
 }
 
 .content {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 10px;
   flex-wrap: wrap;
   font-family: "Source Sans 3";
   white-space: pre-line;
+  margin-left: 10px;
 }

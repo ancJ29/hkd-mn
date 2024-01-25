@@ -1,8 +1,21 @@
+import { Advertisement } from "@/types";
 import { Image } from "@mantine/core";
 import classes from "./index.module.scss";
 
-const FoodHighlightItem = () => {
-  return <Image h={100} className={classes.image} src="/images/recommend_food.png" />;
+type FoodHighlightItemProps = {
+  foodAdvertisements: Advertisement;
+};
+
+const FoodHighlightItem = ({ foodAdvertisements }: FoodHighlightItemProps) => {
+  return (
+    <Image
+      h="10vh"
+      w="auto"
+      fit="contain"
+      className={classes.image}
+      src={foodAdvertisements.image}
+    />
+  );
 };
 
 export default FoodHighlightItem;

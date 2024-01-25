@@ -1,16 +1,21 @@
+import { Advertisement } from "@/types";
 import { Box, ScrollArea } from "@mantine/core";
 import Title from "../food-highlights/title";
 import TastyOriginsItem from "./Item";
 import classes from "./index.module.scss";
 
-const TastyOrigins = () => {
+type TastyOriginsProps = {
+  materialAdvertisement: Advertisement[];
+};
+
+const TastyOrigins = ({ materialAdvertisement }: TastyOriginsProps) => {
   return (
     <>
-      <Title value="-- MÓN NGON GỢI Ý --" />
-      <ScrollArea type="auto" scrollbarSize={0} className={classes.container}>
+      <Title value="-- BẠN ĐÃ BIẾT ? --" />
+      <ScrollArea type="auto" scrollbarSize={0}>
         <Box className={classes.box}>
-          {[...Array(10).keys()].map((_, index) => (
-            <TastyOriginsItem key={index} />
+          {materialAdvertisement?.map((e, i) => (
+            <TastyOriginsItem key={i} materialAdvertisement={e} />
           ))}
         </Box>
       </ScrollArea>
