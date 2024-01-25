@@ -20,6 +20,7 @@ const MenuDetail = ({ menuItem, totals, onChange, onAction }: MenuDetailProps) =
   const total = totals[menuItem?.id || "-"] || 0;
 
   const handleProductAdd = () => {
+    ref.current?.classList.remove(classes.sendToCart);
     ref.current?.classList.add(classes.sendToCart);
     setTimeout(() => {
       ref.current?.classList.remove(classes.sendToCart);

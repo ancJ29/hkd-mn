@@ -2,13 +2,13 @@ import { lazy } from "react";
 import { type RouteObject } from "react-router-dom";
 
 const map = {
-  Dashboard: lazy(() => import("@/routes/dashboard")),
+  Explore: lazy(() => import("@/routes/explore")),
   TopMenu: lazy(() => import("@/routes/top-menu")),
 };
 const routes: RouteObject[] = [
   {
-    path: "/dashboard",
-    element: <map.Dashboard />,
+    path: "/explore",
+    element: <map.Explore />,
   },
   {
     path: "/top-menu",

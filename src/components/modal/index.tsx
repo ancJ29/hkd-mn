@@ -7,9 +7,16 @@ interface ModalProps extends MantineModalProps {
   children: ReactNode;
   title?: string;
   withCloseButton?: boolean;
+  closeSize?: number;
 }
 
-const Modal = ({ children, title, withCloseButton = true, ...props }: ModalProps) => {
+const Modal = ({
+  children,
+  title,
+  withCloseButton = true,
+  closeSize,
+  ...props
+}: ModalProps) => {
   return (
     <MantineModal
       centered
@@ -24,7 +31,9 @@ const Modal = ({ children, title, withCloseButton = true, ...props }: ModalProps
       {...props}
     >
       <div className={classes.container}>
-        {withCloseButton && <ModalHeader title={title} onClose={props.onClose} />}
+        {withCloseButton && (
+          <ModalHeader title={title} onClose={props.onClose} closeSize={closeSize} />
+        )}
         {children}
       </div>
     </MantineModal>

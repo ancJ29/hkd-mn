@@ -1,5 +1,10 @@
-import { categories, menuItems } from "@/fake-data";
-import { Category, Menu } from "@/types";
+import {
+  categories,
+  foodAdvertisement,
+  materialAdvertisement,
+  menuItems,
+} from "@/fake-data";
+import { Advertisement, Category, Menu } from "@/types";
 
 export async function getCategories(): Promise<Category[]> {
   await _delay(200);
@@ -13,4 +18,14 @@ function _delay(ms: number) {
 export async function getMenuItems(): Promise<Menu[]> {
   await _delay(200);
   return menuItems;
+}
+
+export async function getFoodAdvertisement(): Promise<Advertisement[]> {
+  await _delay(200);
+  return foodAdvertisement;
+}
+
+export async function getMaterialAdvertisement(): Promise<Advertisement[]> {
+  await _delay(200);
+  return materialAdvertisement;
 }

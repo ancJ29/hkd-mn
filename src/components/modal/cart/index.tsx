@@ -40,9 +40,11 @@ const ModalCart = ({ opened, onClose }: ModalCartProps) => {
 
         <Price />
 
-        <Button className={classes.button} fullWidth onClick={onOrderSuccess}>
-          <Text className={classes.buttonText}>ĐẶT MÓN</Text>
-        </Button>
+        <div className={classes.containerButton}>
+          <Button className={classes.button} fullWidth onClick={onOrderSuccess}>
+            <Text className={classes.buttonText}>ĐẶT MÓN</Text>
+          </Button>
+        </div>
       </Modal>
     </>
   );
