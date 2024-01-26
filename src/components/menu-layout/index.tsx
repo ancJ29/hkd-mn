@@ -63,9 +63,14 @@ const MenuLayout = ({ children }: MenuLayoutProps) => {
     }
   }, []);
 
+  const onCloseModalCart = () => {
+    navigate("/");
+    setOpenedCart(false);
+  };
+
   return (
     <>
-      <ModalCart opened={openedCart} onClose={() => setOpenedCart(false)} />
+      <ModalCart opened={openedCart} onClose={onCloseModalCart} />
 
       <ModalOrder opened={false} onClose={() => null} />
 

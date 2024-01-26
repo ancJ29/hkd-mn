@@ -41,7 +41,7 @@ const TopMenu = () => {
     });
   }, []);
 
-  if(menuItems.length < 1) {
+  if (menuItems.length < 1) {
     return <Loading />;
   }
 

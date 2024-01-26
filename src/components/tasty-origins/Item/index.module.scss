@@ -1,4 +1,10 @@
 .image {
-  margin: 0 5px;
-  border-radius: 5px;
+  width: 30vw;
+  height: 22vh;
+  margin-right: 7px;
+  object-fit: fill;
+}
+
+.image:first-child {
+  margin-left: 7px;
 }

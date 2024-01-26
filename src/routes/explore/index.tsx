@@ -3,10 +3,7 @@ import Loading from "@/components/loading";
 import MenuLayout from "@/components/menu-layout";
 import TastyOrigins from "@/components/tasty-origins";
 import VideoFrame from "@/components/video-frame";
-import {
-  getFoodAdvertisement,
-  getMaterialAdvertisement
-} from "@/services/menu";
+import { getFoodAdvertisement, getMaterialAdvertisement } from "@/services/menu";
 import { Advertisement } from "@/types";
 import { useEffect, useState } from "react";
 import classes from "./index.module.scss";
@@ -27,7 +24,7 @@ const Explore = () => {
     });
   }, []);
 
-  if(foodAdvertisements.length < 1 || materialAdvertisement.length < 1) {
+  if (foodAdvertisements.length < 1 || materialAdvertisement.length < 1) {
     return <Loading />;
   }
 
@@ -40,7 +37,8 @@ const Explore = () => {
 
         <TastyOrigins materialAdvertisement={materialAdvertisement} />
       </div>
-    </MenuLayout>  );
+    </MenuLayout>
+  );
 };
 
 export default Explore;

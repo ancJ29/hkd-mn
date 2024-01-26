@@ -7,15 +7,7 @@ type TastyOriginsItemProps = {
 };
 
 const TastyOriginsItem = ({ materialAdvertisement }: TastyOriginsItemProps) => {
-  return (
-    <Image
-      w="auto"
-      h="20vh"
-      fit="contain"
-      className={classes.image}
-      src={materialAdvertisement.image}
-    />
-  );
+  return <Image className={classes.image} src={materialAdvertisement.image} />;
 };
 
 export default TastyOriginsItem;
