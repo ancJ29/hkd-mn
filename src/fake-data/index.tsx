@@ -65,13 +65,13 @@ export const menuItems = [
 export const foodAdvertisement = [...Array(6).keys()].map((_, index) => {
   return {
     id: _uuid(),
-    image: `/images/food_highlight/a_${index % 3}.svg`,
+    image: `/images/food_highlight/a_${index % 2}.png`,
   };
 }) as Advertisement[];
 
 export const materialAdvertisement = [...Array(6).keys()].map((_, index) => {
   return {
     id: _uuid(),
-    image: `/images/materials/a_${index % 3}.svg`,
+    image: `/images/materials/a_${index % 3}.png`,
   };
 }) as Advertisement[];

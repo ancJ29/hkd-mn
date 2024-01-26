@@ -7,15 +7,7 @@ type FoodHighlightItemProps = {
 };
 
 const FoodHighlightItem = ({ foodAdvertisements }: FoodHighlightItemProps) => {
-  return (
-    <Image
-      h="10vh"
-      w="auto"
-      fit="contain"
-      className={classes.image}
-      src={foodAdvertisements.image}
-    />
-  );
+  return <Image className={classes.image} src={foodAdvertisements.image} />;
 };
 
 export default FoodHighlightItem;

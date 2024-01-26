@@ -31,10 +31,7 @@ const CategoryBand = ({ categories, selectedId, onSelect }: CategoryBandProps) =
         <Box className={classes.box}>
           {categories.map((item: Category) => {
             return (
-              <div
-                key={item.id}
-                ref={selectedId === item.id ? selectedRef : null}
-              >
+              <div key={item.id} ref={selectedId === item.id ? selectedRef : null}>
                 <CategoryItem
                   name={item.name}
                   active={selectedId === item.id}
