@@ -64,7 +64,6 @@ const MenuLayout = ({ children }: MenuLayoutProps) => {
   }, []);
 
   const onCloseModalCart = () => {
-    navigate("/");
     setOpenedCart(false);
   };
 
