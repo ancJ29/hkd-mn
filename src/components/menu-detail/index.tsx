@@ -2,7 +2,7 @@ import Price from "@/components/menu-detail/price";
 import QuantitySelector from "@/components/menu-detail/quantity-selector";
 import { Menu } from "@/types";
 import { Box, Flex, Image } from "@mantine/core";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import classes from "./index.module.scss";
 
 type MenuDetailProps = {
@@ -16,12 +16,16 @@ type MenuDetailProps = {
 const MenuDetail = ({ menuItem, totals, onChange }: MenuDetailProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const total = totals[menuItem?.id || "-"] || 0;
+  const [isMoving, setIsMoving] = useState(false);
 
   const handleProductAdd = () => {
-    ref.current?.classList.remove(classes.sendToCart);
+    setIsMoving(true);
     ref.current?.classList.add(classes.sendToCart);
     setTimeout(() => {
-      ref.current?.classList.remove(classes.sendToCart);
+      if (!isMoving) {
+        ref.current?.classList.remove(classes.sendToCart);
+        setIsMoving(false);
+      }
     }, 900);
   };
 

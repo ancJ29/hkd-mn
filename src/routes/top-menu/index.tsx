@@ -2,9 +2,6 @@ import Loading from "@/components/loading";
 import MenuDetail from "@/components/menu-detail";
 import MenuLayout from "@/components/menu-layout";
 import MenuList from "@/components/menu-list";
-import ModalCart from "@/components/modal/cart";
-import ModalOrder from "@/components/modal/order";
-import ModalSideDish from "@/components/modal/side-dish";
 import { getMenuItems } from "@/services/menu";
 import { Menu } from "@/types";
 import { parseJSON } from "@/utils";
@@ -15,7 +12,6 @@ const TopMenu = () => {
   const [menuItems, setMenuItems] = useState<Menu[]>([]);
   const [selectedMenuItem, setSelectedMenuItem] = useState<Menu | undefined>(undefined);
   const [totals, setTotals] = useState<{ [key: string]: number }>({});
-  const [openedCart, setOpenedCart] = useState(false);
 
   useEffect(() => {
     console.log("fetch data...");
@@ -47,12 +43,6 @@ const TopMenu = () => {
 
   return (
     <>
-      <ModalCart opened={openedCart} onClose={() => setOpenedCart(false)} />
-
-      <ModalOrder opened={false} onClose={() => null} />
-
-      <ModalSideDish opened={false} onClose={() => null} />
-
       <MenuLayout>
         <MenuList
           key={menuItems.length}
