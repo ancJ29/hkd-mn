@@ -6,6 +6,7 @@ import TableItem from "@/components/modal/cart/table-item";
 import ModalOrderSuccess from "@/components/modal/order-success";
 import { Button, Text } from "@mantine/core";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import classes from "./index.module.scss";
 
 type ModalCartProps = {
@@ -14,20 +15,32 @@ type ModalCartProps = {
 };
 
 const ModalCart = ({ opened, onClose }: ModalCartProps) => {
+  const navigate = useNavigate();
   const [openedModalOrderSuccess, setOpenedModalOrderSuccess] = useState(false);
+
+  const _onClose = () => {
+    onClose();
+    navigate("/");
+  };
 
   const onOrderSuccess = () => {
     onClose();
     setOpenedModalOrderSuccess(true);
   };
 
+  const onCloseModalOrderSuccess = () => {
+    setOpenedModalOrderSuccess(false);
+    navigate("/");
+  };
+
   return (
     <>
       <ModalOrderSuccess
         opened={openedModalOrderSuccess}
-        onClose={() => setOpenedModalOrderSuccess(false)}
+        onClose={onCloseModalOrderSuccess}
       />
-      <Modal opened={opened} onClose={onClose} title="GIỎ HÀNG CỦA BẠN">
+
+      <Modal opened={opened} onClose={_onClose} title="GIỎ HÀNG CỦA BẠN">
         <TableHeader />
 
         <div className={classes.itemContainer}>
