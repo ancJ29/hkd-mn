@@ -10,8 +10,8 @@ type TastyOriginsProps = {
 
 const TastyOrigins = ({ materialAdvertisement }: TastyOriginsProps) => {
   return (
-    <>
-      <Title value="-- BẠN ĐÃ BIẾT ? --" />
+    <div className={classes.container}>
+      <Title value="Bạn đã biết?" />
       <ScrollArea type="auto" scrollbarSize={0}>
         <Box className={classes.box}>
           {materialAdvertisement?.map((e, i) => (
@@ -19,7 +19,7 @@ const TastyOrigins = ({ materialAdvertisement }: TastyOriginsProps) => {
           ))}
         </Box>
       </ScrollArea>
-    </>
+    </div>
   );
 };
 
