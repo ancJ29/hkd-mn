@@ -11,7 +11,7 @@ type FoodHighlightProps = {
 const FoodHighlight = ({ foodAdvertisements }: FoodHighlightProps) => {
   return (
     <>
-      <Title value="-- MÓN NGON GỢI Ý --" />
+      <Title value="Món ngon gợi ý" />
       <ScrollArea type="auto" scrollbarSize={0}>
         <Box className={classes.box}>
           {foodAdvertisements?.map((e, i) => (
