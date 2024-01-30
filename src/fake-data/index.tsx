@@ -6,7 +6,7 @@ faker.seed(20231022);
 const _uuid = faker.string.uuid;
 const _int = faker.number.int;
 
-const baseURL = import.meta.env.BASE_IMAGE_URL;
+const baseImageURL = import.meta.env.BASE_IMAGE_URL;
 
 export const categories = menuData.map((categoryData, index) => ({
   id: (index + 1).toString(),
@@ -14,8 +14,8 @@ export const categories = menuData.map((categoryData, index) => ({
   menuItems: categoryData.menu.map((menuItem) => ({
     id: _uuid(),
     name: menuItem.name,
-    image: `${baseURL}${menuItem.imageUrl}`,
-    smallImage: `${baseURL}${menuItem.smallImageUrl}`,
+    image: `${baseImageURL}${menuItem.imageUrl}`,
+    smallImage: `${baseImageURL}${menuItem.smallImageUrl}`,
     price: _int({ min: 50, max: 200 }) * 1e3,
   })),
 })) as Category[];
