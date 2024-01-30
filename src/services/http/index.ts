@@ -9,7 +9,7 @@ type ApiCallProps<T> = {
   defaultValue?: unknown;
 };
 
-const host = import.meta.env.BASE_URL;
+const host = import.meta.env.BASE_IMAGE_URL;
 export default async function callApi<T>({
   method,
   path,

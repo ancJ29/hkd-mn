@@ -6,7 +6,7 @@ faker.seed(20231022);
 const _uuid = faker.string.uuid;
 const _int = faker.number.int;
 
-const baseURL = import.meta.env.BASE_URL;
+const baseURL = import.meta.env.BASE_IMAGE_URL;
 
 export const categories = menuData.map((categoryData, index) => ({
   id: (index + 1).toString(),

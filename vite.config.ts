@@ -17,7 +17,7 @@ export default ({ mode }: { mode: string }) => {
       },
     },
     define: {
-      "import.meta.env.BASE_URL": JSON.stringify(env.BASE_URL),
+      "import.meta.env.BASE_IMAGE_URL": JSON.stringify(env.BASE_IMAGE_URL),
     },
   });
 };
