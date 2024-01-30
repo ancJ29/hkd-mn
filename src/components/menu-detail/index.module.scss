@@ -21,32 +21,32 @@
 
 .smallImage {
   position: absolute;
-  width: 20%;
-  left: 40%;
-  bottom: 200px;
+  width: 10%;
+  right: 15%;
+  bottom: 80px;
+  height: 10vw;
   display: none;
-  opacity: 50;
 }
 
 .sendToCart {
   display: block;
   z-index: 600;
-  animation: moveDown 1s;
+  border-radius: 200px;
+  border: 2px solid white;
+  animation: moveDown 1.1s;
 }
 
 @keyframes moveDown {
   0% {
-    width: 20%;
+    width: 10%;
+    height: 10vw;
     opacity: 1;
-  }
-  80% {
-    width: 5%;
-    opacity: 0.5;
   }
   100% {
     width: 5%;
-    opacity: 0;
+    height: 5vw;
+    opacity: 0.8;
     display: none;
-    transform: translateY(160px) translateX(14.5vw);
+    transform: translateY(43px) translateX(-26vw);
   }
 }

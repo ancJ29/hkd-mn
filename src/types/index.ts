@@ -13,6 +13,7 @@ export const menuSchema = z.object({
 export const categorySchema = z.object({
   id: z.string(),
   name: z.string(),
+  menuItems: menuSchema.array(),
   // TODO: add more fields...
 });
 

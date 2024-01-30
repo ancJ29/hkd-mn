@@ -16,6 +16,7 @@ const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
           className={classes.image}
           onClick={() => onSelect(menuItem)}
           src={menuItem.smallImage}
+          loading="lazy"
         />
       </Flex>
 
