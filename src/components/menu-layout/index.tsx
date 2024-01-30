@@ -1,11 +1,8 @@
-import { getCategories } from "@/services/menu";
-import { Category } from "@/types";
 import { parseJSON } from "@/utils";
 import { TOTALS } from "@/utils/constant";
 import { AppShell } from "@mantine/core";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CategoryBand from "../category-band";
 import LanguageFlag from "../language-flag";
 import MenuNavigation, { MenuAction } from "../menu-detail/menu-navigation";
 import ModalCart from "../modal/cart";
@@ -14,13 +11,12 @@ import ModalSideDish from "../modal/side-dish";
 import classes from "./index.module.scss";
 
 type MenuLayoutProps = {
+  header: ReactNode;
   children: ReactNode;
 };
 
-const MenuLayout = ({ children }: MenuLayoutProps) => {
+const MenuLayout = ({ header, children }: MenuLayoutProps) => {
   const navigate = useNavigate();
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [totals, setTotals] = useState<{ [key: string]: number }>({});
   const [openedCart, setOpenedCart] = useState(false);
 
@@ -31,12 +27,6 @@ const MenuLayout = ({ children }: MenuLayoutProps) => {
   }, []);
 
   useEffect(() => {
-    console.log("fetch data...");
-    getCategories().then((categories) => {
-      setCategories(categories);
-      setSelectedCategoryId(categories[0]?.id || "");
-    });
-
     setUpTotals();
   }, []);
 
@@ -48,18 +38,18 @@ const MenuLayout = ({ children }: MenuLayoutProps) => {
 
   const actionHandler = useCallback((action: MenuAction) => {
     switch (action) {
-    case MenuAction.MENU: {
-      navigate("/");
-      break;
-    }
-    case MenuAction.EXPLORE: {
-      navigate("/explore");
-      break;
-    }
-    case MenuAction.CART: {
-      setOpenedCart(true);
-      break;
-    }
+      case MenuAction.MENU: {
+        navigate("/");
+        break;
+      }
+      case MenuAction.EXPLORE: {
+        navigate("/explore");
+        break;
+      }
+      case MenuAction.CART: {
+        setOpenedCart(true);
+        break;
+      }
     }
   }, []);
 
@@ -74,11 +64,7 @@ const MenuLayout = ({ children }: MenuLayoutProps) => {
       <div className={classes.container}>
         <AppShell header={{ height: 80, offset: false }}>
           <AppShell.Header h="80px" bg="transparent" withBorder={false}>
-            <CategoryBand
-              categories={categories}
-              selectedId={selectedCategoryId}
-              onSelect={setSelectedCategoryId}
-            />
+            {header}
             <LanguageFlag />
           </AppShell.Header>
           <AppShell.Main mt="80px">

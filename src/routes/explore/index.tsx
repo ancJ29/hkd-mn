@@ -1,19 +1,32 @@
+import CategoryBand from "@/components/category-band";
 import FoodHighlight from "@/components/food-highlights";
 import Loading from "@/components/loading";
 import MenuLayout from "@/components/menu-layout";
 import TastyOrigins from "@/components/tasty-origins";
 import VideoFrame from "@/components/video-frame";
-import { getFoodAdvertisement, getMaterialAdvertisement } from "@/services/menu";
-import { Advertisement } from "@/types";
-import { useEffect, useState } from "react";
+import {
+  getCategories,
+  getFoodAdvertisement,
+  getMaterialAdvertisement,
+} from "@/services/menu";
+import { Advertisement, Category } from "@/types";
+import { CATEGORY_ID } from "@/utils/constant";
+import { ReactNode, useEffect, useState } from "react";
 import classes from "./index.module.scss";
 
 const Explore = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [foodAdvertisements, setFoodAdvertisements] = useState<Advertisement[]>([]);
   const [materialAdvertisement, setMaterialAdvertisement] = useState<Advertisement[]>([]);
 
   useEffect(() => {
     console.log("fetch data...");
+
+    getCategories().then((categories) => {
+      setCategories(categories);
+      handleSelectCategoryId(sessionStorage.getItem(CATEGORY_ID) || categories[0]?.id);
+    });
 
     getFoodAdvertisement().then((items) => {
       setFoodAdvertisements(items);
@@ -24,12 +37,27 @@ const Explore = () => {
     });
   }, []);
 
+  const handleSelectCategoryId = (id: string) => {
+    setSelectedCategoryId(id);
+    sessionStorage.setItem(CATEGORY_ID, id);
+  };
+
   if (foodAdvertisements.length < 1 || materialAdvertisement.length < 1) {
     return <Loading />;
   }
 
+  const header = (): ReactNode => {
+    return (
+      <CategoryBand
+        categories={categories}
+        selectedId={selectedCategoryId}
+        onSelect={handleSelectCategoryId}
+      />
+    );
+  };
+
   return (
-    <MenuLayout>
+    <MenuLayout header={header()}>
       <div className={classes.main}>
         <VideoFrame />
 

@@ -14,16 +14,16 @@ type MenuDetailProps = {
 };
 
 const MenuDetail = ({ menuItem, totals, onChange }: MenuDetailProps) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
   const total = totals[menuItem?.id || "-"] || 0;
   const [isMoving, setIsMoving] = useState(false);
 
   const handleProductAdd = () => {
     setIsMoving(true);
-    ref.current?.classList.add(classes.sendToCart);
+    imageRef.current?.classList.add(classes.sendToCart);
     setTimeout(() => {
       if (!isMoving) {
-        ref.current?.classList.remove(classes.sendToCart);
+        imageRef.current?.classList.remove(classes.sendToCart);
         setIsMoving(false);
       }
     }, 900);
@@ -31,9 +31,7 @@ const MenuDetail = ({ menuItem, totals, onChange }: MenuDetailProps) => {
 
   return (
     <Box className={classes.container}>
-      <div ref={ref} className={classes.smallImage}>
-        <Image src={menuItem?.image} />
-      </div>
+      <Image src={menuItem?.image} className={classes.smallImage} ref={imageRef} />
 
       <Image src={menuItem?.image} h="100%" />
       <Box className={classes.detail}>

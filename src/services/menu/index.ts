@@ -1,9 +1,4 @@
-import {
-  categories,
-  foodAdvertisement,
-  materialAdvertisement,
-  menuItems,
-} from "@/fake-data";
+import { categories, foodAdvertisement, materialAdvertisement } from "@/fake-data";
 import { Advertisement, Category, Menu } from "@/types";
 
 export async function getCategories(): Promise<Category[]> {
@@ -15,9 +10,9 @@ function _delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function getMenuItems(): Promise<Menu[]> {
+export async function getMenuItems(categoryId: string): Promise<Menu[]> {
   await _delay(200);
-  return menuItems;
+  return categories.find((e) => e.id === categoryId)?.menuItems || [];
 }
 
 export async function getFoodAdvertisement(): Promise<Advertisement[]> {
