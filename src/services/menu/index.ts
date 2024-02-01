@@ -3,7 +3,7 @@ import { Advertisement, Category, Menu } from "@/types";
 
 export async function getCategories(): Promise<Category[]> {
   await _delay(200);
-  return categories;
+  return categories();
 }
 
 function _delay(ms: number) {
@@ -12,7 +12,7 @@ function _delay(ms: number) {
 
 export async function getMenuItems(categoryId: string): Promise<Menu[]> {
   await _delay(200);
-  return categories.find((e) => e.id === categoryId)?.menuItems || [];
+  return categories().find((e) => e.id === categoryId)?.menuItems || [];
 }
 
 export async function getFoodAdvertisement(): Promise<Advertisement[]> {

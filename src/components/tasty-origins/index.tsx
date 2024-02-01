@@ -1,7 +1,7 @@
+import Title from "@/components/food-highlights/title";
+import TastyOriginsItem from "@/components/tasty-origins/item";
 import { Advertisement } from "@/types";
 import { Box, ScrollArea } from "@mantine/core";
-import Title from "../food-highlights/title";
-import TastyOriginsItem from "./Item";
 import classes from "./index.module.scss";
 
 type TastyOriginsProps = {

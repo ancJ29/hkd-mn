@@ -26,7 +26,7 @@ const MenuDetail = ({ menuItem, totals, onChange }: MenuDetailProps) => {
         imageRef.current?.classList.remove(classes.sendToCart);
         setIsMoving(false);
       }
-    }, 900);
+    }, 600);
   };
 
   return (

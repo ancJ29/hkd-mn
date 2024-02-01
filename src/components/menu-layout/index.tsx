@@ -1,13 +1,13 @@
+import LanguageFlag from "@/components/language-flag";
+import MenuNavigation, { MenuAction } from "@/components/menu-layout/menu-navigation";
+import ModalCart from "@/components/modal/cart";
+import ModalOrder from "@/components/modal/order";
+import ModalSideDish from "@/components/modal/side-dish";
 import { parseJSON } from "@/utils";
 import { TOTALS } from "@/utils/constant";
 import { AppShell } from "@mantine/core";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LanguageFlag from "../language-flag";
-import MenuNavigation, { MenuAction } from "../menu-detail/menu-navigation";
-import ModalCart from "../modal/cart";
-import ModalOrder from "../modal/order";
-import ModalSideDish from "../modal/side-dish";
 import classes from "./index.module.scss";
 
 type MenuLayoutProps = {
@@ -38,18 +38,18 @@ const MenuLayout = ({ header, children }: MenuLayoutProps) => {
 
   const actionHandler = useCallback((action: MenuAction) => {
     switch (action) {
-      case MenuAction.MENU: {
-        navigate("/");
-        break;
-      }
-      case MenuAction.EXPLORE: {
-        navigate("/explore");
-        break;
-      }
-      case MenuAction.CART: {
-        setOpenedCart(true);
-        break;
-      }
+    case MenuAction.MENU: {
+      navigate("/");
+      break;
+    }
+    case MenuAction.EXPLORE: {
+      navigate("/explore");
+      break;
+    }
+    case MenuAction.CART: {
+      setOpenedCart(true);
+      break;
+    }
     }
   }, []);
 
