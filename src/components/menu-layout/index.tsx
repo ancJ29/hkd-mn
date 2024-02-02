@@ -38,18 +38,18 @@ const MenuLayout = ({ header, children }: MenuLayoutProps) => {
 
   const actionHandler = useCallback((action: MenuAction) => {
     switch (action) {
-    case MenuAction.MENU: {
-      navigate("/");
-      break;
-    }
-    case MenuAction.EXPLORE: {
-      navigate("/explore");
-      break;
-    }
-    case MenuAction.CART: {
-      setOpenedCart(true);
-      break;
-    }
+      case MenuAction.MENU: {
+        navigate("/");
+        break;
+      }
+      case MenuAction.EXPLORE: {
+        navigate("/explore");
+        break;
+      }
+      case MenuAction.CART: {
+        setOpenedCart(true);
+        break;
+      }
     }
   }, []);
 

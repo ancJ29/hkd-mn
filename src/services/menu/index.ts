@@ -1,13 +1,16 @@
 import { categories, foodAdvertisement, materialAdvertisement } from "@/fake-data";
 import { Advertisement, Category, Menu } from "@/types";
-
-export async function getCategories(): Promise<Category[]> {
-  await _delay(200);
-  return categories();
-}
+import { addImageLinkFromCategory } from "@/utils";
 
 function _delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export async function getCategories(): Promise<Category[]> {
+  await _delay(200);
+  const listCategory = categories();
+  addImageLinkFromCategory(listCategory);
+  return listCategory;
 }
 
 export async function getMenuItems(categoryId: string): Promise<Menu[]> {

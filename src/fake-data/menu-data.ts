@@ -4,32 +4,32 @@ export const menuData = [
     categoryName: "Roll",
     menu: [
       {
-        name: "Grilled Hotate Roll",
+        name: "Grilled Hotate Roll 1",
         smallImageUrl: "/roll/Cơm+cuộn_roll_cc_Grilled+Hotate+Roll-07.jpg",
         imageUrl: "/roll/Cơm+cuộn_roll_cc_Grilled+Hotate+Roll-08.jpg",
       },
       {
-        name: "Temaki",
+        name: "Temaki 2",
         smallImageUrl: "/roll/Cơm+cuộn_roll_cc_17.10+copy.jpg",
         imageUrl: "/roll/Cơm+cuộn_roll_cc_17.10+copy+2.jpg",
       },
       {
-        name: "Hotate Chesse Roll",
+        name: "Hotate Chesse Roll 3",
         smallImageUrl: "/roll/Cơm+cuộn_roll_cc_Hotate+Cheese+Roll-03.jpg",
         imageUrl: "/roll/Cơm+cuộn_roll_cc_Hotate+Cheese+Roll-04.jpg",
       },
       {
-        name: "Gunkanmaki",
+        name: "Gunkanmaki 4",
         smallImageUrl: "/roll/Cơm+cuộn_roll_cc_17.10-09.jpg",
         imageUrl: "/roll/Cơm+cuộn_roll_cc_17.10-10.jpg",
       },
       {
-        name: "Futomaki",
+        name: "Futomaki 5",
         smallImageUrl: "/roll/Cơm+cuộn_roll_cc_5.12-01.jpg",
         imageUrl: "/roll/Cơm+cuộn_roll_cc_5.12-02.jpg",
       },
       {
-        name: "Grilled Salmon Roll",
+        name: "Grilled Salmon Roll 6",
         smallImageUrl: "/roll/Cơm+cuộn_roll_cc_Grilled+Salmon+Roll-05.jpg",
         imageUrl: "/roll/Cơm+cuộn_roll_cc_Grilled+Salmon+Roll-06.jpg",
       },
@@ -39,32 +39,32 @@ export const menuData = [
     categoryName: "Tsukidashi",
     menu: [
       {
-        name: "Sawara Mentaiyaki",
+        name: "Sawara Mentaiyaki 7",
         smallImageUrl: "/tsukidashi/Tsukidashi_Sawara+Mentaiyaki-05.jpg",
         imageUrl: "/tsukidashi/Tsukidashi_Sawara+Mentaiyaki-06.jpg",
       },
       {
-        name: "Foie Gras Teriyaki",
+        name: "Foie Gras Teriyaki 8",
         smallImageUrl: "/tsukidashi/Tsukidashi_Foie+Gras+Teriyaki-01.jpg",
         imageUrl: "/tsukidashi/Tsukidashi_Foie+Gras+Teriyaki-02.jpg",
       },
       {
-        name: "Sawara Cheese Misoyaki",
+        name: "Sawara Cheese Misoyaki 9",
         smallImageUrl: "/tsukidashi/Tsukidashi_Sawara+Cheese+Misoyaki-07.jpg",
         imageUrl: "/tsukidashi/Tsukidashi_Sawara+Cheese+Misoyaki-08.jpg",
       },
       {
-        name: "Mushi Awabi",
+        name: "Mushi Awabi 10",
         smallImageUrl: "/tsukidashi/Tsukidashi_Mushi+Awabi-09.jpg",
         imageUrl: "/tsukidashi/Tsukidashi_Mushi+Awabi-10.jpg",
       },
       {
-        name: "Special Zuwai Kani",
+        name: "Special Zuwai Kani 11",
         smallImageUrl: "/tsukidashi/Tsukidashi_Special+Zuwai+Kani-11.jpg",
         imageUrl: "/tsukidashi/Tsukidashi_Special+Zuwai+Kani-12.jpg",
       },
       {
-        name: "Hotate Ishiyaki",
+        name: "Hotate Ishiyaki 12",
         smallImageUrl: "/tsukidashi/Tsukidashi_Hotate+Ishiyaki-03.jpg",
         imageUrl: "/tsukidashi/Tsukidashi_Hotate+Ishiyaki-04.jpg",
       },
@@ -74,62 +74,62 @@ export const menuData = [
     categoryName: "Sashimi",
     menu: [
       {
-        name: "Maguro Sashimi",
+        name: "Maguro Sashimi 13",
         smallImageUrl: "/sashimi/Sashimi_Maguro+Sashimi+-07.jpg",
         imageUrl: "/sashimi/Sashimi_Maguro+Sashimi+-08.jpg",
       },
       {
-        name: "Ootoro Sashimi",
+        name: "Ootoro Sashimi 14",
         smallImageUrl: "/sashimi/Sashimi_Ootoro+Sashimi-17.jpg",
         imageUrl: "/sashimi/Sashimi_Ootoro+Sashimi-18.jpg",
       },
       {
-        name: "Katsuika Sugatazukuri",
+        name: "Katsuika Sugatazukuri 15",
         smallImageUrl: "/sashimi/Sashimi_Katsuika+Sugatazukuri-09.jpg",
         imageUrl: "/sashimi/Sashimi_Katsuika+Sugatazukuri-10.jpg",
       },
       {
-        name: "Kai Deluxe",
+        name: "Kai Deluxe 16",
         smallImageUrl: "/sashimi/Sashimi_Kai+Deluxe-03.jpg",
         imageUrl: "/sashimi/Sashimi_Kai+Deluxe-04.jpg",
       },
       {
-        name: "Chutoro Sashimi",
+        name: "Chutoro Sashimi 17",
         smallImageUrl: "/sashimi/Sashimi_Chutoro+Sashimi-15.jpg",
         imageUrl: "/sashimi/Sashimi_Chutoro+Sashimi-16.jpg",
       },
       {
-        name: "Hokkaido Deluxe",
+        name: "Hokkaido Deluxe 18",
         smallImageUrl: "/sashimi/Sashimi_Hokkaido+Deluxe-21.jpg",
         imageUrl: "/sashimi/Sashimi_Hokkaido+Deluxe-22.jpg",
       },
       {
-        name: "Maguro Deluxe",
+        name: "Maguro Deluxe 19",
         smallImageUrl: "/sashimi/Sashimi_Maguro+Deluxe-01.jpg",
         imageUrl: "/sashimi/Sashimi_Maguro+Deluxe-02.jpg",
       },
       {
-        name: "Tai Usuzukuri",
+        name: "Tai Usuzukuri 20",
         smallImageUrl: "/sashimi/Sashimi_Tai+Usuzukuri-19.jpg",
         imageUrl: "/sashimi/Sashimi_Tai+Usuzukuri-20.jpg",
       },
       {
-        name: "Zuwai Kani Sashimi",
+        name: "Zuwai Kani Sashimi 21",
         smallImageUrl: "/sashimi/Sashimi_Zuwai+Kani+Sashimi-23.jpg",
         imageUrl: "/sashimi/Sashimi_Zuwai+Kani+Sashimi-24.jpg",
       },
       {
-        name: "Kawahagi Sashimi",
+        name: "Kawahagi Sashimi 22",
         smallImageUrl: "/sashimi/Sashimi_Kawahagi+Sashimi-13.jpg",
         imageUrl: "/sashimi/Sashimi_Kawahagi+Sashimi-14.jpg",
       },
       {
-        name: "Hotate Sashimi",
+        name: "Hotate Sashimi 23",
         smallImageUrl: "/sashimi/Sashimi_Hotate+Sashimi-11.jpg",
         imageUrl: "/sashimi/Sashimi_Hotate+Sashimi-12.jpg",
       },
       {
-        name: "Lobster Sashimi",
+        name: "Lobster Sashimi 24",
         smallImageUrl: "/sashimi/Sashimi_Lobster+Sashimi-05.jpg",
         imageUrl: "/sashimi/Sashimi_Lobster+Sashimi-06.jpg",
       },
@@ -209,7 +209,7 @@ export const menuData = [
         imageUrl: "/salad/Salad_cc_Ebi+Salad-04.jpg",
       },
       {
-        name: "tako salmon",
+        name: "Tako salmon",
         smallImageUrl: "/salad/tako+salmon+1.jpg",
         imageUrl: "/salad/tako+salmon.jpg",
       },
@@ -219,7 +219,7 @@ export const menuData = [
         imageUrl: "/salad/Salad_cc_Seafood+Special+Salad-02.jpg",
       },
       {
-        name: "tako komochi nishin",
+        name: "Tako komochi nishin",
         smallImageUrl: "/salad/Salad_cc_tako+komochi+nishin-13.jpg",
         imageUrl: "/salad/Salad_cc_tako+komochi+nishin-14.jpg",
       },

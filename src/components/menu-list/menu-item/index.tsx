@@ -16,7 +16,7 @@ const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
   };
 
   return (
-    <Box w="32.5vw" className={classes.container}>
+    <Box w="32.5vw" className={classes.container} id={`menu-item.${menuItem.id}`}>
       <Flex className={[classes.imageContainer, active ? classes.active : ""].join(" ")}>
         <Skeleton visible={isLoading} className={classes.skeleton}>
           <Image
