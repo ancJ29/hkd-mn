@@ -1,7 +1,8 @@
 import CategoryItem from "@/components/category-band/category-item";
 import { Category } from "@/types";
+import { scroll } from "@/utils";
 import { Box, Image, ScrollArea } from "@mantine/core";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import classes from "./index.module.scss";
 
 type CategoryBandProps = {
@@ -11,16 +12,12 @@ type CategoryBandProps = {
 };
 
 const CategoryBand = ({ categories, selectedId, onSelect }: CategoryBandProps) => {
-  const selectedRef = useRef<HTMLDivElement | null>(null);
-
   useEffect(() => {
-    if (selectedRef.current) {
-      selectedRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "center",
-      });
-    }
+    scroll(`category-item.${selectedId}`, {
+      behavior: "smooth",
+      block: "center",
+      inline: "center",
+    });
   }, [selectedId]);
 
   return (
@@ -29,9 +26,9 @@ const CategoryBand = ({ categories, selectedId, onSelect }: CategoryBandProps) =
 
       <ScrollArea type="auto" scrollbarSize={0}>
         <Box className={classes.box}>
-          {categories.map((item: Category) => {
+          {categories.map((item: Category, index: number) => {
             return (
-              <div key={item.id} ref={selectedId === item.id ? selectedRef : null}>
+              <div key={index} id={`category-item.${item.id}`}>
                 <CategoryItem
                   name={item.name}
                   active={selectedId === item.id}
@@ -47,3 +44,4 @@ const CategoryBand = ({ categories, selectedId, onSelect }: CategoryBandProps) =
 };
 
 export default CategoryBand;
+//

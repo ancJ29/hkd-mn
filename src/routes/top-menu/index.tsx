@@ -3,9 +3,9 @@ import Loading from "@/components/loading";
 import MenuDetail from "@/components/menu-detail";
 import MenuLayout from "@/components/menu-layout";
 import MenuList from "@/components/menu-list";
-import { getCategories, getMenuItems } from "@/services/menu";
+import { getCategories } from "@/services/menu";
 import { Category, Menu } from "@/types";
-import { parseJSON } from "@/utils";
+import { parseJSON, scroll, swapMenuItems } from "@/utils";
 import { CATEGORY_ID, TOTALS } from "@/utils/constant";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 
@@ -20,7 +20,15 @@ const TopMenu = () => {
     console.log("fetch data...");
     getCategories().then((categories) => {
       setCategories(categories);
-      handleSelectCategoryId(sessionStorage.getItem(CATEGORY_ID) || categories[0]?.id);
+      const menu: Menu[] = ([] as Menu[]).concat(...categories.map((e) => e.menuItems));
+      setMenuItems(() => {
+        const swapMenu = swapMenuItems(menu);
+        handleSelectCategoryId(
+          sessionStorage.getItem(CATEGORY_ID) || categories[0]?.id,
+          swapMenu,
+        );
+        return swapMenu;
+      });
     });
     setUpTotals();
   }, []);
@@ -40,13 +48,14 @@ const TopMenu = () => {
     });
   }, []);
 
-  const handleSelectCategoryId = (id: string) => {
+  const handleSelectCategoryId = async (id: string, menu?: Menu[]) => {
     setSelectedCategoryId(id);
     sessionStorage.setItem(CATEGORY_ID, id);
-    getMenuItems(id).then((items) => {
-      setMenuItems(items);
-      setSelectedMenuItem(items[0] || null);
-    });
+    const menuSelected = (menu || menuItems).find((e) => e.categoryId === id);
+    setSelectedMenuItem(menuSelected);
+    setTimeout(() => {
+      menuSelected?.id && scroll(`menu-item.${menuSelected?.id}`);
+    }, 500);
   };
 
   if (menuItems.length < 1) {

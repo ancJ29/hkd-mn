@@ -14,7 +14,7 @@ const MenuList = ({ selectedMenuItem, menuItems, onSelect }: MenuListProps) => {
     <Box className={classes.container}>
       <ScrollArea type="auto" scrollbarSize={0}>
         <Box className={classes.box}>
-          {menuItems.map((menuItem) => {
+          {menuItems?.map((menuItem) => {
             return (
               <MenuItem
                 key={menuItem.id}
