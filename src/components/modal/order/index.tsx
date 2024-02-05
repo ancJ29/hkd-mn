@@ -4,7 +4,7 @@ import ButtonContainer from "@/components/modal/order/button-container";
 import SelectDish from "@/components/modal/order/select-dist";
 import UnAvailableText from "@/components/modal/order/unavailable-text";
 import ModalReplacementDish from "@/components/modal/replacement-dish";
-import { useState } from "react";
+import useLoading from "@/hooks/useLoading";
 
 type ModalOrderProps = {
   opened: boolean;
@@ -12,34 +12,36 @@ type ModalOrderProps = {
 };
 
 const ModalOrder = ({ opened, onClose }: ModalOrderProps) => {
-  const [isAvailable, setIsAvailable] = useState(false);
-  const [openedModalSelectReplaceDish, setOpenedModalSelectReplaceDish] = useState(false);
+  const { loading, toggleLoading } = useLoading({
+    isAvailable: false,
+    isOpenedSelectReplaceDish: false,
+  });
 
   const handleChangeIsAvailable = () => {
-    setIsAvailable(!isAvailable);
+    toggleLoading("isAvailable");
   };
 
   return (
     <>
       <ModalReplacementDish
-        opened={openedModalSelectReplaceDish}
-        onClose={() => setOpenedModalSelectReplaceDish(false)}
+        opened={loading.isOpenedSelectReplaceDish}
+        onClose={() => toggleLoading("isOpenedSelectReplaceDish")}
         onChangeAvailable={handleChangeIsAvailable}
       />
 
       <Modal opened={opened} onClose={onClose} title="THÔNG TIN MÓN">
-        {isAvailable ? (
+        {loading.isAvailable ? (
           <AvailableText />
         ) : (
           <UnAvailableText dish="Hotate Sashimi" category="Kai Deluxe" />
         )}
 
         <SelectDish
-          isAvailable={isAvailable}
-          onOpenModalSelectReplaceDish={() => setOpenedModalSelectReplaceDish(true)}
+          isAvailable={loading.isAvailable}
+          onOpenModalSelectReplaceDish={() => toggleLoading("isOpenedSelectReplaceDish")}
         />
 
-        <ButtonContainer isAvailable={isAvailable} onClose={onClose} />
+        <ButtonContainer isAvailable={loading.isAvailable} onClose={onClose} />
       </Modal>
     </>
   );

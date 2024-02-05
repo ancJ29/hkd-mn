@@ -3,7 +3,7 @@ import classes from "./index.module.scss";
 
 type QuantitySelectorProps = {
   total: number;
-  onChange: (total: number) => void;
+  onChange: (quantity: number) => void;
   size?: number;
   totalClassName?: string;
   onProductAdd?: () => void;

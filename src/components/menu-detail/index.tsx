@@ -7,15 +7,15 @@ import classes from "./index.module.scss";
 
 type MenuDetailProps = {
   menuItem?: Menu;
-  totals: {
+  cart: {
     [key: string]: number;
   };
-  onChange: (total: number) => void;
+  onChange: (quantity: number) => void;
 };
 
-const MenuDetail = ({ menuItem, totals, onChange }: MenuDetailProps) => {
+const MenuDetail = ({ menuItem, cart, onChange }: MenuDetailProps) => {
   const imageRef = useRef<HTMLImageElement>(null);
-  const total = totals[menuItem?.id || "-"] || 0;
+  const total = cart[menuItem?.id || "-"] || 0;
   const [isMoving, setIsMoving] = useState(false);
 
   const handleProductAdd = () => {

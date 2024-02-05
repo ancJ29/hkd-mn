@@ -1,14 +1,16 @@
+import { Menu } from "@/types";
 import { Image, Text } from "@mantine/core";
 import classes from "./index.module.scss";
 
 type NameAndNoteProps = {
+  menu?: Menu;
   onOpenedModalNote: () => void;
 };
 
-const NameAndNote = ({ onOpenedModalNote }: NameAndNoteProps) => {
+const NameAndNote = ({ menu, onOpenedModalNote }: NameAndNoteProps) => {
   return (
     <div className={classes.container}>
-      <Text className={classes.name}>Komochi Nisshin Sashimi</Text>
+      <Text className={classes.name}>{menu?.name}</Text>
 
       <div className={classes.noteContainer}>
         <Image w={10} src="/images/edit.svg" />

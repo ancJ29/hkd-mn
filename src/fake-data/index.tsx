@@ -44,40 +44,25 @@ const getDummyMenuItems = (categoryId: string) => {
   return dummyMenuItems;
 };
 
-const dummyCategory: Category[] = [
-  /* cspell:disable  */
-  "Thức uống",
-  "Món theo mùa",
-  "Lẩu",
-  "Bò Wagyu",
-  "Món khác",
-  "Tráng miệng",
-  /* cspell:enable  */
-].map((name) => {
-  const id = _uuid();
-  return {
-    id,
-    name,
-    menuItems: getDummyMenuItems(id),
-  };
-});
-
 export const categories = () => {
   const categoryData: Category[] = menuData.map((categoryData, index) => {
+    const id = (index + 1).toString();
     return {
-      id: (index + 1).toString(),
+      id: id,
       name: categoryData.categoryName,
-      menuItems: categoryData.menu.map((menuItem) => ({
-        id: _uuid(),
-        name: menuItem.name,
-        image: `${baseImageURL}${menuItem.imageUrl}`,
-        smallImage: `${baseImageURL}${menuItem.smallImageUrl}`,
-        price: _int({ min: 50, max: 200 }) * 1e3,
-        categoryId: (index + 1).toString(),
-      })),
+      menuItems:
+        categoryData.menu.length > 0
+          ? categoryData.menu.map((menuItem) => ({
+            id: _uuid(),
+            name: menuItem.name,
+            image: `${baseImageURL}${menuItem.imageUrl}`,
+            smallImage: `${baseImageURL}${menuItem.smallImageUrl}`,
+            price: _int({ min: 50, max: 200 }) * 1e3,
+            categoryId: id,
+          }))
+          : getDummyMenuItems(id),
     };
   });
-  categoryData.push(...dummyCategory);
   return categoryData;
 };
 
