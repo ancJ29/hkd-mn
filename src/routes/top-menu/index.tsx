@@ -5,7 +5,7 @@ import MenuLayout from "@/components/menu-layout";
 import MenuList from "@/components/menu-list";
 import { getCategories } from "@/services/menu";
 import { Category, Menu } from "@/types";
-import { parseJSON, scroll, swapMenuItems } from "@/utils";
+import { convertToMenuItems, parseJSON, scroll } from "@/utils";
 import { CATEGORY_ID, TOTALS } from "@/utils/constant";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 
@@ -14,15 +14,14 @@ const TopMenu = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [menuItems, setMenuItems] = useState<Menu[]>([]);
   const [selectedMenuItem, setSelectedMenuItem] = useState<Menu | undefined>(undefined);
-  const [totals, setTotals] = useState<{ [key: string]: number }>({});
+  const [cart, setCart] = useState<{ [key: string]: number }>({});
 
   useEffect(() => {
     console.log("fetch data...");
     getCategories().then((categories) => {
       setCategories(categories);
-      const menu: Menu[] = ([] as Menu[]).concat(...categories.map((e) => e.menuItems));
       setMenuItems(() => {
-        const swapMenu = swapMenuItems(menu);
+        const swapMenu = convertToMenuItems(categories);
         handleSelectCategoryId(
           sessionStorage.getItem(CATEGORY_ID) || categories[0]?.id,
           swapMenu,
@@ -35,13 +34,13 @@ const TopMenu = () => {
 
   const setUpTotals = () => {
     sessionStorage.getItem(TOTALS) === null
-      ? setTotals({})
-      : setTotals(parseJSON(sessionStorage.getItem(TOTALS) ?? ""));
+      ? setCart({})
+      : setCart(parseJSON(sessionStorage.getItem(TOTALS) ?? ""));
   };
 
-  const onChangeTotals = useCallback((id: string, total: number) => {
-    setTotals((state) => {
-      const newState = { ...state, [id]: total };
+  const onChangeCart = useCallback((id: string, quantity: number) => {
+    setCart((state) => {
+      const newState = { ...state, [id]: quantity };
       sessionStorage.setItem(TOTALS, JSON.stringify(newState));
       window.dispatchEvent(new Event(TOTALS));
       return newState;
@@ -82,8 +81,8 @@ const TopMenu = () => {
       />
       <MenuDetail
         menuItem={selectedMenuItem}
-        totals={totals}
-        onChange={onChangeTotals.bind(null, selectedMenuItem?.id || "-")}
+        cart={cart}
+        onChange={onChangeCart.bind(null, selectedMenuItem?.id || "-")}
       />
     </MenuLayout>
   );

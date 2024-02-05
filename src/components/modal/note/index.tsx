@@ -18,13 +18,7 @@ const ModalNote = ({ opened, onClose }: ModalNoteProps) => {
     >
       <Text className={classes.title}>Thêm ghi chú</Text>
 
-      <Textarea
-        placeholder="Nhập yêu cầu thêm tại đây"
-        autosize
-        minRows={3}
-        maxRows={3}
-        size="xs"
-      />
+      <Textarea autosize minRows={3} maxRows={3} size="xs" />
 
       <div className={classes.buttonContainer}>
         <Button className={classes.deleteButton}>

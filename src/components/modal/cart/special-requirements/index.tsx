@@ -6,14 +6,7 @@ const SpecialRequirements = () => {
     <div className={classes.container}>
       <Text className={classes.text}>*Yêu cầu đặc biệt:</Text>
 
-      <Textarea
-        placeholder="Sashimi lên trước, món tráng miệng lên sau cùng..."
-        autosize
-        minRows={3}
-        maxRows={3}
-        radius={10}
-        size="xs"
-      />
+      <Textarea autosize minRows={3} maxRows={3} radius={10} size="xs" />
     </div>
   );
 };

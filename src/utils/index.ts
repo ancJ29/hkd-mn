@@ -1,6 +1,9 @@
 import { Category, Menu } from "@/types";
 
-export const toLocaleString = (value: number) => {
+export const formatCurrency = (value?: number) => {
+  if (!value) {
+    return "";
+  }
   return value
     .toLocaleString("vi-Vi", {
       style: "currency",
@@ -22,14 +25,37 @@ export function swap<T>(arr: T[], a: number, b: number) {
   }
 }
 
-export const swapMenuItems = (menuItems: Menu[]) => {
+export const convertToMenuItems = (categories: Category[]) => {
   const SIZE = 9;
-  for (let i = 0; i < menuItems.length; i += SIZE) {
-    swap(menuItems, 1 + i, 3 + i);
-    swap(menuItems, 2 + i, 6 + i);
-    swap(menuItems, 5 + i, 7 + i);
+  let index = 0;
+  // const menu: Menu[] = ([] as Menu[]).concat(...categories.map((e) => e.menuItems));
+  const menu: Menu[] = [];
+  categories.forEach((category) => {
+    menu.push(...category.menuItems);
+
+    if (menu.length % SIZE > 3) {
+      const fillCount = SIZE - (menu.length % SIZE);
+      for (let i = 0; i < fillCount; i++) {
+        menu.push({
+          id: (index++).toString(),
+          name: "",
+          image: "",
+          smallImage: "",
+          price: 0,
+          quantity: 0,
+          categoryId: category.id,
+        } as Menu);
+      }
+    }
+  });
+
+  for (let i = 0; i < menu.length; i += SIZE) {
+    swap(menu, 1 + i, 3 + i);
+    swap(menu, 2 + i, 6 + i);
+    swap(menu, 5 + i, 7 + i);
   }
-  return menuItems;
+
+  return menu;
 };
 
 export const scroll = (id: string, options?: ScrollIntoViewOptions) => {
@@ -39,7 +65,7 @@ export const scroll = (id: string, options?: ScrollIntoViewOptions) => {
       block: "nearest",
       inline: "start",
       behavior: "smooth",
-    }
+    },
   );
 };
 

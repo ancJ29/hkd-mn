@@ -11,28 +11,37 @@ type MenuItemProps = {
 
 const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
   const [isLoading, setIsLoading] = useState(true);
+
   const handleLoadingImage = () => {
     setIsLoading(false);
   };
 
   return (
     <Box w="32.5vw" className={classes.container} id={`menu-item.${menuItem.id}`}>
-      <Flex className={[classes.imageContainer, active ? classes.active : ""].join(" ")}>
-        <Skeleton visible={isLoading} className={classes.skeleton}>
-          <Image
-            h="9.45vh"
-            className={classes.image}
-            onClick={() => onSelect(menuItem)}
-            src={menuItem.smallImage}
-            loading="lazy"
-            onLoad={handleLoadingImage}
-          />
-        </Skeleton>
-      </Flex>
+      {menuItem.smallImage !== "" ? (
+        <>
+          <Flex
+            className={[classes.imageContainer, active ? classes.active : ""].join(" ")}
+          >
+            <Skeleton visible={isLoading} className={classes.skeleton}>
+              <Image
+                h="9.45vh"
+                className={classes.image}
+                onClick={() => onSelect(menuItem)}
+                src={menuItem.smallImage}
+                loading="lazy"
+                onLoad={handleLoadingImage}
+              />
+            </Skeleton>
+          </Flex>
 
-      <Text c="white" ml={12} fz="10px">
-        {menuItem.name}
-      </Text>
+          <Text c="white" ml={12} fz="10px">
+            {menuItem.name}
+          </Text>
+        </>
+      ) : (
+        <></>
+      )}
     </Box>
   );
 };

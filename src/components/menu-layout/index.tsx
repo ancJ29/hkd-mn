@@ -1,8 +1,10 @@
 import LanguageFlag from "@/components/language-flag";
 import MenuNavigation, { MenuAction } from "@/components/menu-layout/menu-navigation";
 import ModalCart from "@/components/modal/cart";
+import ModalHistoryOrder from "@/components/modal/history-order";
 import ModalOrder from "@/components/modal/order";
 import ModalSideDish from "@/components/modal/side-dish";
+import useLoading from "@/hooks/useLoading";
 import { parseJSON } from "@/utils";
 import { TOTALS } from "@/utils/constant";
 import { AppShell } from "@mantine/core";
@@ -18,7 +20,12 @@ type MenuLayoutProps = {
 const MenuLayout = ({ header, children }: MenuLayoutProps) => {
   const navigate = useNavigate();
   const [totals, setTotals] = useState<{ [key: string]: number }>({});
-  const [openedCart, setOpenedCart] = useState(false);
+  const { loading, toggleLoading } = useLoading({
+    isOpenedCart: false,
+    isOpenedHistoryOrder: false,
+    isOpenedOrder: false,
+    isOpenedSideDish: false,
+  });
 
   useEffect(() => {
     const listenStorageChange = () => setUpTotals();
@@ -38,28 +45,40 @@ const MenuLayout = ({ header, children }: MenuLayoutProps) => {
 
   const actionHandler = useCallback((action: MenuAction) => {
     switch (action) {
-      case MenuAction.MENU: {
-        navigate("/");
-        break;
-      }
-      case MenuAction.EXPLORE: {
-        navigate("/explore");
-        break;
-      }
-      case MenuAction.CART: {
-        setOpenedCart(true);
-        break;
-      }
+    case MenuAction.MENU: {
+      navigate("/");
+      break;
+    }
+    case MenuAction.EXPLORE: {
+      navigate("/explore");
+      break;
+    }
+    case MenuAction.CART: {
+      toggleLoading("isOpenedCart");
+      break;
+    }
+    case MenuAction.HISTORY: {
+      toggleLoading("isOpenedHistoryOrder");
+      break;
+    }
     }
   }, []);
 
   return (
     <>
-      <ModalCart opened={openedCart} onClose={() => setOpenedCart(false)} />
+      <ModalCart
+        opened={loading.isOpenedCart}
+        onClose={() => toggleLoading("isOpenedCart")}
+      />
 
-      <ModalOrder opened={false} onClose={() => null} />
+      <ModalOrder opened={loading.isOpenedOrder} onClose={() => null} />
 
-      <ModalSideDish opened={false} onClose={() => null} />
+      <ModalSideDish opened={loading.isOpenedSideDish} onClose={() => null} />
+
+      <ModalHistoryOrder
+        opened={loading.isOpenedHistoryOrder}
+        onClose={() => toggleLoading("isOpenedHistoryOrder")}
+      />
 
       <div className={classes.container}>
         <AppShell header={{ height: 80, offset: false }}>

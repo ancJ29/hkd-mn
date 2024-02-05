@@ -1,7 +1,7 @@
 import { Menu } from "@/types";
-import { toLocaleString } from "@/utils";
 import { Text } from "@mantine/core";
 import classes from "./index.module.scss";
+import { formatCurrency } from "@/utils";
 
 type PriceProps = {
   menuItem?: Menu;
@@ -12,7 +12,7 @@ const Price = ({ menuItem }: PriceProps) => {
     <div className={classes.detail}>
       <Text className={classes.name}>{menuItem?.name || ""}</Text>
       <Text className={classes.price}>
-        {menuItem?.price ? toLocaleString(menuItem.price) : ""}
+        {menuItem?.price ? formatCurrency(menuItem.price) : ""}
       </Text>
     </div>
   );

@@ -22,7 +22,7 @@ const CategoryBand = ({ categories, selectedId, onSelect }: CategoryBandProps) =
 
   return (
     <div className={classes.container}>
-      <Image w={40} mx={12} src="/images/logo.svg" />
+      <Image w={40} ml={10} mr={6} src="/images/logo.svg" />
 
       <ScrollArea type="auto" scrollbarSize={0}>
         <Box className={classes.box}>

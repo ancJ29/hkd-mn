@@ -1,0 +1,8 @@
+.columnRatio {
+  grid-template-columns: 5fr 2fr 3fr;
+}
+
+.itemContainer {
+  max-height: 200px;
+  overflow-y: auto;
+}

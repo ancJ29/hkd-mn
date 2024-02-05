@@ -26,3 +26,7 @@
   font-size: 20px;
   color: white;
 }
+
+.columnRatio {
+  grid-template-columns: 5fr 2fr 3fr;
+}

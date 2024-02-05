@@ -1,137 +1,150 @@
 /* cspell:disable  */
 export const menuData = [
   {
-    categoryName: "Roll",
-    menu: [
-      {
-        name: "Grilled Hotate Roll 1",
-        smallImageUrl: "/roll/Cơm+cuộn_roll_cc_Grilled+Hotate+Roll-07.jpg",
-        imageUrl: "/roll/Cơm+cuộn_roll_cc_Grilled+Hotate+Roll-08.jpg",
-      },
-      {
-        name: "Temaki 2",
-        smallImageUrl: "/roll/Cơm+cuộn_roll_cc_17.10+copy.jpg",
-        imageUrl: "/roll/Cơm+cuộn_roll_cc_17.10+copy+2.jpg",
-      },
-      {
-        name: "Hotate Chesse Roll 3",
-        smallImageUrl: "/roll/Cơm+cuộn_roll_cc_Hotate+Cheese+Roll-03.jpg",
-        imageUrl: "/roll/Cơm+cuộn_roll_cc_Hotate+Cheese+Roll-04.jpg",
-      },
-      {
-        name: "Gunkanmaki 4",
-        smallImageUrl: "/roll/Cơm+cuộn_roll_cc_17.10-09.jpg",
-        imageUrl: "/roll/Cơm+cuộn_roll_cc_17.10-10.jpg",
-      },
-      {
-        name: "Futomaki 5",
-        smallImageUrl: "/roll/Cơm+cuộn_roll_cc_5.12-01.jpg",
-        imageUrl: "/roll/Cơm+cuộn_roll_cc_5.12-02.jpg",
-      },
-      {
-        name: "Grilled Salmon Roll 6",
-        smallImageUrl: "/roll/Cơm+cuộn_roll_cc_Grilled+Salmon+Roll-05.jpg",
-        imageUrl: "/roll/Cơm+cuộn_roll_cc_Grilled+Salmon+Roll-06.jpg",
-      },
-    ],
+    categoryName: "Thức uống",
+    menu: [],
   },
   {
-    categoryName: "Tsukidashi",
-    menu: [
-      {
-        name: "Sawara Mentaiyaki 7",
-        smallImageUrl: "/tsukidashi/Tsukidashi_Sawara+Mentaiyaki-05.jpg",
-        imageUrl: "/tsukidashi/Tsukidashi_Sawara+Mentaiyaki-06.jpg",
-      },
-      {
-        name: "Foie Gras Teriyaki 8",
-        smallImageUrl: "/tsukidashi/Tsukidashi_Foie+Gras+Teriyaki-01.jpg",
-        imageUrl: "/tsukidashi/Tsukidashi_Foie+Gras+Teriyaki-02.jpg",
-      },
-      {
-        name: "Sawara Cheese Misoyaki 9",
-        smallImageUrl: "/tsukidashi/Tsukidashi_Sawara+Cheese+Misoyaki-07.jpg",
-        imageUrl: "/tsukidashi/Tsukidashi_Sawara+Cheese+Misoyaki-08.jpg",
-      },
-      {
-        name: "Mushi Awabi 10",
-        smallImageUrl: "/tsukidashi/Tsukidashi_Mushi+Awabi-09.jpg",
-        imageUrl: "/tsukidashi/Tsukidashi_Mushi+Awabi-10.jpg",
-      },
-      {
-        name: "Special Zuwai Kani 11",
-        smallImageUrl: "/tsukidashi/Tsukidashi_Special+Zuwai+Kani-11.jpg",
-        imageUrl: "/tsukidashi/Tsukidashi_Special+Zuwai+Kani-12.jpg",
-      },
-      {
-        name: "Hotate Ishiyaki 12",
-        smallImageUrl: "/tsukidashi/Tsukidashi_Hotate+Ishiyaki-03.jpg",
-        imageUrl: "/tsukidashi/Tsukidashi_Hotate+Ishiyaki-04.jpg",
-      },
-    ],
+    categoryName: "Món theo mùa",
+    menu: [],
   },
   {
     categoryName: "Sashimi",
     menu: [
       {
-        name: "Maguro Sashimi 13",
+        name: "Maguro Sashimi",
         smallImageUrl: "/sashimi/Sashimi_Maguro+Sashimi+-07.jpg",
         imageUrl: "/sashimi/Sashimi_Maguro+Sashimi+-08.jpg",
       },
       {
-        name: "Ootoro Sashimi 14",
+        name: "Ootoro Sashimi",
         smallImageUrl: "/sashimi/Sashimi_Ootoro+Sashimi-17.jpg",
         imageUrl: "/sashimi/Sashimi_Ootoro+Sashimi-18.jpg",
       },
       {
-        name: "Katsuika Sugatazukuri 15",
+        name: "Katsuika Sugatazukuri",
         smallImageUrl: "/sashimi/Sashimi_Katsuika+Sugatazukuri-09.jpg",
         imageUrl: "/sashimi/Sashimi_Katsuika+Sugatazukuri-10.jpg",
       },
       {
-        name: "Kai Deluxe 16",
+        name: "Kai Deluxe",
         smallImageUrl: "/sashimi/Sashimi_Kai+Deluxe-03.jpg",
         imageUrl: "/sashimi/Sashimi_Kai+Deluxe-04.jpg",
       },
       {
-        name: "Chutoro Sashimi 17",
+        name: "Chutoro Sashimi",
         smallImageUrl: "/sashimi/Sashimi_Chutoro+Sashimi-15.jpg",
         imageUrl: "/sashimi/Sashimi_Chutoro+Sashimi-16.jpg",
       },
       {
-        name: "Hokkaido Deluxe 18",
+        name: "Hokkaido Deluxe",
         smallImageUrl: "/sashimi/Sashimi_Hokkaido+Deluxe-21.jpg",
         imageUrl: "/sashimi/Sashimi_Hokkaido+Deluxe-22.jpg",
       },
       {
-        name: "Maguro Deluxe 19",
+        name: "Maguro Deluxe",
         smallImageUrl: "/sashimi/Sashimi_Maguro+Deluxe-01.jpg",
         imageUrl: "/sashimi/Sashimi_Maguro+Deluxe-02.jpg",
       },
       {
-        name: "Tai Usuzukuri 20",
+        name: "Tai Usuzukuri",
         smallImageUrl: "/sashimi/Sashimi_Tai+Usuzukuri-19.jpg",
         imageUrl: "/sashimi/Sashimi_Tai+Usuzukuri-20.jpg",
       },
       {
-        name: "Zuwai Kani Sashimi 21",
+        name: "Zuwai Kani Sashimi",
         smallImageUrl: "/sashimi/Sashimi_Zuwai+Kani+Sashimi-23.jpg",
         imageUrl: "/sashimi/Sashimi_Zuwai+Kani+Sashimi-24.jpg",
       },
       {
-        name: "Kawahagi Sashimi 22",
+        name: "Kawahagi Sashimi",
         smallImageUrl: "/sashimi/Sashimi_Kawahagi+Sashimi-13.jpg",
         imageUrl: "/sashimi/Sashimi_Kawahagi+Sashimi-14.jpg",
       },
       {
-        name: "Hotate Sashimi 23",
+        name: "Hotate Sashimi",
         smallImageUrl: "/sashimi/Sashimi_Hotate+Sashimi-11.jpg",
         imageUrl: "/sashimi/Sashimi_Hotate+Sashimi-12.jpg",
       },
       {
-        name: "Lobster Sashimi 24",
+        name: "Lobster Sashimi",
         smallImageUrl: "/sashimi/Sashimi_Lobster+Sashimi-05.jpg",
         imageUrl: "/sashimi/Sashimi_Lobster+Sashimi-06.jpg",
+      },
+    ],
+  },
+  {
+    categoryName: "Salad",
+    menu: [
+      {
+        name: "Ebi Salad",
+        smallImageUrl: "/salad/Salad_cc_Ebi+Salad-03.jpg",
+        imageUrl: "/salad/Salad_cc_Ebi+Salad-04.jpg",
+      },
+      {
+        name: "Tako salmon",
+        smallImageUrl: "/salad/tako+salmon+1.jpg",
+        imageUrl: "/salad/tako+salmon.jpg",
+      },
+      {
+        name: "Seafood Special Salad",
+        smallImageUrl: "/salad/Salad_cc_Seafood+Special+Salad-01.jpg",
+        imageUrl: "/salad/Salad_cc_Seafood+Special+Salad-02.jpg",
+      },
+      {
+        name: "Tako komochi nishin",
+        smallImageUrl: "/salad/Salad_cc_tako+komochi+nishin-13.jpg",
+        imageUrl: "/salad/Salad_cc_tako+komochi+nishin-14.jpg",
+      },
+      {
+        name: "Kimizu Kaisen Salad",
+        smallImageUrl: "/salad/Salad_cc_Kimizu+Kaisen+Salad-08.jpg",
+        imageUrl: "/salad/Salad_cc_Kimizu+Kaisen+Salad-09.jpg",
+      },
+      {
+        name: "Kaisou Salad",
+        smallImageUrl: "/salad/Salad_cc_Kaisou+Salad-10.jpg",
+        imageUrl: "/salad/Salad_cc_Kaisou+Salad-11.jpg",
+      },
+      {
+        name: "Mineraru Kaisou Salad",
+        smallImageUrl: "/salad/Salad_cc_Mineraru+Kaisou+Salad-05.jpg",
+        imageUrl: "/salad/Salad_cc_Mineraru+Kaisou+Salad-06.jpg",
+      },
+    ],
+  },
+  {
+    categoryName: "Món ăn chơi",
+    menu: [
+      {
+        name: "Sawara Mentaiyaki",
+        smallImageUrl: "/tsukidashi/Tsukidashi_Sawara+Mentaiyaki-05.jpg",
+        imageUrl: "/tsukidashi/Tsukidashi_Sawara+Mentaiyaki-06.jpg",
+      },
+      {
+        name: "Foie Gras Teriyaki",
+        smallImageUrl: "/tsukidashi/Tsukidashi_Foie+Gras+Teriyaki-01.jpg",
+        imageUrl: "/tsukidashi/Tsukidashi_Foie+Gras+Teriyaki-02.jpg",
+      },
+      {
+        name: "Sawara Cheese Misoyaki",
+        smallImageUrl: "/tsukidashi/Tsukidashi_Sawara+Cheese+Misoyaki-07.jpg",
+        imageUrl: "/tsukidashi/Tsukidashi_Sawara+Cheese+Misoyaki-08.jpg",
+      },
+      {
+        name: "Mushi Awabi",
+        smallImageUrl: "/tsukidashi/Tsukidashi_Mushi+Awabi-09.jpg",
+        imageUrl: "/tsukidashi/Tsukidashi_Mushi+Awabi-10.jpg",
+      },
+      {
+        name: "Special Zuwai Kani",
+        smallImageUrl: "/tsukidashi/Tsukidashi_Special+Zuwai+Kani-11.jpg",
+        imageUrl: "/tsukidashi/Tsukidashi_Special+Zuwai+Kani-12.jpg",
+      },
+      {
+        name: "Hotate Ishiyaki",
+        smallImageUrl: "/tsukidashi/Tsukidashi_Hotate+Ishiyaki-03.jpg",
+        imageUrl: "/tsukidashi/Tsukidashi_Hotate+Ishiyaki-04.jpg",
       },
     ],
   },
@@ -201,43 +214,54 @@ export const menuData = [
     ],
   },
   {
-    categoryName: "Salad",
+    categoryName: "Cơm cuộn",
     menu: [
       {
-        name: "Ebi Salad",
-        smallImageUrl: "/salad/Salad_cc_Ebi+Salad-03.jpg",
-        imageUrl: "/salad/Salad_cc_Ebi+Salad-04.jpg",
+        name: "Grilled Hotate Roll",
+        smallImageUrl: "/roll/Cơm+cuộn_roll_cc_Grilled+Hotate+Roll-07.jpg",
+        imageUrl: "/roll/Cơm+cuộn_roll_cc_Grilled+Hotate+Roll-08.jpg",
       },
       {
-        name: "Tako salmon",
-        smallImageUrl: "/salad/tako+salmon+1.jpg",
-        imageUrl: "/salad/tako+salmon.jpg",
+        name: "Temaki",
+        smallImageUrl: "/roll/Cơm+cuộn_roll_cc_17.10+copy.jpg",
+        imageUrl: "/roll/Cơm+cuộn_roll_cc_17.10+copy+2.jpg",
       },
       {
-        name: "Seafood Special Salad",
-        smallImageUrl: "/salad/Salad_cc_Seafood+Special+Salad-01.jpg",
-        imageUrl: "/salad/Salad_cc_Seafood+Special+Salad-02.jpg",
+        name: "Hotate Chesse Roll",
+        smallImageUrl: "/roll/Cơm+cuộn_roll_cc_Hotate+Cheese+Roll-03.jpg",
+        imageUrl: "/roll/Cơm+cuộn_roll_cc_Hotate+Cheese+Roll-04.jpg",
       },
       {
-        name: "Tako komochi nishin",
-        smallImageUrl: "/salad/Salad_cc_tako+komochi+nishin-13.jpg",
-        imageUrl: "/salad/Salad_cc_tako+komochi+nishin-14.jpg",
+        name: "Gunkanmaki",
+        smallImageUrl: "/roll/Cơm+cuộn_roll_cc_17.10-09.jpg",
+        imageUrl: "/roll/Cơm+cuộn_roll_cc_17.10-10.jpg",
       },
       {
-        name: "Kimizu Kaisen Salad",
-        smallImageUrl: "/salad/Salad_cc_Kimizu+Kaisen+Salad-08.jpg",
-        imageUrl: "/salad/Salad_cc_Kimizu+Kaisen+Salad-09.jpg",
+        name: "Futomaki",
+        smallImageUrl: "/roll/Cơm+cuộn_roll_cc_5.12-01.jpg",
+        imageUrl: "/roll/Cơm+cuộn_roll_cc_5.12-02.jpg",
       },
       {
-        name: "Kaisou Salad",
-        smallImageUrl: "/salad/Salad_cc_Kaisou+Salad-10.jpg",
-        imageUrl: "/salad/Salad_cc_Kaisou+Salad-11.jpg",
-      },
-      {
-        name: "Mineraru Kaisou Salad",
-        smallImageUrl: "/salad/Salad_cc_Mineraru+Kaisou+Salad-05.jpg",
-        imageUrl: "/salad/Salad_cc_Mineraru+Kaisou+Salad-06.jpg",
+        name: "Grilled Salmon Roll",
+        smallImageUrl: "/roll/Cơm+cuộn_roll_cc_Grilled+Salmon+Roll-05.jpg",
+        imageUrl: "/roll/Cơm+cuộn_roll_cc_Grilled+Salmon+Roll-06.jpg",
       },
     ],
+  },
+  {
+    categoryName: "Lẩu",
+    menu: [],
+  },
+  {
+    categoryName: "Bò Wagyu",
+    menu: [],
+  },
+  {
+    categoryName: "Món khác",
+    menu: [],
+  },
+  {
+    categoryName: "Tráng miệng",
+    menu: [],
   },
 ];
