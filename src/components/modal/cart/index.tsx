@@ -36,7 +36,7 @@ const ModalCart = ({ opened, onClose }: ModalCartProps) => {
     navigate("/");
   };
 
-  const onChangeQuantity = useCallback((id: string, quantity: number) => {
+  const handleChangeQuantity = useCallback((id: string, quantity: number) => {
     if (quantity === 0) {
       removeMenuItem(id);
     } else {
@@ -55,6 +55,17 @@ const ModalCart = ({ opened, onClose }: ModalCartProps) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
+  const handleChangeNote = (id: string, note: string) => {
+    setCart((prevCart) => {
+      return prevCart.map((item) => {
+        if (item.id === id) {
+          return { ...item, note };
+        }
+        return item;
+      });
+    });
+  };
+
   return (
     <>
       <ModalOrderSuccess
@@ -70,7 +81,8 @@ const ModalCart = ({ opened, onClose }: ModalCartProps) => {
             <TableItem
               key={i}
               menu={e}
-              onChange={onChangeQuantity.bind(null, e?.id || "-")}
+              onChangeQuantity={handleChangeQuantity.bind(null, e?.id || "-")}
+              onChangeNote={handleChangeNote.bind(null, e?.id || "-")}
               className={classes.columnRatio}
             />
           ))}

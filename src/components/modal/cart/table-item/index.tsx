@@ -2,30 +2,41 @@ import QuantitySelector from "@/components/menu-detail/quantity-selector";
 import NameAndNote from "@/components/modal/cart/table-item/name-and-note";
 import ModalNote from "@/components/modal/note";
 import { Menu } from "@/types";
+import { formatCurrency } from "@/utils";
 import { Text } from "@mantine/core";
 import { useState } from "react";
 import classes from "./index.module.scss";
-import { formatCurrency } from "@/utils";
 
 type TableItemProps = {
   menu?: Menu;
-  onChange: (quantity: number) => void;
+  onChangeQuantity: (quantity: number) => void;
+  onChangeNote: (note: string) => void;
   className?: string;
 };
 
-const TableItem = ({ menu, onChange, className }: TableItemProps) => {
+const TableItem = ({
+  menu,
+  onChangeQuantity,
+  onChangeNote,
+  className,
+}: TableItemProps) => {
   const [openedNote, setOpenedNote] = useState(false);
 
   return (
     <>
-      <ModalNote opened={openedNote} onClose={() => setOpenedNote(false)} />
+      <ModalNote
+        opened={openedNote}
+        onClose={() => setOpenedNote(false)}
+        menu={menu}
+        onChangeNote={onChangeNote}
+      />
 
       <div className={`${className} ${classes.container}`}>
         <NameAndNote menu={menu} onOpenedModalNote={() => setOpenedNote(true)} />
 
         <QuantitySelector
           total={menu?.quantity || 0}
-          onChange={onChange}
+          onChange={onChangeQuantity}
           size={35}
           totalClassName={classes.total}
         />

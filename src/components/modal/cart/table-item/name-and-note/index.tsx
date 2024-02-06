@@ -12,9 +12,14 @@ const NameAndNote = ({ menu, onOpenedModalNote }: NameAndNoteProps) => {
     <div className={classes.container}>
       <Text className={classes.name}>{menu?.name}</Text>
 
-      <div className={classes.noteContainer}>
+      {menu?.note && menu.note !== "" && (
+        <Text className={classes.note}>{menu.note}</Text>
+      )}
+
+      <div className={classes.addNoteContainer}>
         <Image w={10} src="/images/edit.svg" />
-        <Text className={classes.note} onClick={onOpenedModalNote}>
+
+        <Text className={classes.addNote} onClick={onOpenedModalNote}>
           Thêm ghi chú
         </Text>
       </div>

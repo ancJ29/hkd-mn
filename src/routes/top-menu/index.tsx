@@ -5,9 +5,9 @@ import MenuLayout from "@/components/menu-layout";
 import MenuList from "@/components/menu-list";
 import { getCategories } from "@/services/menu";
 import { Category, Menu } from "@/types";
-import { convertToMenuItems, parseJSON, scroll } from "@/utils";
+import { convertToMenuItems, delayedExecution, parseJSON, scroll } from "@/utils";
 import { CATEGORY_ID, TOTALS } from "@/utils/constant";
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 const TopMenu = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -15,6 +15,9 @@ const TopMenu = () => {
   const [menuItems, setMenuItems] = useState<Menu[]>([]);
   const [selectedMenuItem, setSelectedMenuItem] = useState<Menu | undefined>(undefined);
   const [cart, setCart] = useState<{ [key: string]: number }>({});
+  const [isScrolledByCode, setIsScrolledByCode] = useState(false);
+  const [timeOutId, setTimeOutId] = useState(0);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     console.log("fetch data...");
@@ -47,14 +50,43 @@ const TopMenu = () => {
     });
   }, []);
 
-  const handleSelectCategoryId = async (id: string, menu?: Menu[]) => {
+  const handleSelectCategoryId = (id: string, menu?: Menu[]) => {
+    clearTimeout(timeOutId);
+    setIsScrolledByCode(true);
     setSelectedCategoryId(id);
     sessionStorage.setItem(CATEGORY_ID, id);
     const menuSelected = (menu || menuItems).find((e) => e.categoryId === id);
     setSelectedMenuItem(menuSelected);
-    setTimeout(() => {
-      menuSelected?.id && scroll(`menu-item.${menuSelected?.id}`);
+    delayedExecution(() => {
+      scroll(`menu-item.${menuSelected?.id}`);
     }, 500);
+    const timeOut = delayedExecution(() => {
+      setIsScrolledByCode(false);
+    }, 2500);
+    setTimeOutId(timeOut);
+  };
+
+  const handleScroll = () => {
+    if (menuRef.current && !isScrolledByCode) {
+      const menuRect = menuRef.current.getBoundingClientRect();
+      const visibleItems = menuItems.filter((menuItem) => {
+        const itemRect = document
+          .getElementById(`menu-item.${menuItem.id}`)
+          ?.getBoundingClientRect();
+        return (
+          itemRect && itemRect.left >= menuRect.left && itemRect.right <= menuRect.right
+        );
+      });
+
+      if (visibleItems.length > 0) {
+        setSelectedCategoryId(visibleItems[0].categoryId);
+      }
+    }
+  };
+
+  const handleSelectedMenuItem = (selectedMenu: Menu) => {
+    setSelectedMenuItem(selectedMenu);
+    setSelectedCategoryId(selectedMenu.categoryId);
   };
 
   if (menuItems.length < 1) {
@@ -77,7 +109,9 @@ const TopMenu = () => {
         key={menuItems.length}
         menuItems={menuItems}
         selectedMenuItem={selectedMenuItem}
-        onSelect={setSelectedMenuItem}
+        onSelect={handleSelectedMenuItem}
+        menuRef={menuRef}
+        onScroll={handleScroll}
       />
       <MenuDetail
         menuItem={selectedMenuItem}

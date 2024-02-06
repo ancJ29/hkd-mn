@@ -80,9 +80,15 @@ export const addImageLinkFromCategory = (categories: Category[]) => {
 
 const addLinkTagToHead = (url: string) => {
   const linkTag = document.createElement("link");
-  linkTag.rel = "preload";
+  linkTag.rel = "stylesheet";
   linkTag.as = "image";
   linkTag.href = url;
 
   document.head.appendChild(linkTag);
+};
+
+export const delayedExecution = (callback: () => void, timeOut: number) => {
+  return setTimeout(() => {
+    callback();
+  }, timeOut);
 };
