@@ -7,6 +7,7 @@ export const menuSchema = z.object({
   smallImage: z.string(),
   price: z.number(),
   quantity: z.number().optional(),
+  note: z.string().optional(),
   categoryId: z.string(),
   // TODO: add more fields...
 });

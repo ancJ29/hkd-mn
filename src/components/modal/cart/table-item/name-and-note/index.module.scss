@@ -9,17 +9,27 @@
   font-size: 12px;
   font-family: "Source Sans 3";
   font-weight: 600;
+  width: 30vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.noteContainer {
+.note {
+  font-size: 10px;
+  font-family: "Source Sans 3";
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 30vw;
+}
+
+.addNoteContainer {
   display: flex;
   align-items: center;
 }
 
-.note {
+.addNote {
   font-size: 10px;
   font-family: "Source Sans 3";
   color: #187ab5;
