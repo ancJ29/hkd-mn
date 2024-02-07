@@ -9,12 +9,18 @@ type CategoryBandProps = {
   selectedId?: string;
   categories: Category[];
   onSelect?: (id: string) => void;
+  isScrolledMenuByCode?: boolean;
 };
 
-const CategoryBand = ({ categories, selectedId, onSelect }: CategoryBandProps) => {
+const CategoryBand = ({
+  categories,
+  selectedId,
+  onSelect,
+  isScrolledMenuByCode = true,
+}: CategoryBandProps) => {
   useEffect(() => {
     scroll(`category-item.${selectedId}`, {
-      behavior: "smooth",
+      behavior: isScrolledMenuByCode ? "smooth" : "auto",
       block: "center",
       inline: "center",
     });
