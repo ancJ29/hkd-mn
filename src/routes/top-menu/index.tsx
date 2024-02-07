@@ -15,7 +15,7 @@ const TopMenu = () => {
   const [menuItems, setMenuItems] = useState<Menu[]>([]);
   const [selectedMenuItem, setSelectedMenuItem] = useState<Menu | undefined>(undefined);
   const [cart, setCart] = useState<{ [key: string]: number }>({});
-  const [isScrolledByCode, setIsScrolledByCode] = useState(false);
+  const [isScrolledMenuByCode, setIsScrolledMenuByCode] = useState(false);
   const [timeOutId, setTimeOutId] = useState(0);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -52,7 +52,7 @@ const TopMenu = () => {
 
   const handleSelectCategoryId = (id: string, menu?: Menu[]) => {
     clearTimeout(timeOutId);
-    setIsScrolledByCode(true);
+    setIsScrolledMenuByCode(true);
     setSelectedCategoryId(id);
     sessionStorage.setItem(CATEGORY_ID, id);
     const menuSelected = (menu || menuItems).find((e) => e.categoryId === id);
@@ -61,13 +61,13 @@ const TopMenu = () => {
       scroll(`menu-item.${menuSelected?.id}`);
     }, 500);
     const timeOut = delayedExecution(() => {
-      setIsScrolledByCode(false);
+      setIsScrolledMenuByCode(false);
     }, 2500);
     setTimeOutId(timeOut);
   };
 
   const handleScroll = () => {
-    if (menuRef.current && !isScrolledByCode) {
+    if (menuRef.current && !isScrolledMenuByCode) {
       const menuRect = menuRef.current.getBoundingClientRect();
       const visibleItems = menuItems.filter((menuItem) => {
         const itemRect = document
@@ -99,6 +99,7 @@ const TopMenu = () => {
         categories={categories}
         selectedId={selectedCategoryId}
         onSelect={handleSelectCategoryId}
+        isScrolledMenuByCode={isScrolledMenuByCode}
       />
     );
   };
