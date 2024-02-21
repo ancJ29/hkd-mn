@@ -1,4 +1,7 @@
 import Modal from "@/components/modal";
+import { Menu } from "@/types";
+import { CART } from "@/utils/cart";
+import { useState } from "react";
 import Price from "../cart/price";
 import TableHeader from "../cart/table-header";
 import classes from "./index.module.scss";
@@ -10,17 +13,19 @@ type ModalHistoryOrderProps = {
 };
 
 const ModalHistoryOrder = ({ opened, onClose }: ModalHistoryOrderProps) => {
+  const [cart] = useState<Menu[]>(CART);
+
   return (
     <Modal opened={opened} onClose={onClose} title="XEM LẠI MÓN">
       <TableHeader className={classes.columnRatio} />
 
       <div className={classes.itemContainer}>
-        {[...Array(10).keys()].map((_, index) => (
-          <TableItem key={index} className={classes.columnRatio} />
+        {CART.map((e, i) => (
+          <TableItem key={i} menu={e} className={classes.columnRatio} />
         ))}
       </div>
 
-      <Price />
+      <Price cart={cart} />
     </Modal>
   );
 };

@@ -20,19 +20,19 @@ const TableItem = ({
   onChangeNote,
   className,
 }: TableItemProps) => {
-  const [openedNote, setOpenedNote] = useState(false);
+  const [isOpenedModalNote, setIsOpenedModalNote] = useState(false);
 
   return (
     <>
       <ModalNote
-        opened={openedNote}
-        onClose={() => setOpenedNote(false)}
+        opened={isOpenedModalNote}
+        onClose={() => setIsOpenedModalNote(false)}
         menu={menu}
         onChangeNote={onChangeNote}
       />
 
       <div className={`${className} ${classes.container}`}>
-        <NameAndNote menu={menu} onOpenedModalNote={() => setOpenedNote(true)} />
+        <NameAndNote menu={menu} onOpenedModalNote={() => setIsOpenedModalNote(true)} />
 
         <QuantitySelector
           total={menu?.quantity || 0}

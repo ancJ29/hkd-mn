@@ -5,11 +5,11 @@ import TableHeader from "@/components/modal/cart/table-header";
 import TableItem from "@/components/modal/cart/table-item";
 import ModalOrderSuccess from "@/components/modal/order-success";
 import { Menu } from "@/types";
-import { faker } from "@faker-js/faker";
 import { Button, Text } from "@mantine/core";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./index.module.scss";
+import { CART } from "@/utils/cart";
 
 type ModalCartProps = {
   opened: boolean;
@@ -18,8 +18,8 @@ type ModalCartProps = {
 
 const ModalCart = ({ opened, onClose }: ModalCartProps) => {
   const navigate = useNavigate();
-  const [cart, setCart] = useState<Menu[]>(_cart);
-  const [openedModalOrderSuccess, setOpenedModalOrderSuccess] = useState(false);
+  const [cart, setCart] = useState<Menu[]>(CART);
+  const [isOpenedModalOrderSuccess, setIsOpenedModalOrderSuccess] = useState(false);
 
   const _onClose = () => {
     onClose();
@@ -27,12 +27,14 @@ const ModalCart = ({ opened, onClose }: ModalCartProps) => {
   };
 
   const onOrderSuccess = () => {
-    onClose();
-    setOpenedModalOrderSuccess(true);
+    if (cart.length > 0) {
+      onClose();
+      setIsOpenedModalOrderSuccess(true);
+    }
   };
 
   const onCloseModalOrderSuccess = () => {
-    setOpenedModalOrderSuccess(false);
+    setIsOpenedModalOrderSuccess(false);
     navigate("/");
   };
 
@@ -69,7 +71,7 @@ const ModalCart = ({ opened, onClose }: ModalCartProps) => {
   return (
     <>
       <ModalOrderSuccess
-        opened={openedModalOrderSuccess}
+        opened={isOpenedModalOrderSuccess}
         onClose={onCloseModalOrderSuccess}
       />
 
@@ -103,32 +105,3 @@ const ModalCart = ({ opened, onClose }: ModalCartProps) => {
 };
 
 export default ModalCart;
-
-const _int = faker.number.int;
-
-const randomNumber = (min: number, max: number) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-};
-
-const _cart = [
-  /* cspell:disable  */
-  "Kanpachi sashimi",
-  "Hokkigai sashimi",
-  "Salmon sashimi",
-  "Komochinisshin sashimi",
-  "Kawahashi sashimi",
-  "Katsuika sugata zukushi",
-  "Hokkaido uni sashimi",
-  "Kimmedai sashimi",
-  "Ootoro sashimi",
-  /* cspell:enable  */
-].map((name, index) => {
-  return {
-    id: index.toString(),
-    name,
-    image: "",
-    smallImage: "",
-    quantity: randomNumber(1, 10),
-    price: _int({ min: 50, max: 200 }) * 1e3,
-  };
-}) as Menu[];

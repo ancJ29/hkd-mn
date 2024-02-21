@@ -1,6 +1,7 @@
 import CategoryItem from "@/components/category-band/category-item";
 import { Category } from "@/types";
 import { scroll } from "@/utils";
+import { CATEGORY_ITEM } from "@/utils/constant";
 import { Box, Image, ScrollArea } from "@mantine/core";
 import { useEffect } from "react";
 import classes from "./index.module.scss";
@@ -19,7 +20,7 @@ const CategoryBand = ({
   isScrolledMenuByCode = true,
 }: CategoryBandProps) => {
   useEffect(() => {
-    scroll(`category-item.${selectedId}`, {
+    scroll(`${CATEGORY_ITEM}.${selectedId}`, {
       behavior: isScrolledMenuByCode ? "smooth" : "auto",
       block: "center",
       inline: "center",
@@ -34,7 +35,7 @@ const CategoryBand = ({
         <Box className={classes.box}>
           {categories.map((item: Category, index: number) => {
             return (
-              <div key={index} id={`category-item.${item.id}`}>
+              <div key={index} id={`${CATEGORY_ITEM}.${item.id}`}>
                 <CategoryItem
                   name={item.name}
                   active={selectedId === item.id}

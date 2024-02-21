@@ -19,6 +19,10 @@
   padding-right: 10px;
 }
 
+.largeImage {
+  object-fit: fill;
+}
+
 .smallImage {
   position: absolute;
   width: 10%;

@@ -6,7 +6,7 @@ import MenuList from "@/components/menu-list";
 import { getCategories } from "@/services/menu";
 import { Category, Menu } from "@/types";
 import { convertToMenuItems, delayedExecution, parseJSON, scroll } from "@/utils";
-import { CATEGORY_ID, TOTALS } from "@/utils/constant";
+import { CATEGORY_ID, MENU_ITEM, TOTALS } from "@/utils/constant";
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 const TopMenu = () => {
@@ -58,7 +58,7 @@ const TopMenu = () => {
     const menuSelected = (menu || menuItems).find((e) => e.categoryId === id);
     setSelectedMenuItem(menuSelected);
     delayedExecution(() => {
-      scroll(`menu-item.${menuSelected?.id}`);
+      scroll(`${MENU_ITEM}.${menuSelected?.id}`);
     }, 500);
     const timeOut = delayedExecution(() => {
       setIsScrolledMenuByCode(false);
@@ -71,7 +71,7 @@ const TopMenu = () => {
       const menuRect = menuRef.current.getBoundingClientRect();
       const visibleItems = menuItems.filter((menuItem) => {
         const itemRect = document
-          .getElementById(`menu-item.${menuItem.id}`)
+          .getElementById(`${MENU_ITEM}.${menuItem.id}`)
           ?.getBoundingClientRect();
         return (
           itemRect && itemRect.left >= menuRect.left && itemRect.right <= menuRect.right

@@ -1,7 +1,7 @@
 import { Category, Menu } from "@/types";
 
 export const formatCurrency = (value?: number) => {
-  if (!value) {
+  if (value === undefined || value === null) {
     return "";
   }
   return value

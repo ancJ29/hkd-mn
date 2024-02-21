@@ -1,4 +1,5 @@
 import { Menu } from "@/types";
+import { MENU_ITEM } from "@/utils/constant";
 import { Box, Flex, Image, Skeleton, Text } from "@mantine/core";
 import { useState } from "react";
 import classes from "./index.module.scss";
@@ -17,7 +18,7 @@ const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
   };
 
   return (
-    <Box w="32.5vw" className={classes.container} id={`menu-item.${menuItem.id}`}>
+    <Box w="32.5vw" className={classes.container} id={`${MENU_ITEM}.${menuItem.id}`}>
       {menuItem.smallImage !== "" ? (
         <>
           <Flex
