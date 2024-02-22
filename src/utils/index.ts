@@ -1,4 +1,4 @@
-import { Category, Menu } from "@/types";
+import { Menu } from "@/types";
 
 export const formatCurrency = (value?: number) => {
   if (value === undefined || value === null) {
@@ -25,28 +25,31 @@ export function swap<T>(arr: T[], a: number, b: number) {
   }
 }
 
-export const convertToMenuItems = (categories: Category[]) => {
+export const swapMenuItems = (menuItems: Menu[]) => {
   const SIZE = 9;
   let index = 0;
-  // const menu: Menu[] = ([] as Menu[]).concat(...categories.map((e) => e.menuItems));
   const menu: Menu[] = [];
-  categories.forEach((category) => {
-    menu.push(...category.menuItems);
+  let previousCategoryId = menuItems[0].categoryId;
 
-    if (menu.length % SIZE > 3) {
-      const fillCount = SIZE - (menu.length % SIZE);
-      for (let i = 0; i < fillCount; i++) {
-        menu.push({
-          id: (index++).toString(),
-          name: "",
-          image: "",
-          smallImage: "",
-          price: 0,
-          quantity: 0,
-          categoryId: category.id,
-        } as Menu);
+  menuItems.forEach((menuItem) => {
+    if (menuItem.categoryId !== previousCategoryId) {
+      if (menu.length % SIZE > 3) {
+        const fillCount = SIZE - (menu.length % SIZE);
+        for (let i = 0; i < fillCount; i++) {
+          menu.push({
+            id: (index++).toString(),
+            name: "",
+            image: "",
+            smallImage: "",
+            price: 0,
+            quantity: 0,
+            categoryId: previousCategoryId,
+          } as Menu);
+        }
       }
+      previousCategoryId = menuItem.categoryId;
     }
+    menu.push(menuItem);
   });
 
   for (let i = 0; i < menu.length; i += SIZE) {
@@ -69,12 +72,10 @@ export const scroll = (id: string, options?: ScrollIntoViewOptions) => {
   );
 };
 
-export const addImageLinkFromCategory = (categories: Category[]) => {
-  categories.forEach((category) => {
-    category.menuItems.forEach((menu) => {
-      addLinkTagToHead(menu.image);
-      addLinkTagToHead(menu.smallImage);
-    });
+export const addImageLinkFromMenuItems = (menuItems: Menu[]) => {
+  menuItems.forEach((menu) => {
+    addLinkTagToHead(menu.image);
+    addLinkTagToHead(menu.smallImage);
   });
 };
 

@@ -3,9 +3,9 @@ import Loading from "@/components/loading";
 import MenuDetail from "@/components/menu-detail";
 import MenuLayout from "@/components/menu-layout";
 import MenuList from "@/components/menu-list";
-import { getCategories } from "@/services/menu";
+import { getCategories, getMenuItems } from "@/services/menu";
 import { Category, Menu } from "@/types";
-import { convertToMenuItems, delayedExecution, parseJSON, scroll } from "@/utils";
+import { delayedExecution, parseJSON, scroll, swapMenuItems } from "@/utils";
 import { CATEGORY_ID, MENU_ITEM, TOTALS } from "@/utils/constant";
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
@@ -17,19 +17,26 @@ const TopMenu = () => {
   const [cart, setCart] = useState<{ [key: string]: number }>({});
   const [isScrolledMenuByCode, setIsScrolledMenuByCode] = useState(false);
   const [timeOutId, setTimeOutId] = useState(0);
+  const [isError, setIsError] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     console.log("fetch data...");
-    getCategories().then((categories) => {
-      setCategories(categories);
-      setMenuItems(() => {
-        const swapMenu = convertToMenuItems(categories);
-        handleSelectCategoryId(
-          sessionStorage.getItem(CATEGORY_ID) || categories[0]?.id,
-          swapMenu,
-        );
-        return swapMenu;
+    getMenuItems().then((menuItems) => {
+      getCategories().then((categories) => {
+        if (menuItems === undefined || categories === undefined) {
+          setIsError(true);
+          return;
+        }
+        setCategories(categories);
+        setMenuItems(() => {
+          const swapMenu = swapMenuItems(menuItems);
+          handleSelectCategoryId(
+            sessionStorage.getItem(CATEGORY_ID) || categories[0]?.id,
+            swapMenu,
+          );
+          return swapMenu;
+        });
       });
     });
     setUpTotals();
@@ -89,7 +96,7 @@ const TopMenu = () => {
     setSelectedCategoryId(selectedMenu.categoryId);
   };
 
-  if (menuItems.length < 1) {
+  if (menuItems.length < 1 && !isError) {
     return <Loading />;
   }
 
@@ -105,7 +112,7 @@ const TopMenu = () => {
   };
 
   return (
-    <MenuLayout header={header()}>
+    <MenuLayout header={header()} isError={isError}>
       <MenuList
         key={menuItems.length}
         menuItems={menuItems}
