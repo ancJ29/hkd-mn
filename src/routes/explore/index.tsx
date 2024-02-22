@@ -19,11 +19,16 @@ const Explore = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [foodAdvertisements, setFoodAdvertisements] = useState<Advertisement[]>([]);
   const [materialAdvertisement, setMaterialAdvertisement] = useState<Advertisement[]>([]);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     console.log("fetch data...");
 
     getCategories().then((categories) => {
+      if (categories === undefined) {
+        setIsError(true);
+        return;
+      }
       setCategories(categories);
       handleSelectCategoryId(sessionStorage.getItem(CATEGORY_ID) || categories[0]?.id);
     });
@@ -42,7 +47,7 @@ const Explore = () => {
     sessionStorage.setItem(CATEGORY_ID, id);
   };
 
-  if (foodAdvertisements.length < 1 || materialAdvertisement.length < 1) {
+  if ((foodAdvertisements.length < 1 || materialAdvertisement.length < 1) && !isError) {
     return <Loading />;
   }
 
@@ -57,7 +62,7 @@ const Explore = () => {
   };
 
   return (
-    <MenuLayout header={header()}>
+    <MenuLayout header={header()} isError={isError}>
       <div className={classes.main}>
         <VideoFrame />
 

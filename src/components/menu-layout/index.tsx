@@ -10,14 +10,16 @@ import { TOTALS } from "@/utils/constant";
 import { AppShell } from "@mantine/core";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Error from "../error";
 import classes from "./index.module.scss";
 
 type MenuLayoutProps = {
   header: ReactNode;
   children: ReactNode;
+  isError: boolean;
 };
 
-const MenuLayout = ({ header, children }: MenuLayoutProps) => {
+const MenuLayout = ({ header, children, isError }: MenuLayoutProps) => {
   const navigate = useNavigate();
   const [totals, setTotals] = useState<{ [key: string]: number }>({});
   const { loading, toggleLoading } = useLoading({
@@ -64,7 +66,7 @@ const MenuLayout = ({ header, children }: MenuLayoutProps) => {
     }
   }, []);
 
-  return (
+  return !isError ? (
     <>
       <ModalCart
         opened={loading.isOpenedCart}
@@ -93,6 +95,8 @@ const MenuLayout = ({ header, children }: MenuLayoutProps) => {
         </AppShell>
       </div>
     </>
+  ) : (
+    <Error />
   );
 };
 
