@@ -31,6 +31,7 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
     if (selected in dictionaryList) {
       localStorage.setItem(LANGUAGE, selected);
       setLanguage(selected);
+      window.location.reload();
     }
   }, []);
 

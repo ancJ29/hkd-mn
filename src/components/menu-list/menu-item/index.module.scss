@@ -66,3 +66,13 @@
   height: 9.45vh;
   border-radius: 8px;
 }
+
+.title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-right: 12px;
+  margin-left: 12px;
+  font-size: 10px;
+  color: white;
+}

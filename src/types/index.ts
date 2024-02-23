@@ -1,4 +1,5 @@
 /* cspell:disable  */
+import { LANGUAGE } from "@/utils/constant";
 import { z } from "zod";
 
 export const menuSchema = z
@@ -32,9 +33,15 @@ export const menuSchema = z
     lineid: z.string(),
   })
   .transform((data) => {
+    const language = localStorage.getItem(LANGUAGE);
     return {
       id: data.idx.toString(),
-      name: data.prod_name_vn,
+      name:
+        language === "vi"
+          ? data.prod_name_vn
+          : language === "en"
+            ? data.prod_name_en
+            : data.prod_name_jp,
       image: data.small_image,
       smallImage: data.small_image,
       price: data.sales_pr,
@@ -52,9 +59,15 @@ export const categorySchema = z
     grpname_cn: z.string(),
   })
   .transform((data) => {
+    const language = localStorage.getItem(LANGUAGE);
     return {
       id: data.groupindex.toString(),
-      name: data.grpname,
+      name:
+        language === "vi"
+          ? data.grpname
+          : language === "en"
+            ? data.grpname_en
+            : data.grpname_cn,
     };
   });
 

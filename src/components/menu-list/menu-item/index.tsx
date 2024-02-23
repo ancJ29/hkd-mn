@@ -36,9 +36,7 @@ const MenuItem = ({ active, menuItem, onSelect }: MenuItemProps) => {
             </Skeleton>
           </Flex>
 
-          <Text c="white" ml={12} fz="10px">
-            {menuItem.name}
-          </Text>
+          <Text className={classes.title}>{menuItem.name}</Text>
         </>
       ) : (
         <></>
