@@ -1,3 +1,4 @@
+import useTranslation from "@/hooks/useTranslation";
 import { Menu } from "@/types";
 import { formatCurrency } from "@/utils";
 import { Text } from "@mantine/core";
@@ -8,6 +9,7 @@ type PriceProps = {
 };
 
 const Price = ({ cart }: PriceProps) => {
+  const t = useTranslation();
   const total =
     cart?.reduce((acc, item) => {
       const itemTotal = (item.quantity || 0) * item.price;
@@ -17,7 +19,7 @@ const Price = ({ cart }: PriceProps) => {
   return (
     <div className={classes.container}>
       <div className={classes.grid}>
-        <Text className={classes.textPrice}>Thành tiền:</Text>
+        <Text className={classes.textPrice}>{`${t("Total")}:`}</Text>
         <Text className={classes.price}>{formatCurrency(total)}</Text>
       </div>
 

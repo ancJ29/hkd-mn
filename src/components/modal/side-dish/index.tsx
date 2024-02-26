@@ -1,5 +1,7 @@
 import Modal from "@/components/modal";
 import SideDishItem from "@/components/modal/side-dish/side-dish-item";
+import useTranslation from "@/hooks/useTranslation";
+import { toUpperCase } from "@/utils";
 import { Text } from "@mantine/core";
 import classes from "./index.module.scss";
 
@@ -9,6 +11,7 @@ type ModalSideDishProps = {
 };
 
 const ModalSideDish = ({ opened, onClose }: ModalSideDishProps) => {
+  const t = useTranslation();
   return (
     <Modal opened={opened} onClose={onClose} title="THÔNG TIN MÓN">
       <Text className={classes.title}>Chọn Set ăn kèm.</Text>
@@ -19,7 +22,7 @@ const ModalSideDish = ({ opened, onClose }: ModalSideDishProps) => {
         ))}
       </div>
 
-      <Text className={classes.pass}>{`BỎ QUA >`}</Text>
+      <Text className={classes.pass}>{`${toUpperCase(t("Skip"))} >`}</Text>
     </Modal>
   );
 };

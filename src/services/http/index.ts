@@ -9,6 +9,7 @@ type ApiCallProps<T> = {
   defaultValue?: unknown;
 };
 
+const FAKE = true;
 const host = import.meta.env.BASE_URL;
 export default async function callApi<T>({
   method,
@@ -22,6 +23,11 @@ export default async function callApi<T>({
   }
 
   try {
+    if (FAKE) {
+      if (path === 'a')  {
+        return xxx
+      }
+     }
     const res = await axios({
       method,
       url: `${host}${path}`,

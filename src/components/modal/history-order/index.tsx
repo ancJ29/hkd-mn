@@ -1,5 +1,7 @@
 import Modal from "@/components/modal";
+import useTranslation from "@/hooks/useTranslation";
 import { Menu } from "@/types";
+import { toUpperCase } from "@/utils";
 import { CART } from "@/utils/cart";
 import { useState } from "react";
 import Price from "../cart/price";
@@ -13,10 +15,11 @@ type ModalHistoryOrderProps = {
 };
 
 const ModalHistoryOrder = ({ opened, onClose }: ModalHistoryOrderProps) => {
+  const t = useTranslation();
   const [cart] = useState<Menu[]>(CART);
 
   return (
-    <Modal opened={opened} onClose={onClose} title="XEM LẠI MÓN">
+    <Modal opened={opened} onClose={onClose} title={toUpperCase(t("View orders"))}>
       <TableHeader className={classes.columnRatio} />
 
       <div className={classes.itemContainer}>
