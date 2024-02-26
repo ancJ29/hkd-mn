@@ -62,10 +62,11 @@ const TopMenu = () => {
     setIsScrolledMenuByCode(true);
     setSelectedCategoryId(id);
     sessionStorage.setItem(CATEGORY_ID, id);
-    const menuSelected = (menu || menuItems).find((e) => e.categoryId === id);
+    const menuSelected = (menu || menuItems).find((e) => e.categoryId === id && e.order === 0);
+    const menuToScroll = (menu || menuItems).find((e) => e.categoryId === id);
     setSelectedMenuItem(menuSelected);
     delayedExecution(() => {
-      scroll(`${MENU_ITEM}.${menuSelected?.id}`);
+      scroll(`${MENU_ITEM}.${menuToScroll?.id}`);
     }, 500);
     const timeOut = delayedExecution(() => {
       setIsScrolledMenuByCode(false);

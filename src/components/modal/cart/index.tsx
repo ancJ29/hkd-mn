@@ -4,12 +4,14 @@ import SpecialRequirements from "@/components/modal/cart/special-requirements";
 import TableHeader from "@/components/modal/cart/table-header";
 import TableItem from "@/components/modal/cart/table-item";
 import ModalOrderSuccess from "@/components/modal/order-success";
+import useTranslation from "@/hooks/useTranslation";
 import { Menu } from "@/types";
+import { toUpperCase } from "@/utils";
+import { CART } from "@/utils/cart";
 import { Button, Text } from "@mantine/core";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./index.module.scss";
-import { CART } from "@/utils/cart";
 
 type ModalCartProps = {
   opened: boolean;
@@ -17,6 +19,7 @@ type ModalCartProps = {
 };
 
 const ModalCart = ({ opened, onClose }: ModalCartProps) => {
+  const t = useTranslation();
   const navigate = useNavigate();
   const [cart, setCart] = useState<Menu[]>(CART);
   const [isOpenedModalOrderSuccess, setIsOpenedModalOrderSuccess] = useState(false);
@@ -96,7 +99,7 @@ const ModalCart = ({ opened, onClose }: ModalCartProps) => {
 
         <div className={classes.containerButton}>
           <Button className={classes.button} fullWidth onClick={onOrderSuccess}>
-            <Text className={classes.buttonText}>ĐẶT MÓN</Text>
+            <Text className={classes.buttonText}>{toUpperCase(t("Confirm"))}</Text>
           </Button>
         </div>
       </Modal>

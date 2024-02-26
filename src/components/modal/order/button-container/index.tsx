@@ -1,3 +1,5 @@
+import useTranslation from "@/hooks/useTranslation";
+import { toUpperCase } from "@/utils";
 import { Button, Text } from "@mantine/core";
 import classes from "./index.module.scss";
 
@@ -7,10 +9,11 @@ type ButtonContainerProps = {
 };
 
 const ButtonContainer = ({ onClose, isAvailable }: ButtonContainerProps) => {
+  const t = useTranslation();
   return (
     <div className={classes.buttonContainer}>
       <Button className={`${classes.cancelButton} ${classes.button}`} onClick={onClose}>
-        <Text className={classes.textButton}>HUỶ BỎ</Text>
+        <Text className={classes.textButton}>{toUpperCase(t("Decline"))}</Text>
       </Button>
       <Button
         className={[
@@ -20,7 +23,7 @@ const ButtonContainer = ({ onClose, isAvailable }: ButtonContainerProps) => {
         ].join(" ")}
         disabled={!isAvailable}
       >
-        <Text className={classes.textButton}>XÁC NHẬN</Text>
+        <Text className={classes.textButton}>{toUpperCase(t("Accept"))}</Text>
       </Button>
     </div>
   );

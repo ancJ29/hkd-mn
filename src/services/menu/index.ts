@@ -14,28 +14,13 @@ import {
 } from "@/types";
 import { addImageLinkFromMenuItems } from "@/utils";
 
-const FAKE = true;
 const _categories: Category[] = [];
 
-function _delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 export async function getCategories(): Promise<Category[] | undefined> {
-  if (FAKE) {
-    await _delay(200);
-    return categories();
-  }
   return _categories.length > 0 ? _categories : undefined;
 }
 
 export async function getMenuItems(): Promise<Menu[] | undefined> {
-  if (FAKE) {
-    await _delay(200);
-    const menu = menuItems();
-    addImageLinkFromMenuItems(menu);
-    return menu;
-  }
   const data = await callApi({
     method: "GET",
     path: "/api/get_Jin_din_rou_menu",
@@ -65,27 +50,17 @@ export async function getMenuItems(): Promise<Menu[] | undefined> {
 }
 
 export async function getFoodAdvertisement(): Promise<Advertisement[]> {
-  if (FAKE) {
-    await _delay(200);
-    return foodAdvertisement;
-  } else {
-    return await callApi({
-      method: "GET",
-      path: "/api/food-advertisement",
-      defaultValue: [],
-    });
-  }
+  return await callApi({
+    method: "GET",
+    path: "/api/food-advertisement",
+    defaultValue: [],
+  });
 }
 
 export async function getMaterialAdvertisement(): Promise<Advertisement[]> {
-  if (FAKE) {
-    await _delay(200);
-    return materialAdvertisement;
-  } else {
-    return await callApi({
-      method: "GET",
-      path: "/api/material-advertisement",
-      defaultValue: [],
-    });
-  }
+  return await callApi({
+    method: "GET",
+    path: "/api/material-advertisement",
+    defaultValue: [],
+  });
 }

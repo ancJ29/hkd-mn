@@ -30,6 +30,7 @@ export const swapMenuItems = (menuItems: Menu[]) => {
   let index = 0;
   const menu: Menu[] = [];
   let previousCategoryId = menuItems[0].categoryId;
+  let order = 0;
 
   menuItems.forEach((menuItem) => {
     if (menuItem.categoryId !== previousCategoryId) {
@@ -43,13 +44,15 @@ export const swapMenuItems = (menuItems: Menu[]) => {
             smallImage: "",
             price: 0,
             quantity: 0,
+            order: order++,
             categoryId: previousCategoryId,
           } as Menu);
         }
       }
+      order = 0;
       previousCategoryId = menuItem.categoryId;
     }
-    menu.push(menuItem);
+    menu.push({ ...menuItem, order: order++ });
   });
 
   for (let i = 0; i < menu.length; i += SIZE) {
@@ -92,4 +95,8 @@ export const delayedExecution = (callback: () => void, timeOut: number) => {
   return setTimeout(() => {
     callback();
   }, timeOut);
+};
+
+export const toUpperCase = (s: string) => {
+  return s.toUpperCase();
 };

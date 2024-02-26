@@ -47,6 +47,7 @@ export const menuSchema = z
       price: data.sales_pr,
       quantity: 0,
       note: "",
+      order: 0,
       categoryId: data.groupindex.toString(),
     };
   });
