@@ -1,12 +1,11 @@
 import CategoryBand from "@/components/category-band";
-import Loading from "@/components/loading";
 import MenuDetail from "@/components/menu-detail";
 import MenuLayout from "@/components/menu-layout";
 import MenuList from "@/components/menu-list";
 import { getCategories, getMenuItems } from "@/services/menu";
 import { Category, Menu } from "@/types";
 import { delayedExecution, parseJSON, scroll, swapMenuItems } from "@/utils";
-import { CATEGORY_ID, MENU_ITEM, TOTALS } from "@/utils/constant";
+import { CATEGORY_ID, FIRST_ORDER, MENU_ITEM, TOTALS } from "@/utils/constant";
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 const TopMenu = () => {
@@ -62,7 +61,9 @@ const TopMenu = () => {
     setIsScrolledMenuByCode(true);
     setSelectedCategoryId(id);
     sessionStorage.setItem(CATEGORY_ID, id);
-    const menuSelected = (menu || menuItems).find((e) => e.categoryId === id && e.order === 0);
+    const menuSelected = (menu || menuItems).find(
+      (e) => e.categoryId === id && e.order === FIRST_ORDER,
+    );
     const menuToScroll = (menu || menuItems).find((e) => e.categoryId === id);
     setSelectedMenuItem(menuSelected);
     delayedExecution(() => {
@@ -96,10 +97,6 @@ const TopMenu = () => {
     setSelectedMenuItem(selectedMenu);
     setSelectedCategoryId(selectedMenu.categoryId);
   };
-
-  if (menuItems.length < 1 && !isError) {
-    return <Loading />;
-  }
 
   const header = (): ReactNode => {
     return (

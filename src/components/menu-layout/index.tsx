@@ -1,3 +1,4 @@
+import Error from "@/components/error";
 import LanguageFlag from "@/components/language-flag";
 import MenuNavigation, { MenuAction } from "@/components/menu-layout/menu-navigation";
 import ModalCart from "@/components/modal/cart";
@@ -10,7 +11,6 @@ import { TOTALS } from "@/utils/constant";
 import { AppShell } from "@mantine/core";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Error from "../error";
 import classes from "./index.module.scss";
 
 type MenuLayoutProps = {

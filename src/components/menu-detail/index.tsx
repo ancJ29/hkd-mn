@@ -33,7 +33,9 @@ const MenuDetail = ({ menuItem, cart, onChange }: MenuDetailProps) => {
     <Box className={classes.container}>
       <Image src={menuItem?.image} className={classes.smallImage} ref={imageRef} />
 
-      <Image src={menuItem?.image} h="100%" className={classes.largeImage} />
+      {menuItem?.image && (
+        <Image src={menuItem?.image} h="100%" className={classes.largeImage} />
+      )}
 
       <Box className={classes.detail}>
         <Flex className={classes.priceContainer}>
