@@ -1,6 +1,5 @@
 import CategoryBand from "@/components/category-band";
 import FoodHighlight from "@/components/food-highlights";
-import Loading from "@/components/loading";
 import MenuLayout from "@/components/menu-layout";
 import TastyOrigins from "@/components/tasty-origins";
 import VideoFrame from "@/components/video-frame";
@@ -8,6 +7,7 @@ import {
   getCategories,
   getFoodAdvertisement,
   getMaterialAdvertisement,
+  getMenuItems,
 } from "@/services/menu";
 import { Advertisement, Category } from "@/types";
 import { CATEGORY_ID } from "@/utils/constant";
@@ -24,13 +24,15 @@ const Explore = () => {
   useEffect(() => {
     console.log("fetch data...");
 
-    getCategories().then((categories) => {
-      if (categories === undefined) {
-        setIsError(true);
-        return;
-      }
-      setCategories(categories);
-      handleSelectCategoryId(sessionStorage.getItem(CATEGORY_ID) || categories[0]?.id);
+    getMenuItems().then(() => {
+      getCategories().then((categories) => {
+        if (categories === undefined) {
+          setIsError(true);
+          return;
+        }
+        setCategories(categories);
+        handleSelectCategoryId(sessionStorage.getItem(CATEGORY_ID) || categories[0]?.id);
+      });
     });
 
     getFoodAdvertisement().then((items) => {
@@ -46,10 +48,6 @@ const Explore = () => {
     setSelectedCategoryId(id);
     sessionStorage.setItem(CATEGORY_ID, id);
   };
-
-  if ((foodAdvertisements.length < 1 || materialAdvertisement.length < 1) && !isError) {
-    return <Loading />;
-  }
 
   const header = (): ReactNode => {
     return (

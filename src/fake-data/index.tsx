@@ -1,5 +1,5 @@
 import { menuData } from "@/fake-data/menu-data";
-import { Advertisement, Category, Menu } from "@/types";
+import { Advertisement } from "@/types";
 import { faker } from "@faker-js/faker";
 
 const baseImageURL = import.meta.env.BASE_IMAGE_URL;
@@ -7,10 +7,9 @@ const baseImageURL = import.meta.env.BASE_IMAGE_URL;
 faker.seed(20231022);
 const _uuid = faker.string.uuid;
 const _int = faker.number.int;
-const _menuItems: Menu[] = [];
 
-const getDummyMenuItems = (categoryId: string) => {
-  const dummyMenuItems: Menu[] = [
+const getDummyMenuItems = (categoryId: number, categoryName: string) => {
+  const dummyMenuItems: unknown[] = [
     /* cspell:disable  */
     "Kanpachi sashimi",
     "Hokkigai sashimi",
@@ -34,45 +33,44 @@ const getDummyMenuItems = (categoryId: string) => {
     /* cspell:enable  */
   ].map((name, index) => {
     return {
-      id: _uuid(),
-      name,
+      idx: _uuid(),
+      grpname: categoryName,
+      grpname_en: categoryName,
+      grpname_cn: categoryName,
+      prod_name_en: name,
+      prod_name_jp: name,
+      prod_name_vn: name,
       image: `/images/menu/a_detail_${index % 9}.jpg`,
-      smallImage: `/images/menu/a_${index % 9}.jpg`,
-      price: _int({ min: 50, max: 200 }) * 1e3,
-      note: "",
-      quantity: 0,
-      categoryId,
+      small_image: `/images/menu/a_${index % 9}.jpg`,
+      sales_pr: _int({ min: 50, max: 200 }) * 1e3,
+      groupindex: categoryId,
     };
   });
   return dummyMenuItems;
 };
 
-export const categories = () => {
-  const categoryData: Category[] = menuData.map((categoryData, index) => {
+export const menuItems = () => {
+  const _menuItems: unknown[] = [];
+  menuData.map((categoryData, index) => {
     const id = (index + 1).toString();
     _menuItems.push(
       ...(categoryData.menu.length > 0
         ? categoryData.menu.map((menuItem) => ({
-          id: _uuid(),
-          name: menuItem.name,
+          idx: _uuid(),
+          prod_name_en: menuItem.name,
+          prod_name_jp: menuItem.name,
+          prod_name_vn: menuItem.name,
+          grpname: categoryData.categoryName,
+          grpname_en: categoryData.categoryName,
+          grpname_cn: categoryData.categoryName,
           image: `${baseImageURL}${menuItem.imageUrl}`,
-          smallImage: `${baseImageURL}${menuItem.smallImageUrl}`,
-          price: _int({ min: 50, max: 200 }) * 1e3,
-          note: "",
-          quantity: 0,
-          categoryId: id,
+          small_image: `${baseImageURL}${menuItem.smallImageUrl}`,
+          sales_pr: _int({ min: 50, max: 200 }) * 1e3,
+          groupindex: parseInt(id),
         }))
-        : getDummyMenuItems(id)),
+        : getDummyMenuItems(parseInt(id), categoryData.categoryName)),
     );
-    return {
-      id: id,
-      name: categoryData.categoryName,
-    };
   });
-  return categoryData;
-};
-
-export const menuItems = () => {
   return _menuItems;
 };
 

@@ -1,13 +1,13 @@
 import Modal from "@/components/modal";
+import Price from "@/components/modal/cart/price";
+import TableHeader from "@/components/modal/cart/table-header";
+import TableItem from "@/components/modal/history-order/table-item";
 import useTranslation from "@/hooks/useTranslation";
 import { Menu } from "@/types";
 import { toUpperCase } from "@/utils";
 import { CART } from "@/utils/cart";
 import { useState } from "react";
-import Price from "../cart/price";
-import TableHeader from "../cart/table-header";
 import classes from "./index.module.scss";
-import TableItem from "./table-item";
 
 type ModalHistoryOrderProps = {
   opened: boolean;
